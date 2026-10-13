@@ -1,4 +1,9 @@
 import { DEFAULT_SEED, MODE_TARGETS, UPDATE_MS } from "./model";
+import {
+  createTelemetryEnvelope,
+  deliverTelemetry,
+  validateTelemetrySample,
+} from "./telemetry";
 import type { Mode, ScenarioId, Simulation, Telemetry } from "./types";
 
 export function clamp(value: number, low: number, high: number) {
@@ -18,6 +23,15 @@ export function createSimulation(
     fuelLevel: 76,
     engineLoad: startIdle ? 12 : 48,
   };
+  const initial = validateTelemetrySample(createTelemetryEnvelope(values), {
+    simulationTime: 0,
+  });
+  if (!initial.ok) {
+    throw new Error(
+      `Initial telemetry violates the contract: ${initial.issues.map((issue) => issue.message).join(" ")}`,
+    );
+  }
+  const { contractVersion: _version, ...received } = initial.sample;
   return {
     time: 0,
     seed: seed >>> 0 || DEFAULT_SEED,
@@ -27,9 +41,22 @@ export function createSimulation(
     rpmTarget: values.rpm,
     loadTarget: values.engineLoad,
     transportEnabled: true,
-    receivedAt: 0,
+    receivedAt: received.time,
     values,
-    received: { ...values },
+    received,
+    delivery: {
+      contractVersion: 1,
+      status: "accepted",
+      acceptedCount: 1,
+      rejectedCount: 0,
+      consecutiveRejected: 0,
+      lastAttemptAt: 0,
+      lastRejectedAt: null,
+      lastRecoveryAt: null,
+      issues: [],
+      episodeCodes: [],
+      notices: [],
+    },
   };
 }
 export function setMode(simulation: Simulation, mode: Mode): Simulation {
@@ -44,7 +71,7 @@ export function setMode(simulation: Simulation, mode: Mode): Simulation {
 
 // Fixed simulation time makes seeded replays independent of wall-clock scheduling.
 export function advanceSimulation(previous: Simulation): Simulation {
-  const s = { ...previous };
+  const s = { ...previous, delivery: { ...previous.delivery, notices: [] } };
   s.time = +(s.time + UPDATE_MS / 1000).toFixed(3);
   let x = s.randomState;
   x ^= x << 13;
@@ -82,14 +109,24 @@ export function advanceSimulation(previous: Simulation): Simulation {
     100,
     280,
   );
-  const pressureTarget = fault
-    ? 11
-    : 17 +
-      rpm * 0.024 -
-      engineLoad * 0.035 -
-      Math.max(0, coolantTemp - 210) * 0.1;
+  const oilLoss =
+    s.scenario === "oil-pressure-loss" && s.time >= 5 && s.time < 24;
+  const pressureTarget = oilLoss
+    ? 6
+    : fault
+      ? 11
+      : 17 +
+        rpm * 0.024 -
+        engineLoad * 0.035 -
+        Math.max(0, coolantTemp - 210) * 0.1;
+  const pressureResponse =
+    oilLoss || (s.scenario === "oil-pressure-loss" && s.time >= 24)
+      ? 0.075
+      : 0.18;
   const oilPressure = clamp(
-    v.oilPressure + (pressureTarget - v.oilPressure) * 0.18 + noise * 0.18,
+    v.oilPressure +
+      (pressureTarget - v.oilPressure) * pressureResponse +
+      noise * 0.18,
     0,
     100,
   );
@@ -116,8 +153,22 @@ export function advanceSimulation(previous: Simulation): Simulation {
   const scenarioDrop =
     s.scenario === "communication-loss" && s.time >= 5 && s.time < 17;
   if (s.transportEnabled && !scenarioDrop) {
-    s.received = { ...s.values };
-    s.receivedAt = s.time;
+    const candidate: Record<string, unknown> = createTelemetryEnvelope(
+      s.values,
+    );
+    if (
+      s.scenario === "invalid-sample-delivery" &&
+      s.time >= 5 &&
+      s.time < 17
+    ) {
+      // Delivery faults leave the simulated process itself normal and deterministic.
+      if (s.time < 8) candidate.oilPressure = Number.NaN;
+      else if (s.time < 9.5) delete candidate.batteryVoltage;
+      else if (s.time < 11) candidate.rpm = "not-a-number";
+      else if (s.time < 14) candidate.time = previous.received.time;
+      else candidate.time = previous.received.time - 0.5;
+    }
+    return deliverTelemetry(s, candidate);
   }
   return s;
 }

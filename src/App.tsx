@@ -18,6 +18,8 @@ import { ControlPanel } from "./components/ControlPanel";
 import { EvidencePanel } from "./components/EvidencePanel";
 import { AlertList, EventHistory } from "./components/DiagnosticsPanel";
 import { SettingsPanel } from "./components/SettingsPanel";
+import { DeviceWorkspace } from "./components/DeviceWorkspace";
+import { TelemetryValidationPanel } from "./components/TelemetryValidationPanel";
 import { activeAlerts } from "./engine/diagnostics";
 import { DISCLAIMER, formatTime, metricInfo } from "./engine/model";
 import {
@@ -45,6 +47,24 @@ export function App() {
   const s = state.simulation;
   const alerts = activeAlerts(state.diagnostics);
   const stale = s.time - s.receivedAt >= state.settings.timeoutSeconds;
+  const rejected = s.delivery.status === "rejected";
+  const announcement = [
+    state.running ? "Simulation running." : "Simulation paused or ready.",
+    stale ? "Readings stale." : "Readings fresh.",
+    rejected
+      ? "Sample rejected. Last valid readings retained."
+      : s.delivery.status === "recovered"
+        ? "Valid sample delivery recovered."
+        : "Sample validation normal.",
+    alerts.length
+      ? alerts
+          .map(
+            (a) =>
+              `${a.key === "communication" ? "Communication" : metricInfo[a.key].label}: ${a.severity}${a.acknowledged ? ", acknowledged" : ""}.`,
+          )
+          .join(" ")
+      : "No active alerts.",
+  ].join(" ");
   const severity = alerts.some((a) => a.severity === "critical")
     ? "critical"
     : alerts.length
@@ -90,10 +110,18 @@ export function App() {
           <span>
             <strong>COBALT</strong>
             <small>INSTRUMENT STUDIO</small>
-            <span className="developer-credit">Developed by Daren Diaz</span>
-            <span className="inspiration-credit">
-              (Inspired by Enovation Controls)
+            <span className="developer-credit">
+              Developed by Daren Diaz ·{" "}
+              <a
+                href="https://github.com/CloudWizardBoricua/cobalt-instrument-studio"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Cobalt project source on GitHub"
+              >
+                GitHub
+              </a>
             </span>
+            <span className="concept-credit">Design concept</span>
           </span>
         </div>
         <div className="workspace-label">WORKSPACE</div>
@@ -181,7 +209,16 @@ export function App() {
             </button>
           </div>
         </header>
-        <main id="main-content">
+        <main id="main-content" tabIndex={-1}>
+          <p
+            className="sr-only"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-testid="state-announcement"
+          >
+            {announcement}
+          </p>
           <div className="page-heading">
             <div>
               <div className="eyebrow">TELEMETRY & DIAGNOSTICS</div>
@@ -189,19 +226,21 @@ export function App() {
               <p>{titles[view][1]}</p>
             </div>
             <div
-              className={`session-badge ${stale ? "critical" : state.running ? "normal" : ""}`}
+              className={`session-badge ${stale ? "critical" : rejected ? "warning" : state.running ? "normal" : ""}`}
             >
               <span
-                className={`status-dot ${stale ? "critical" : state.running ? "normal" : "paused"}`}
+                className={`status-dot ${stale ? "critical" : rejected ? "warning" : state.running ? "normal" : "paused"}`}
               />
               <span data-testid="session-status">
                 {stale
                   ? "DATA STALE"
-                  : state.running
-                    ? "SIMULATION RUNNING"
-                    : s.time === 0
-                      ? "READY TO START"
-                      : "SIMULATION PAUSED"}
+                  : rejected
+                    ? "SAMPLE REJECTED"
+                    : state.running
+                      ? "SIMULATION RUNNING"
+                      : s.time === 0
+                        ? "READY TO START"
+                        : "SIMULATION PAUSED"}
               </span>
             </div>
           </div>
@@ -223,13 +262,20 @@ export function App() {
               <p>
                 Coolant overheat reaches warning and critical conditions.
                 Communication loss freezes received readings while the model
-                continues, then recovers when samples resume.
+                continues, then recovers when samples resume. Oil pressure loss
+                shows a gradual process fault and recovery. Invalid delivery
+                rejects malformed samples without replacing valid readings.
               </p>
               <button className="text-button" onClick={() => setHelp(false)}>
                 Close guide
               </button>
             </section>
           )}
+          <TelemetryValidationPanel
+            simulation={s}
+            stale={stale}
+            running={state.running}
+          />
           {view !== "Settings" && (
             <div className="summary-strip">
               <div>
@@ -292,6 +338,8 @@ export function App() {
                           severity={state.diagnostics.alerts[metric].severity}
                           stale={stale}
                           settings={state.settings}
+                          paused={!state.running}
+                          rejected={rejected}
                         />
                       ),
                     )}
@@ -354,7 +402,7 @@ export function App() {
                 <ControlPanel state={state} dispatch={dispatch} />
               </div>
               {alerts.length > 0 && (
-                <div className="dashboard-alert-summary" role="status">
+                <div className="dashboard-alert-summary">
                   <TriangleSummary severity={severity} />
                   <span>
                     {alerts.length} active{" "}
@@ -395,6 +443,18 @@ export function App() {
               persisted={persisted}
             />
           )}
+          <DeviceWorkspace
+            telemetry={s.received}
+            settings={state.settings}
+            stale={stale}
+            running={state.running}
+            sampleStatus={s.delivery.status}
+            severity={
+              Object.fromEntries(
+                METRICS.map((m) => [m, state.diagnostics.alerts[m].severity]),
+              ) as Record<Metric, "normal" | "warning" | "critical">
+            }
+          />
           <footer className="page-footer">
             <span>
               Cobalt Instrument Studio <span className="mono">0.1.0</span>

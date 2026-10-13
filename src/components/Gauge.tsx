@@ -23,12 +23,16 @@ export function Gauge({
   severity,
   stale,
   settings,
+  paused = false,
+  rejected = false,
 }: {
   metric: Metric;
   value: number;
   severity: Severity;
   stale: boolean;
   settings: Settings;
+  paused?: boolean;
+  rejected?: boolean;
 }) {
   const info = metricInfo[metric];
   const fraction = Math.max(
@@ -43,7 +47,7 @@ export function Gauge({
       : severity === "warning"
         ? "var(--warning)"
         : info.color;
-  const label = `${info.label}: ${formatValue(metric, value, settings.units)} ${displayUnit(metric, settings.units)}. ${stale ? "Stale sample" : severity}. Simulated data.`;
+  const label = `${info.label}: ${formatValue(metric, value, settings.units)} ${displayUnit(metric, settings.units)}. ${severity} condition. ${stale ? "Stale sample. " : ""}${rejected ? "Rejected delivery; last valid value retained. " : ""}${paused ? "Simulation paused or ready. " : ""}Simulated data.`;
   return (
     <article
       className={`gauge-card panel ${stale ? "is-stale" : ""}`}

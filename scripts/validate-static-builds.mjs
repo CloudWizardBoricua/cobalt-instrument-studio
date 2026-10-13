@@ -8,6 +8,7 @@ import { chromium, expect } from "@playwright/test";
 import { gzipSync } from "node:zlib";
 
 const results = [];
+const skipBuild = process.argv.includes("--skip-build");
 for (const [name, command] of [
   ["root", "build"],
   ["project", "build:pages"],
@@ -22,12 +23,17 @@ for (const [name, command] of [
           command,
         ]
       : ["run", command];
-  const run = spawnSync(executable, args, { stdio: "inherit" });
-  if (run.status !== 0) throw new Error(`${name} production build failed.`);
+  if (!skipBuild) {
+    const run = spawnSync(executable, args, { stdio: "inherit" });
+    if (run.status !== 0) throw new Error(`${name} production build failed.`);
+  }
   results.push({
     name,
     buildCommand: `npm run ${command}`,
-    buildWallMs: Math.round(performance.now() - start),
+    buildWallMs: skipBuild ? null : Math.round(performance.now() - start),
+    buildExecution: skipBuild
+      ? "Previously built; this command verifies existing output."
+      : "Built by this command.",
     browser: "pending",
     downloads: [],
   });
@@ -107,6 +113,7 @@ try {
     });
     try {
       await page.clock.install();
+      await page.clock.pauseAt(new Date());
       await page.goto(origin + base);
       if ((await page.locator('[data-testid^="gauge-"]').count()) !== 6)
         throw new Error("Six instruments did not render.");
@@ -172,6 +179,64 @@ try {
         .click();
       await page
         .getByLabel("Scenario", { exact: true })
+        .selectOption("invalid-sample-delivery");
+      await page
+        .getByRole("button", { name: "Run scenario", exact: true })
+        .click();
+      await page.clock.runFor(4500);
+      const retainedRPM = await page.getByTestId("value-rpm").innerText();
+      const retainedHistory = await page
+        .getByTestId("sample-count")
+        .innerText();
+      await page.clock.runFor(10500);
+      await expect(page.getByTestId("validation-status")).toHaveText(
+        "Sample rejected",
+      );
+      await expect(page.getByTestId("value-rpm")).toHaveText(retainedRPM);
+      await expect(page.getByTestId("sample-count")).toHaveText(
+        retainedHistory,
+      );
+      await expect(page.getByTestId("session-status")).toHaveText("DATA STALE");
+      await page.clock.runFor(2000);
+      await expect(page.getByTestId("validation-status")).toHaveText(
+        "Delivery recovered",
+      );
+      await expect(page.getByTestId("rejected-count")).toHaveText("24");
+      await page
+        .getByLabel("Scenario", { exact: true })
+        .selectOption("oil-pressure-loss");
+      await page
+        .getByRole("button", { name: "Run scenario", exact: true })
+        .click();
+      await page.clock.runFor(20000);
+      await expect(page.getByTestId("gauge-oilPressure")).toHaveAttribute(
+        "aria-label",
+        /critical condition/,
+      );
+      await page.clock.runFor(8000);
+      await expect(page.getByTestId("gauge-oilPressure")).toHaveAttribute(
+        "aria-label",
+        /normal condition/,
+      );
+      const workspace = page.getByTestId("device-workspace");
+      await workspace.locator("summary").click();
+      await page
+        .getByLabel("Display label", { exact: true })
+        .fill("Production preview");
+      await page
+        .getByRole("button", { name: "Apply properties", exact: true })
+        .click();
+      await expect(page.getByTestId("device-slot-1")).toContainText(
+        "Production preview",
+      );
+      await expect(
+        page.getByRole("link", { name: "Cobalt project source on GitHub" }),
+      ).toHaveAttribute(
+        "href",
+        "https://github.com/CloudWizardBoricua/cobalt-instrument-studio",
+      );
+      await page
+        .getByLabel("Scenario", { exact: true })
         .selectOption("normal-ramp");
       await page
         .getByRole("button", { name: "Run scenario", exact: true })
@@ -200,6 +265,10 @@ try {
         "six instruments",
         "overheat critical",
         "communication timeout and recovery",
+        "invalid delivery retention and recovery",
+        "oil pressure escalation and recovery",
+        "device property application",
+        "adjacent developer source link",
         "bounded 240 samples",
         "mobile width",
         "refresh",

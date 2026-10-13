@@ -7,12 +7,15 @@
     "dev": "vite --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:ci": "vitest run --reporter=default --reporter=json --outputFile=.local/unit-results.json",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "build": "node scripts/sync-reports.mjs && tsc --noEmit && vite build",
     "build:pages": "node scripts/build-pages.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "verify:privacy": "node scripts/verify-privacy.mjs"
+    "verify:privacy": "node scripts/verify-privacy.mjs",
+    "verify:workflows": "node scripts/verify-config.mjs",
+    "verify:static": "node scripts/validate-static-builds.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

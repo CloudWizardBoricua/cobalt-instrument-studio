@@ -78,6 +78,7 @@ export const scenarios: {
   description: string;
   duration: number;
   expected: string;
+  faultDomain: "none" | "process" | "delivery";
 }[] = [
   {
     id: "normal-ramp",
@@ -85,6 +86,7 @@ export const scenarios: {
     title: "Normal operating ramp",
     description: "Watch speed, load, and oil pressure settle together.",
     duration: 35,
+    faultDomain: "none",
     expected:
       "Ramps from idle to normal operation. Temperature follows slowly; diagnostics remain normal at default thresholds.",
   },
@@ -94,6 +96,7 @@ export const scenarios: {
     title: "Coolant overheat",
     description: "Follow a thermal fault from warning to critical.",
     duration: 35,
+    faultDomain: "process",
     expected:
       "Cooling degradation begins at 6 s. Coolant crosses 220 °F warning and 235 °F critical thresholds. Acknowledge the alert, then reset to resolve.",
   },
@@ -103,8 +106,29 @@ export const scenarios: {
     title: "Communication loss",
     description: "See stale readings, a timeout, and recovery.",
     duration: 25,
+    faultDomain: "delivery",
     expected:
       "Samples stop at 5 s. A 2 s timeout marks readings stale. Delivery resumes at 17 s, resolving the communication alert.",
+  },
+  {
+    id: "oil-pressure-loss",
+    number: "04",
+    title: "Oil pressure loss",
+    description: "Follow falling oil pressure through alerts and recovery.",
+    duration: 42,
+    faultDomain: "process",
+    expected:
+      "A simulated process fault lowers the oil pressure target at 5 s. Pressure passes 24 psi warning and 16 psi critical thresholds. Acknowledgment records review; escalation requires review again. The normal target returns at 24 s and alerts clear through hysteresis and debounce.",
+  },
+  {
+    id: "invalid-sample-delivery",
+    number: "05",
+    title: "Invalid sample delivery",
+    description: "Reject malformed and misordered samples, then recover.",
+    duration: 25,
+    faultDomain: "delivery",
+    expected:
+      "A simulated delivery fault sends non-finite values, missing and incorrectly typed fields, duplicates, and out-of-order timestamps from 5 s. Rejected samples retain valid readings and do not refresh freshness. A 2 s timeout marks readings stale. Valid delivery resumes at 17 s with recovery evidence; the underlying process stays normal.",
   },
 ];
 export function displayValue(

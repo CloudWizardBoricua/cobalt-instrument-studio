@@ -1,27 +1,28 @@
 {
   "title": "Cobalt Instrument Studio",
-  "subtitle": "Engineering Report",
+  "subtitle": "Engineering Report on Local Hardening",
   "authorCredit": "Developed by Daren Diaz",
+  "authorRepository": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio",
   "version": "0.1.0",
   "date": "Fall 2026",
   "pages": [
     {
-      "title": "Purpose and implemented behavior",
+      "title": "Purpose and local revision",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Cobalt Instrument Studio demonstrates how a single, coherent telemetry model can support an industrial display, reproducible fault scenarios, and inspectable diagnostic behavior. The implementation runs entirely in the visitor's browser as a static React and TypeScript application. It provides a working exploration environment for instrumentation and software design."
+          "text": "Cobalt Instrument Studio is an original static React and TypeScript instrumentation simulator. One seeded model drives accepted telemetry, instruments, trends, and diagnostics. This local hardening revision adds a versioned acceptance boundary, two fault replays, and a display configuration workspace while preserving the existing engine and visual identity."
         },
         {
           "kind": "paragraph",
-          "text": "Six synchronized instruments support four modes, three replays, validated alerts, acknowledgment and recovery, bounded history, local settings, and CSV export. Local and remote checks each passed {{unitPassed}} unit and {{browserPassed}} browser tests. Netlify and GitHub Pages are public; hardware integration and equipment production validation remain future work."
+          "text": "Six instruments, four modes, and five guided replays make process faults and rejected delivery inspectable. Device bindings and display properties change presentation only. Local validation results are reported separately from the historical public version. This revision is unreleased; no push, deployment, release, or external service modification is part of the sprint."
         },
         {
           "kind": "image",
           "path": "docs/assets/dashboard-desktop.png",
-          "cropHeight": 1050,
-          "height": 3.9,
-          "caption": "Actual desktop browser capture of the simulator during a paused normal operating ramp. The image is cropped for readability."
+          "height": 3.0,
+          "caption": "Actual local dashboard capture. All instrument values are simulated; the screenshot shows the implemented browser interface.",
+          "cropHeight": 1050
         },
         {
           "kind": "heading",
@@ -29,7 +30,7 @@
         },
         {
           "kind": "paragraph",
-          "text": "SIMULATED - NOT LIVE EQUIPMENT. Every instrument value is generated locally. The interface is a display and simulator, with no backend, device connection, equipment command path, user authentication, or safety control. The telemetry relationships are engineering assumptions for this demonstration; they are not calibrated equipment measurements."
+          "text": "SIMULATED - NOT LIVE EQUIPMENT. Every value is generated locally. There is no backend, authentication, equipment connection, hardware control, certification, or production guarantee. Demonstration relationships and plausibility ranges are not calibrated equipment measurements or safe operating limits."
         }
       ]
     },
@@ -38,145 +39,108 @@
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "One typed reducer owns the session. Modes and guided scenarios supply commands to a seeded engine model. Simulated transport determines whether a new sample is delivered. Gauges, diagnostic rules, the chart, and export consume the same last received telemetry, so a communication interruption freezes displayed values without stopping the internal model."
+          "text": "One typed reducer owns the simulation session. Commands advance a fixed-step seeded engine; simulated transport then supplies an unknown sample envelope to validation. Only accepted canonical telemetry reaches shared readings, metric rules, history, gauges, and the device preview. Rejected deliveries leave that accepted state intact while time and freshness age continue advancing."
         },
         {
           "kind": "architecture",
-          "caption": "One model and one delivery path feed the display and diagnostic system. Settings change presentation and validated rules."
+          "caption": "The acceptance boundary separates generated process values from accepted display and diagnostic data."
+        },
+        {
+          "kind": "table",
+          "columns": ["Component", "Local capability", "Engineering value"],
+          "widths": [1.3, 2.6, 2.8],
+          "rows": [
+            [
+              "Engine and scenarios",
+              "One seed, six coupled channels, fixed 0.5 s step, five replays",
+              "Reproducible process and delivery fault paths"
+            ],
+            [
+              "Telemetry contract",
+              "Version, fields, numeric bounds, and timestamp ordering",
+              "Rejected values cannot contaminate accepted state"
+            ],
+            [
+              "Diagnostics",
+              "Thresholds, hysteresis, debounce, timeout, acknowledgment",
+              "Explained condition onset, escalation, and recovery"
+            ],
+            [
+              "History and events",
+              "240 accepted samples and 100 event records",
+              "Deliberate retention and counted/deduplicated evidence"
+            ],
+            [
+              "Device workspace",
+              "Six signal bindings, labels, display ranges, preview",
+              "Presentation can change independently of process rules"
+            ],
+            [
+              "Settings and export",
+              "Validated local preferences and simulated CSV",
+              "Inspectable configuration and portable session evidence"
+            ]
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Pure modules under src/engine define model, validation, rules, and display layout. Browser LocalStorage holds validated application preferences; telemetry, events, and device layout stay in session memory. Operation requires no server API, device runtime, or remote data source."
+        }
+      ]
+    },
+    {
+      "title": "Versioned telemetry contract",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The flat version 1 envelope requires contractVersion, time, rpm, oilPressure, coolantTemp, batteryVoltage, fuelLevel, and engineLoad as own properties. Version must be numeric 1. Channel/time values must be finite numbers; no string coercion is performed. Additional fields are ignored and are never copied into accepted telemetry."
         },
         {
           "kind": "table",
           "columns": [
-            "Component",
-            "Current capability",
-            "Engineering value",
-            "Generic application",
-            "Production gap"
+            "Field",
+            "Canonical unit",
+            "Inclusive plausibility bounds"
           ],
-          "widths": [1, 1.6, 1.3, 1.3, 1.5],
+          "widths": [1.5, 1.5, 3.7],
           "rows": [
             [
-              "Engine model",
-              "Seeded six-channel state and four modes",
-              "Reproducible coupled behavior",
-              "Generator operating ramp training",
-              "Calibrated equipment model and real sensors"
+              "time",
+              "Simulation seconds",
+              "At least 0; no future time; strictly newer than last accepted sample"
             ],
-            [
-              "Sample transport",
-              "Deterministic outage and recovery",
-              "Separates generated data from received data",
-              "Gateway timeout workflow exploration",
-              "Sequence numbers, real timestamps, network integrity"
-            ],
-            [
-              "Diagnostic rules",
-              "Thresholds, hysteresis, debounce, acknowledgment",
-              "Explains onset, escalation, and recovery",
-              "Fault triage workflow prototyping",
-              "Validated alarm policy and equipment hazard analysis"
-            ],
-            [
-              "Display and history",
-              "SVG gauges, one selectable trend, bounded buffers",
-              "Makes state and retention inspectable",
-              "Pump or motor condition-display evaluation",
-              "Formal accessibility, device, and performance validation"
-            ],
-            [
-              "Settings and export",
-              "Validated preferences and local simulated CSV",
-              "Enables repeatable configuration and review",
-              "Review of operating sequences",
-              "Authenticated configuration, durable audit and retention"
-            ],
-            [
-              "Publication and release",
-              "Passing CI, two hosted builds, tag/version checks",
-              "Reviewable checks and version traceability",
-              "Repeatable software build review",
-              "Release completion and operational safeguards"
-            ]
-          ]
-        },
-        {
-          "kind": "paragraph",
-          "text": "The engine and diagnostic rules are pure modules under src/engine. Components render reducer state. LocalStorage stores only validated settings. Charts and events stay in bounded memory, and exports download through browser Blob URLs. No server API or network data source is required during site operation."
-        }
-      ]
-    },
-    {
-      "title": "Telemetry assumptions and invariants",
-      "blocks": [
-        {
-          "kind": "paragraph",
-          "text": "The model advances by a fixed 0.5 simulated seconds per delivered timer step. This preserves exact seeded replay even if wall-clock scheduling varies. Pause stops simulation time and timeout age. The 500 ms interval is a configured target, not a real-time scheduling guarantee; background tabs may be throttled."
-        },
-        {
-          "kind": "table",
-          "columns": ["Channel", "Assumed relationship", "Guarded range"],
-          "widths": [1.3, 4.2, 1.2],
-          "rows": [
-            [
-              "RPM",
-              "Approaches the speed command with a 0.14 per-step response plus bounded seeded disturbance.",
-              "600 to 3600 rpm"
-            ],
-            [
-              "Engine load",
-              "Approaches the load command with a 0.12 per-step response.",
-              "0 to 100 percent"
-            ],
-            [
-              "Oil pressure",
-              "Pressure target rises with RPM and decreases with load and coolant above 210 degrees F. Fault mode targets low pressure.",
-              "0 to 100 psi"
-            ],
-            [
-              "Coolant",
-              "First-order temperature inertia toward an RPM/load target. Cooling failure raises the target to 272 degrees F.",
-              "100 to 280 degrees F"
-            ],
-            [
-              "Battery",
-              "Charging target is 13.2 V at idle or 14.1 V at higher speed; Fault mode targets 11.4 V.",
-              "10 to 16 V"
-            ],
-            [
-              "Fuel",
-              "Declines monotonically at 0.0008 plus load times 0.000025 percentage points per simulated second.",
-              "0 to 100 percent"
-            ]
+            ["rpm", "rpm", "0 to 6000"],
+            ["oilPressure", "psi", "0 to 150"],
+            ["coolantTemp", "Degrees F", "-40 to 320"],
+            ["batteryVoltage", "V", "0 to 32"],
+            ["fuelLevel", "Percent", "0 to 100"],
+            ["engineLoad", "Percent", "0 to 100"]
           ]
         },
         {
           "kind": "heading",
-          "text": "Time and units"
+          "text": "Rejected delivery and freshness"
         },
         {
           "kind": "paragraph",
-          "text": "Canonical model units are rpm, psi, degrees F, V, and percent. Metric display converts pressure to kPa and temperature to degrees C without changing model values or diagnostic thresholds. The settings editor explicitly retains canonical threshold units. Scenario fault kinetics are accelerated for inspection and do not establish a physical time constant."
+          "text": "Malformed envelopes, unsupported versions, missing fields, wrong types, nonfinite/out-of-bounds values, negative/future time, duplicate timestamps, and out-of-order timestamps each produce an explicit rejection reason. A rejected attempt does not replace readings, update accepted time, append history, or count toward metric debounce. Age is measured from the last accepted timestamp."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Each rejection code is logged once per continuous rejection episode; repeats increase a counter without repeated messages. An accepted delivery records one recovery and resets the episode. A sustained invalid episode can therefore produce both sample-quality evidence and the normal communication timeout. Events remain capped at 100."
         },
         {
           "kind": "heading",
-          "text": "Bounded retention"
+          "text": "Distinct bounds and clocks"
         },
         {
           "kind": "paragraph",
-          "text": "Sample history retains at most 240 received samples, representing up to roughly 120 simulated seconds at full delivery. The timestamp span can be longer across an outage because missing samples are not appended. Events retain at most 100 records. The trend leaves a gap across undelivered samples rather than interpolating a false trace."
-        },
-        {
-          "kind": "heading",
-          "text": "Model limitations"
-        },
-        {
-          "kind": "paragraph",
-          "text": "There is no engine shutdown model, sensor calibration, noise characterization from hardware, environmental model, fuel mass balance, or validated charging circuit. Seeded disturbance provides repeatability, not statistical realism. Fault values and display ranges support an explanatory demonstration and must not be reused as equipment operating limits."
+          "text": "These are demonstration plausibility limits, broader than the generator and display ranges. A narrowed preview scale preserves the numeric reading and clamps its needle. The 500 ms timer is a scheduling target, not a real-time guarantee. Pause freezes simulation time and age; reset/replay establishes a fresh ordering baseline. See docs/TELEMETRY_CONTRACT.md for the complete acceptance policy."
         }
       ]
     },
     {
-      "title": "Reproducible scenarios and diagnostic behavior",
+      "title": "Reproducible process behavior",
       "blocks": [
         {
           "kind": "heading",
@@ -184,7 +148,7 @@
         },
         {
           "kind": "paragraph",
-          "text": "Expected behavior: begin at idle, raise speed and load smoothly, let oil pressure follow, and retain slow thermal response. Observed with seed 27041 at 35 simulated seconds: RPM {{normalRPM}}, load {{normalLoad}} percent, oil {{normalOil}} psi, and coolant {{normalCoolant}} degrees F. No threshold transition occurred under the default rules. Replay resets the model, history, and diagnostics to the same sequence while retaining preferences."
+          "text": "Expected: increase idle speed and load smoothly while pressure follows and temperature responds slowly. Observed seed 27041 at 35 simulated seconds: {{normalRPM}} rpm, {{normalLoad}} percent load, {{normalOil}} psi oil pressure, and {{normalCoolant}} degrees F coolant. Default rules remained normal. Replay resets accepted data, ordering, history, and diagnostics while retaining valid application preferences."
         },
         {
           "kind": "heading",
@@ -192,100 +156,180 @@
         },
         {
           "kind": "paragraph",
-          "text": "Expected behavior: cooling degradation begins at 6 s and progressively crosses warning and critical thresholds. Observed transitions were normal to warning at 14.0 s with 223.5 degrees F, then warning to critical at 18.5 s with 236.8 degrees F. The default boundaries are 220 and 235 degrees F with a 4 degree F recovery margin and two received samples of debounce. At 35 s the model reached {{overheatCoolant}} degrees F. Browser checks acknowledged the warning, verified renewed acknowledgment after escalation, and reset the session to normal."
+          "text": "Expected: cooling degradation starts at 6 s and crosses warning and critical. The retained seed/default policy reaches warning at 14.0 s (223.5 degrees F) and critical at 18.5 s (236.8 degrees F). Thresholds are 220/235 degrees F, with 4 degrees F hysteresis and two accepted samples of debounce. Escalation renews acknowledgment; reset creates a normal session."
         },
         {
           "kind": "heading",
-          "text": "Communication loss"
+          "text": "Oil pressure loss and recovery"
         },
         {
           "kind": "paragraph",
-          "text": "Expected behavior: drop delivered samples from 5 s through 16.5 s while the central model continues. The final sample before the gap was received at 4.5 s. Observed timeout onset was 6.5 s, exactly 2 simulated seconds after that sample. Gauges retained stale received values and history stopped growing. At 17 s a fresh sample arrived and the communication condition resolved automatically. The recovered trend preserved the delivery gap."
+          "text": "Expected: lower generated pressure from 5 s, cross 24 psi warning and 16 psi critical, then restore generation at 24 s. Observed warning was 11.5 s/22.199 psi; critical 15.5 s/14.726 psi; recovery through warning 26.0 s/23.410 psi; normal 27.5 s/30.110 psi. The 3 psi recovery margin and two accepted samples govern clearing. Its 42 s replay accepted 85 samples with no rejection; browser checks exercise acknowledgment and renewed acknowledgment after escalation."
         },
         {
-          "kind": "heading",
-          "text": "Rule state and acknowledgment"
+          "kind": "table",
+          "columns": ["Rule behavior", "Engineering meaning"],
+          "widths": [2.0, 4.7],
+          "rows": [
+            [
+              "Valid process fault",
+              "Low pressure and high coolant are valid samples; diagnostics must detect them rather than reject their delivery."
+            ],
+            [
+              "Acknowledgment",
+              "Records review, leaves an active condition intact, and resets after escalation or recovery."
+            ],
+            [
+              "Hysteresis/debounce",
+              "Separate recovery limits and consecutive accepted samples limit threshold chatter."
+            ],
+            [
+              "Seeded replay",
+              "Fixed simulation steps reproduce identical accepted readings and transition sequences."
+            ]
+          ]
         },
         {
           "kind": "paragraph",
-          "text": "Each channel maintains one normal, warning, or critical state. Hysteresis defines a separate recovery boundary; configurable debounce requires consecutive received samples. Stale duplicates do not count toward telemetry debounce. Communication timeout is immediate when its age boundary is reached. Transition events explain the triggering value and threshold. Acknowledgment records review, leaves the continuing condition active, and resets on escalation or recovery. Sustained alerts are deduplicated to prevent event floods."
-        },
-        {
-          "kind": "paragraph",
-          "text": "All timestamps above are simulation time. Automated guided browser checks used a controlled clock. These observations establish application behavior for a defined seed and settings, not real machinery response or field communications reliability."
+          "text": "All times describe the simulator. Thermal and pressure fault kinetics are accelerated explanatory assumptions, not real machinery response or field calibration."
         }
       ]
     },
     {
-      "title": "Validation and measured application behavior",
+      "title": "Sample delivery faults and recovery",
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": ["Scenario", "Expected accepted-state behavior"],
+          "widths": [1.6, 5.1],
+          "rows": [
+            [
+              "Communication loss",
+              "No delivery from 5 s through 16.5 s. Retain the 4.5 s sample; default timeout begins at 6.5 s. Valid delivery resumes at 17 s."
+            ],
+            [
+              "Invalid sample delivery",
+              "Reject nonfinite, missing/wrong-type, duplicate, and out-of-order attempts from 5 s through 16.5 s. Retain accepted values/history; timeout and recovery follow accepted time."
+            ]
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Both scenarios distinguish the internal generated model from accepted readings. A missing or rejected sample cannot hide age by replacing receivedAt. The trend leaves a gap over missing accepted measurements. A valid sample at 17 s restores freshness and communication normal state; invalid-delivery recovery also closes the rejection episode."
+        },
+        {
+          "kind": "image",
+          "path": "docs/assets/rejected-sample-desktop.png",
+          "height": 2.4,
+          "caption": "Actual local browser capture of invalid sample delivery: visible rejection evidence and retained accepted readings."
+        },
+        {
+          "kind": "heading",
+          "text": "Expected versus observed evidence"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Observed invalid replay: 24 rejected attempts; first reason events at 5, 8, 9.5, 11, and 14 s; retained 4.5 s readings; timeout at 6.5 s; one delivery recovery and communication clear at 17 s. At 25 s, accepted count/history were 27. Unit/browser checks verify isolation, age, counts, acknowledgment, and recovery. Guided browser clocks do not establish real network or hardware reliability."
+        }
+      ]
+    },
+    {
+      "title": "Device workspace and usable state",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Local Windows/Edge validation and remote Linux/Chromium CI each passed {{unitPassed}} unit tests and {{browserPassed}} browser tests. TypeScript and production compilation passed separately. Tests cover the pure engine and rendered application."
+          "text": "A collapsible workspace in all three existing views combines an original six-slot display preview, six-signal browser, and selected-slot property editor. Preview and signal values consume the same accepted sample as the main instruments. Editing binding, label, or range changes display configuration only; engine commands, accepted telemetry, and diagnostic thresholds are unchanged."
+        },
+        {
+          "kind": "image",
+          "path": "docs/assets/workspace-desktop.png",
+          "height": 3.85,
+          "caption": "Actual local device workspace showing accepted signals and display-only configuration."
         },
         {
           "kind": "table",
-          "columns": ["Requirement", "Method and actual result", "Status"],
-          "widths": [1.9, 4, 0.8],
+          "columns": ["Property or behavior", "Implemented limit"],
+          "widths": [2.0, 4.7],
           "rows": [
             [
-              "Six coherent instruments",
-              "Bounded model runs in all modes plus six rendered browser gauges.",
+              "Binding and display range",
+              "One existing signal per slot; finite ordered range within that signal display domain; canonical psi/degrees F editor units."
+            ],
+            [
+              "Label and apply",
+              "Trimmed 1 to 32 characters, no control characters; Apply is atomic and Reset restores the selected slot."
+            ],
+            [
+              "Out-of-scale value",
+              "Numeric reading remains visible; preview labels above/below scale and clamps the needle."
+            ],
+            [
+              "Persistence",
+              "Six fixed slots and version 1 session layout; no save/import/export or real display runtime."
+            ]
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Browser checks covered three views at 1440, 390, and 320 pixel widths in day and night themes. Keyboard selection, editing, Apply and Reset passed. Selected control text contrast measured 5.62 to 1 at night and 5.27 to 1 in day mode after correction; the tested palette pairs exceeded 4.5 to 1. Focus, reduced motion, textual sample states, and stable live announcements were checked. These checks do not replace a formal accessibility or assistive technology audit."
+        }
+      ]
+    },
+    {
+      "title": "Local validation and measured evidence",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Starting baseline: 32 unit tests and 7 browser tests passed before feature changes, plus typecheck and both production-base builds. Final local revision: {{unitPassed}} unit tests and {{browserPassed}} browser tests passed. Remote CI/deployments were not run for this sprint; prior remote results are historical evidence."
+        },
+        {
+          "kind": "table",
+          "columns": ["Requirement", "Method and actual outcome", "Status"],
+          "widths": [1.7, 4.3, 0.7],
+          "rows": [
+            [
+              "Contract isolation",
+              "Invalid fields, finite/bounds checks, version and time ordering; accepted readings/history remain uncontaminated.",
               "Pass"
             ],
             [
-              "Seeded replay and mode controls",
-              "Exact replay equality; start, pause, reset, and live mode change.",
+              "Five seeded replays",
+              "Retained scenarios plus oil loss and invalid delivery; deterministic transition/recovery assertions.",
               "Pass"
             ],
             [
-              "Three guided scenarios",
-              "Normal, warning/critical overheat, stale data, and automatic recovery.",
+              "Diagnostic rules",
+              "Acknowledgment, escalation, hysteresis, clearing, rejected-sample debounce and timeout recovery.",
               "Pass"
             ],
             [
-              "Reliable diagnostics",
-              "Exact boundaries, recovery margin, debounce, deduplication, and acknowledgment.",
+              "Bounded evidence",
+              "240 accepted samples; 100 events; repeated rejection reasons counted without floods.",
               "Pass"
             ],
             [
-              "Bounded memory structures",
-              "240-sample history after 1500 ticks; 100-event cap after 300 events.",
+              "Device properties",
+              "Atomic valid apply, invalid property rejection, binding/range/label checks, model/rule independence.",
               "Pass"
             ],
             [
-              "Settings and persistence",
-              "Malformed/blocked storage fallback; actual browser reload with saved preferences.",
+              "Browser workflows",
+              "Controls, five scenarios, workspace, preferences, keyboard/focus, reduced motion, desktop/mobile three-view fit.",
               "Pass"
             ],
             [
-              "Desktop and mobile",
-              "1440 px desktop and 390 px mobile; no horizontal overflow in three views.",
+              "Two static bases",
+              "Root and project-base production build paths; nonempty matching PDF/DOCX downloads.",
               "Pass"
             ],
             [
-              "CSV evidence",
-              "Actual download includes explicit simulated-data label.",
+              "Report layout",
+              "Final PDF and DOCX rendered and every page inspected with approved local tools.",
               "Pass"
             ],
             [
-              "Root and project builds",
-              "Both local static production paths passed browser checks and matching report downloads.",
-              "Pass"
-            ],
-            [
-              "DOCX visual layout",
-              "Seven Word pages rendered and inspected; blank page corrected.",
-              "Pass"
-            ],
-            [
-              "Privacy",
-              "Restricted identity text scan, blank report author fields, and real screenshot review.",
-              "Pass"
-            ],
-            [
-              "Remote CI and hosting",
-              "CI and Pages passed; both live sites, controls, scenarios, and reports checked.",
+              "Privacy and dates",
+              "Approved developer/repository credit, restricted-identity scan, blank report metadata, Fall 2026 edition.",
               "Pass"
             ]
           ]
@@ -296,127 +340,118 @@
         },
         {
           "kind": "paragraph",
-          "text": "Production JavaScript totaled {{jsBytes}} bytes ({{jsGzipBytes}} bytes gzip); CSS totaled {{cssBytes}} bytes. In one desktop smoke check, the simulation clock reached 3 s after {{wallMs}} ms of wall time including interaction overhead, with no page errors. This measures one workflow, not interval accuracy."
+          "text": "Root production JavaScript totaled {{jsBytes}} bytes ({{jsGzipBytes}} bytes gzip); CSS totaled {{cssBytes}} bytes. Browser tests took {{browserDuration}} s and unit test bodies {{unitDuration}} s. One real-time desktop smoke observed 3 simulated seconds after {{wallMs}} ms including interaction overhead; this is one workflow measurement, not scheduling accuracy."
         },
         {
           "kind": "paragraph",
-          "text": "Browser tests took {{browserDuration}} s; unit test bodies took {{unitDuration}} s. Heap, frame rate, browser soak, hardware timing, and public availability were not measured. Buffer caps do not prove a total heap bound."
+          "text": "Exact counts, model transitions, bundle bytes, and build/download checks are retained in local validation artifacts. No heap/frame-rate benchmark, browser soak, Safari/Firefox, physical iPhone/cellular, hardware timing, production safety result, or uptime measurement is claimed."
         }
       ]
     },
     {
-      "title": "Current demonstration and production requirements",
+      "title": "Production gaps and engineering tradeoffs",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "The project makes instrumentation behavior reviewable without access to equipment. A real industrial deployment would require separate integration, safety, security, and reliability engineering. The comparison below identifies future work rather than claiming production readiness."
+          "text": "The hardening revision makes invalid data, reproducible faults, and display configuration reviewable before equipment integration. A real deployment needs separate connectivity, safety, security, calibration, and operational evidence."
         },
         {
           "kind": "table",
           "columns": [
             "Area",
             "Implemented demonstration",
-            "Hypothetical production deployment"
+            "Future production requirement"
           ],
-          "widths": [1.2, 2.6, 2.9],
+          "widths": [1.1, 2.6, 3.0],
           "rows": [
             [
+              "Input and time",
+              "Versioned generated data; plausibility and simulation-time ordering",
+              "Validated device identity, units, clock origin, sequence counters, framing, integrity, and schema migration"
+            ],
+            [
               "Connectivity",
-              "Locally generated values and simulated delivery interruption.",
-              "Validated gateway/device adapter, framing, unit schema, real timestamps, sequence checks, and link testing. CAN/J1939 is only a hypothetical interface."
+              "Simulated missing/rejected delivery",
+              "Gateway adapter, protocol testing and controlled network impairment; CAN/J1939 remains hypothetical"
             ],
             [
-              "Safety",
-              "Display and simulator controls with a persistent simulation notice.",
-              "Equipment hazard analysis, separated safety/control paths, safe failure behavior, independent review, and applicable verification."
-            ],
-            [
-              "Security",
-              "No equipment, backend, authentication, or embedded credentials.",
-              "Device and user authentication, authorized changes, secret lifecycle, integrity checks, transport protections, and isolation."
+              "Safety/security",
+              "Display/simulator only; no equipment or credentials",
+              "Hazard analysis, separated safety/control, authentication, permissions, secret lifecycle, and independent review"
             ],
             [
               "Diagnostics",
-              "Configurable thresholds, hysteresis, debounce, and acknowledgment.",
-              "Equipment-specific alert policy, calibrated boundaries, nuisance-alarm analysis, routing, and validated operator response."
+              "Thresholds, hysteresis, debounce, acknowledgment and delivery evidence",
+              "Calibrated alert policy, nuisance-alarm analysis, validated operator response and routing"
             ],
             [
-              "Logging",
-              "Bounded session memory and locally downloaded simulated CSV.",
-              "Durable timestamped storage, retention, access control, integrity, accountable audit, and operational monitoring."
+              "Device workspace",
+              "Session-only six-slot preview and display properties",
+              "Validated portable layout, supported target runtime, arbitrary widgets and accessible layout editing"
             ],
             [
-              "Testing",
-              "Deterministic model tests plus local Edge and remote Chromium browser paths.",
-              "Hardware in the loop, calibrated sensor tests, network impairment, cross-browser/device checks, soak tests, and recovery exercises."
-            ],
-            [
-              "Reliability",
-              "Fixed simulation step and two verified static hosting builds.",
-              "Defined service objectives, power/network failure behavior, deployment safeguards, monitoring, backup, and rollback."
+              "Records and reliability",
+              "Bounded memory, simulated CSV, local automated checks",
+              "Durable audited records, monitoring, cross-browser/device tests, hardware tests, soak, rollback and service objectives"
             ]
           ]
         },
         {
           "kind": "heading",
-          "text": "Design tradeoffs"
+          "text": "Deliberate tradeoffs"
         },
         {
           "kind": "paragraph",
-          "text": "A static frontend keeps operation inspectable and avoids server, credential, and device dependencies. One central reducer makes relationships and replay behavior explicit. Fixed steps favor deterministic demonstration over real-time fidelity. Bounded buffers keep retention deliberate, while memory-only telemetry avoids implying durable records. A single selectable chart and three simple views keep the scope focused."
+          "text": "A static frontend avoids server, credential, and equipment dependencies. A central reducer exposes replay/state ownership. Strict acceptance preserves trustworthy displayed data at the cost of stale readings when delivery is invalid. Fixed steps favor repeatability over real-time fidelity. Session-only buffers and display layout keep retention explicit; their caps do not prove a total heap bound."
         },
         {
           "kind": "paragraph",
-          "text": "The application can help evaluate a display or diagnostic workflow before implementing equipment connectivity. It cannot command a physical machine, prove a hardware fault, certify an alarm policy, or replace an operational monitoring system."
+          "text": "The application cannot command a physical machine, prove a sensor fault, certify an alarm policy, or replace operational monitoring. The Design concept label identifies an independent engineering demonstration."
         }
       ]
     },
     {
-      "title": "Generic applications and future engineering work",
+      "title": "Reviewed work and next publication sprint",
       "blocks": [
         {
           "kind": "heading",
-          "text": "Operator workflow examples"
+          "text": "Implemented locally"
         },
         {
           "kind": "paragraph",
-          "text": "Generator instrumentation training: an operator can run the normal ramp, compare speed, pressure, and load, then follow an overheat escalation without connecting equipment. Production use would require validated sensor mapping, equipment-specific thresholds, and a separate control/safety design."
-        },
-        {
-          "kind": "paragraph",
-          "text": "Fleet diagnostic review: a reviewer can inspect stale readings, acknowledge a communication alert, and trace recovery events. A real fleet system would need authenticated multi-device identity, reliable timestamps, durable records, and permissions."
-        },
-        {
-          "kind": "paragraph",
-          "text": "Pump or motor condition-display prototyping: a designer can evaluate layout, readable units, fault presentation, and replay behavior. Real application would require a different validated telemetry model, physical sensors, hardware tests, and failure analysis."
+          "text": "The completed local scope adds versioned acceptance, deduplicated rejection/recovery evidence, oil pressure loss and invalid sample replays, display-only device workspace, usability hardening, tests, screenshots, updated shared-source reports, and adjacent GitHub attribution. Existing engine, three views, simulation disclaimer, scenarios, preferences, CSV, and both hosting base paths are preserved."
         },
         {
           "kind": "heading",
-          "text": "Prioritized potential improvements"
+          "text": "Prioritized future engineering"
         },
         {
           "kind": "paragraph",
-          "text": "P0: real gateway/fieldbus adapter; validated telemetry schema; hardware in the loop; connectivity security hardening; expanded end to end and cross-browser tests. These establish prerequisites for receiving real data safely and interpreting it correctly."
+          "text": "P0: real gateway adapter; calibrated device schema/identity; hardware in the loop; connectivity security/isolation; Safari/Firefox and physical mobile coverage; formal accessibility audit."
         },
         {
           "kind": "paragraph",
-          "text": "P1: advanced fault injection; historical storage; alert routing; role based access; audit trails; multi-device support; device configuration. Each is future work beyond the implemented browser session and three basic replays."
+          "text": "P1: jitter/intermittent/simultaneous faults; durable history; validated alarm routing; accountable configuration audit; independent device streams; versioned layout import/export; authorized physical configuration transactions."
         },
         {
           "kind": "paragraph",
-          "text": "P2: performance profiling; formal accessibility audit; automated release safeguards. The separate roadmap gives engineering benefit and rough Small/Medium/Large complexity for all 15 proposed improvements. No delivery commitment is implied."
+          "text": "P2: additional widgets/layout editing; target display runtime/export; long-session performance profiling; release provenance/rollback; production observability; calibrated simulation models. The roadmap records benefit and complexity for 19 specific future items and separately marks implemented work."
         },
         {
           "kind": "heading",
-          "text": "Version and publication state"
+          "text": "Publication boundary"
         },
         {
           "kind": "paragraph",
-          "text": "Version 0.1.0 is publicly hosted. Source: https://github.com/CloudWizardBoricua/cobalt-instrument-studio. Primary demo: https://cobalt-instrument-studio.netlify.app/. Backup: https://cloudwizardboricua.github.io/cobalt-instrument-studio/. Remote CI passed 32 unit and 7 browser tests, and Pages deployed successfully. An annotated v0.1.0 tag triggers version/test checks and one workflow-created release with report attachments."
+          "text": "Package version remains 0.1.0; this report describes an unreleased local hardening revision. The prior v0.1.0 tagged release and public Netlify/Pages checks are historical snapshots, not results for this revision. No remote service was changed, and no new CI run, deployment, or release is claimed."
         },
         {
           "kind": "paragraph",
-          "text": "Anonymous HTTPS checks verified assets, source access, and matching PDF/DOCX downloads. Both reports have seven visually checked pages. Both sites passed live controls, all guided replays, and 390 px layouts in three views; no error-level console logs appeared. Physical cellular access was not tested. Hosting requires no development computer; provider quotas and future availability remain limitations."
+          "text": "Source: https://github.com/CloudWizardBoricua/cobalt-instrument-studio. Existing primary: https://cobalt-instrument-studio.netlify.app/. Existing backup: https://cloudwizardboricua.github.io/cobalt-instrument-studio/. The updated local code, tests, evidence, screenshots, contract, roadmap, and PDF/DOCX form the reviewable change set for a separately authorized publication sprint."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Before publication, review the final local results, choose any version/release change deliberately, rerun CI after authorization, verify both hosted bases and report bytes, and complete physical mobile inspection. Existing static hosting needs no development computer, subject to provider availability and plan limits."
         }
       ]
     }

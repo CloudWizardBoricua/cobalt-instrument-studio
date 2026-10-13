@@ -28,6 +28,8 @@ export function createDiagnostics(): Diagnostics {
     ) as Diagnostics["alerts"],
     events: [],
     nextId: 1,
+    lastProcessedSampleTimestamp: null,
+    lastDeliveryAttemptAt: null,
   };
 }
 export function addEvent(
@@ -74,11 +76,26 @@ export function updateDiagnostics(
   settings: Settings,
 ): Diagnostics {
   let d: Diagnostics = { ...previous, alerts: { ...previous.alerts } };
+  if (simulation.delivery.lastAttemptAt !== previous.lastDeliveryAttemptAt) {
+    for (const notice of simulation.delivery.notices) {
+      d = addEvent(
+        d,
+        simulation.time,
+        notice.message,
+        notice.kind === "validation" ? "warning" : "normal",
+        notice.kind,
+      );
+    }
+    d.lastDeliveryAttemptAt = simulation.delivery.lastAttemptAt;
+  }
   const age = simulation.time - simulation.receivedAt;
   const stale = age >= settings.timeoutSeconds;
+  const newSample =
+    previous.lastProcessedSampleTimestamp === null ||
+    simulation.received.time > previous.lastProcessedSampleTimestamp;
   for (const key of [...METRICS, "communication"] as const) {
     const old = previous.alerts[key];
-    if (key !== "communication" && (stale || age > 0)) continue;
+    if (key !== "communication" && (stale || !newSample)) continue;
     const value = key === "communication" ? age : simulation.received[key];
     const desired: Severity =
       key === "communication"
@@ -102,10 +119,10 @@ export function updateDiagnostics(
       if (desired === "normal") {
         alert.reason =
           key === "communication"
-            ? "Sample delivery resumed."
+            ? "Fresh valid sample delivery resumed."
             : "Value returned beyond the recovery threshold.";
       } else if (key === "communication") {
-        alert.reason = `No new sample for ${age.toFixed(1)} s; timeout is ${settings.timeoutSeconds} s.`;
+        alert.reason = `No valid sample for ${age.toFixed(1)} s; timeout is ${settings.timeoutSeconds} s.`;
       } else {
         const rule = settings.thresholds[key];
         const threshold = desired === "critical" ? rule.critical : rule.warning;
@@ -125,6 +142,7 @@ export function updateDiagnostics(
     );
     d.alerts[key] = alert;
   }
+  d.lastProcessedSampleTimestamp = simulation.received.time;
   return d;
 }
 export function acknowledge(

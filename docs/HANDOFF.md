@@ -1,68 +1,63 @@
-# Engineering and publication handoff
+# Engineering hardening checkpoint and review handoff
 
-_Developed by Daren Diaz_
+_Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)
 
-Fall 2026
+Fall 2026 · Unreleased revision of version 0.1.0
 
-The application and documentation are prepared as an independent instrumentation simulator. All data are explicitly simulated. No physical device, backend, authentication service, live equipment connection, safety control, or production certification is implemented.
+**SIMULATED — NOT LIVE EQUIPMENT.** This sprint preserves the static simulator and adds invalid-data protection, deterministic fault/recovery paths, and display configuration. No backend, authentication, equipment access, safety control, hardware integration, or production certification is implemented.
 
-## Implemented behavior
+## Actual starting checkpoint
 
-One fixed-step, seeded model drives RPM, oil pressure, coolant temperature, battery voltage, fuel level, and engine load. The interface includes four modes; functional Start, Pause, Reset, speed/load controls; three guided replays; selectable trends; validated settings; and local CSV exports. Display units, appearance, and visibility persist in this browser. History and event data remain bounded and memory only.
+Before feature changes, the local source was freshly checked rather than relying on previous deployment claims: **32/32 unit tests, 7/7 browser tests, typecheck, and both local static hosting-base builds/checks passed**. The baseline browser suite took 66,294 ms. Existing behavior included six instruments, four modes, three guided replays, bounded history/events, validated settings, acknowledgment/recovery, responsive views, and a scenario dropdown. No telemetry acceptance contract or device property workspace existed.
 
-Default seed 27041 produced these observed transitions:
+Previously published source, hosted checks, and the v0.1.0 release remain historical snapshots. The engineering hardening checkpoint was completed locally. The subsequent feature branch push and substantive PR are now approved; modified GitHub execution is pending. Main merge, production deployment, and a new version tag/Release remain outside this approval.
 
-| Scenario           | Actual local observation                                                                                         |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| Normal ramp        | At 35 simulated seconds, approximately 1749.8 rpm and 51.8 percent load; no default alert.                       |
-| Coolant overheat   | Warning at 14.0 s and 223.5 degrees F; critical at 18.5 s and 236.8 degrees F. Escalation renews acknowledgment. |
-| Communication loss | Final pre-gap sample at 4.5 s; timeout at 6.5 s; delivery and normal communication state restored at 17.0 s.     |
+## Reviewed local changes
 
-The model assumes pressure rises with RPM, temperature responds with inertia, charging voltage depends on speed/fault state, and fuel declines with load. Fault kinetics are accelerated. These assumptions are not hardware measurements. Pause suspends simulation time, including timeout age.
+| Change                          | Engineering value                                                                                    | Boundary                                                              |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Telemetry contract v1           | Rejects incompatible, malformed, nonfinite, implausible, duplicate, out-of-order, and future samples | Protects accepted readings/time/history and metric debounce           |
+| Rejection evidence and recovery | Explains retained values and increasing sample age; counts repeats and deduplicates reasons          | Bounded events, no message floods; valid delivery closes episode      |
+| Oil pressure loss               | Exercises low-threshold warning, critical escalation, acknowledgment and clearing                    | Process fault uses valid generated samples                            |
+| Invalid sample delivery         | Demonstrates rejection, staleness, timeout and valid recovery                                        | Delivery fault does not contaminate model or accepted display         |
+| Device workspace                | Original six-slot preview, signal browser, display property editor                                   | Session-only display edits never change engine commands or thresholds |
+| Accessibility/usability         | Focus, labels, textual states, reduced motion and meaningful announcements                           | Checked local browser behavior; formal audit remains future work      |
+| Documentation/evidence          | Shared PDF/DOCX, contract, roadmap, tests and authentic screenshots                                  | Local outputs included in both static builds                          |
 
-## Verification
+## Expected and observed outcomes
 
-| Command or check                          | Actual result                                                                                                                                                            |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `npm run typecheck`                       | Passed.                                                                                                                                                                  |
-| `npm test`                                | 32 passed, 0 failed.                                                                                                                                                     |
-| `npm run test:e2e`                        | 7 passed, 0 failed in Microsoft Edge Chromium.                                                                                                                           |
-| Remote GitHub Actions CI                  | 32 unit tests and 7 browser tests passed on Linux with Chromium.                                                                                                         |
-| GitHub Pages workflow                     | Deployment workflow passed.                                                                                                                                              |
-| Tagged release workflow                   | Annotated `v0.1.0` triggered a passing workflow with 32 unit and 7 browser tests; exactly one release was created.                                                       |
-| Release notes and report attachments      | Published notes matched the reviewed notes; anonymous downloads of both attachments matched local report bytes.                                                          |
-| `node scripts/validate-static-builds.mjs` | Both root and project-base production builds passed local browser checks.                                                                                                |
-| Direct report requests                    | HTTP 200 for nonempty PDF and DOCX on both local build paths; downloaded bytes matched source artifacts.                                                                 |
-| Public HTTPS and reports                  | Both hosted HTML entries, referenced assets, source links, observed README, and direct PDF/DOCX requests passed; report bytes matched local artifacts.                   |
-| Local production browser paths            | Six gauges, overheat critical state, timeout/recovery, 240-sample cap, 390 px layout, refresh, and no external runtime requests passed.                                  |
-| Live production interactions              | Both origins passed six changing gauges, credit, mode/speed/load, Start/Pause/Reset, all guided replays, acknowledgment, and timeout/recovery.                           |
-| Live production mobile and console        | All three views fit a 390 px viewport without horizontal overflow on both origins. Observed error-level console logs were empty.                                         |
-| Privacy review                            | Restricted project identities absent from text/report contents; document author fields blank; actual screenshots reviewed.                                               |
-| Workflow configuration                    | Three YAML files parsed; critical job dependencies and permissions checked. Netlify TOML parsed. Correct release version accepted and an incorrect tag rejected locally. |
-| PDF                                       | Seven pages rendered and inspected; a crowded footer was corrected.                                                                                                      |
-| DOCX layout                               | Seven pages rendered and inspected with the approved isolated renderer; an extra blank page was corrected.                                                               |
+All times are simulated, seed 27041 with default settings. Final measured outcomes are recorded in [validation evidence](validation-evidence.json).
 
-Guided automated browser checks use a controlled clock. Separate real-time local and production checks observed updates and pause behavior; production guided replays ran with actual wall-clock timing. Exact measurements and hashes are in [validation evidence](validation-evidence.json), [hosting build validation](hosting-build-validation.json), [public browser validation](public-browser-validation.json), [public HTTP validation](public-http-validation.json), and [release validation](release-validation.json). No physical iPhone/cellular-network test, heap, frame-rate, hardware, public-uptime, Safari/Firefox, or long-duration browser-soak measurement is claimed.
+| Scenario           | Expected outcome                                                         | Observation to review                                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Normal ramp        | Smooth speed/load increase, no default alert                             | Final accepted values and transition list at 35 s                                                                                                                          |
+| Coolant overheat   | Degradation at 6 s; warning then critical                                | Default transitions at 14.0 s/223.5 degrees F and 18.5 s/236.8 degrees F                                                                                                   |
+| Communication loss | Retain 4.5 s sample; timeout at 6.5 s; resume at 17 s                    | Critical communication at 6.5 s and normal at 17 s; 27 accepted samples by 25 s; no rejected attempts                                                                      |
+| Oil pressure loss  | Decline from 5 s; warning/critical; restore from 24 s                    | Warning 11.5 s/22.199 psi; critical 15.5 s/14.726 psi; warning recovery 26.0 s/23.410 psi; normal 27.5 s/30.110 psi; zero rejected samples                                 |
+| Invalid delivery   | Reject 5–16.5 s; retain accepted sample; timeout at 6.5 s; valid at 17 s | 24 rejects, five deduplicated reason events, retained 4.5 s readings; timeout at 6.5 s, one delivery recovery and communication clear at 17 s; accepted/history 27 by 25 s |
+
+The contract is documented in [TELEMETRY_CONTRACT.md](TELEMETRY_CONTRACT.md). Plausibility acceptance bounds differ from generator/display domains and are not calibrated equipment limits. Preview labels/ranges/bindings affect presentation only. Layout is session-only; no device export/runtime is claimed.
+
+## Local validation
+
+The completed engineering hardening checkpoint passed **58/58 unit tests, 12/12 browser tests, typecheck, and both production-base build/browser checks**. Three views at 1440, 390, and 320 pixel widths in two themes passed 18 layout/focus/contrast combinations. Selected text contrast is 5.62 to 1 at night and 5.27 to 1 in day mode. PDF and DOCX each contain nine visually inspected pages, with adjacent developer/repository credit. Privacy checks and packaged report-byte comparisons passed. Test timing, five-scenario transitions, bundle bytes, and root/project downloads are recorded in [validation-evidence.json](validation-evidence.json) and [hosting-build-validation.json](hosting-build-validation.json). No new remote result is implied by these local files. The subsequent combined DevOps revision passed 92 unit and 12 browser tests; [DevOps evidence](devops-local-validation.json) records that separate checkpoint.
+
+Guided browser tests use controlled clocks. A separate real-time smoke observes visible updates and pause; its timing includes interactions. Browser viewport checks do not establish physical phone/cellular behavior. No Safari/Firefox result, assistive-technology audit, heap/frame-rate benchmark, long browser soak, hardware measurement, uptime guarantee, or production certification is claimed.
 
 ## Deliverables
 
-- [README and actual screenshot](../README.md)
-- [Engineering report PDF](Cobalt_Engineering_Report.pdf)
+- [README](../README.md) and [changelog](../CHANGELOG.md)
+- [Telemetry contract and rejection policy](TELEMETRY_CONTRACT.md)
 - [Shared report source](report-source.json)
-- [Editable engineering report DOCX](Cobalt_Engineering_Report.docx)
-- [15 prioritized potential improvements with benefit and complexity](ROADMAP.md)
-- [Changelog](../CHANGELOG.md)
-- [Verified hosting and release process](DEPLOYMENT.md)
-- [Published v0.1.0 release and report attachments](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0)
+- [Local engineering PDF](Cobalt_Engineering_Report.pdf) and [editable DOCX](Cobalt_Engineering_Report.docx)
+- [Implemented work and 19 future improvements](ROADMAP.md)
+- [Historical hosting and future publication procedure](DEPLOYMENT.md)
+- Authentic local screenshots under `docs/assets`
 
-Reports are synchronized into both static build outputs. The site links use the correct build base. Source files are formatted for inspection. The original supplied prompt document is preserved outside this dedicated project.
+The report copies in `dist/reports` and `dist-pages/reports` must match the visually reviewed originals. The original supplied prompt remains outside this dedicated project. Global tooling and unrelated files/processes remain outside project scope. External writes are limited to the approved GitHub feature branch and PR review.
 
-## Publication checkpoint
+## Approved feature branch review and later publication
 
-The [public repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio) is published with default branch `main`. The [Netlify primary demo](https://cobalt-instrument-studio.netlify.app/) and [GitHub Pages backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/) are anonymously accessible over HTTPS. Both hosted applications operate without the development computer remaining on.
+The feature branch push and real PR creation are approved for review of the acceptance boundary and diagnostics, five scenarios, workspace/accessibility changes, tests, evidence, screenshots, documentation/reports, and DevOps workflows. Monitor actual PR CI and add verified run/artifact links. [DevOps handoff](DEVOPS_HANDOFF.md) records the approved scope. Merging to `main`, updated hosting, and a new semantic-version release need separate authorization and subsequent production/download verification.
 
-The [CI run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331306537) and [Pages deployment run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331306485) passed for the final report commit, and its Netlify deployment was ready. Both origins also passed the live controls, guided scenarios, source link, and mobile layout checks listed above. Updated report downloads matched the final local artifacts. The Netlify-injected badge was inspected separately from the application build.
-
-Repository-local commits use the approved author and a GitHub noreply address; global Git identity was not changed. The new Netlify site's anonymous access was enabled without changing team defaults, billing, the Free plan, or automatic top-up. Repository access uses a scoped read-only deploy key and a push webhook.
-
-The annotated `v0.1.0` tag identifies commit `3b556c6d509b39301549af2e0ee2ade69d4495c5`. Its [source tree](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/tree/v0.1.0), [passing release workflow](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331500958), and [published release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0) were verified. Exactly one Actions-created release exists, with the reviewed notes and two anonymously verified report attachments. Physical cellular access, long-term hosting availability, and future provider usage limits remain follow-up considerations.
+The existing [Netlify site](https://cobalt-instrument-studio.netlify.app/), [Pages backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/), and [v0.1.0 tagged release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0) remain unchanged. The [public repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio) will receive the approved feature branch/PR review while main production retains the previous source. [Public browser](public-browser-validation.json), [public HTTP](public-http-validation.json), and [release](release-validation.json) artifacts retain historical checked results; their hashes are not expected to match regenerated reports. Stop before a main merge, production deployment, or new tag/Release.

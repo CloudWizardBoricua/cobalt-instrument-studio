@@ -163,7 +163,14 @@ export function ControlPanel({
             className="scenario-description"
             data-testid="scenario-description"
           >
-            {selectedScenario.description}
+            {selectedScenario.description}{" "}
+            <span className="scenario-domain">
+              {selectedScenario.faultDomain === "delivery"
+                ? "Sample delivery"
+                : selectedScenario.faultDomain === "process"
+                  ? "Simulated process"
+                  : "Normal process"}
+            </span>
           </p>
           <button
             className="button primary scenario-run"
@@ -180,6 +187,13 @@ export function ControlPanel({
             <strong className="scenario-active">
               Active scenario: {scenario.title}
             </strong>
+            <span className="scenario-domain">
+              {scenario.faultDomain === "delivery"
+                ? "Sample delivery fault"
+                : scenario.faultDomain === "process"
+                  ? "Simulated process fault"
+                  : "Normal process"}
+            </span>
             <div className="range-label">
               <strong>
                 {progress >= 100 ? "Sequence complete" : "Sequence in progress"}
