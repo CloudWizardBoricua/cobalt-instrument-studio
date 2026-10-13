@@ -25,6 +25,7 @@ export function Gauge({
   settings,
   paused = false,
   rejected = false,
+  standby = false,
 }: {
   metric: Metric;
   value: number;
@@ -33,9 +34,10 @@ export function Gauge({
   settings: Settings;
   paused?: boolean;
   rejected?: boolean;
+  standby?: boolean;
 }) {
   const info = metricInfo[metric];
-  const fraction = Math.max(
+  const fraction = standby ? 0 : Math.max(
     0,
     Math.min(1, (value - info.min) / (info.max - info.min)),
   );
@@ -47,7 +49,8 @@ export function Gauge({
       : severity === "warning"
         ? "var(--warning)"
         : info.color;
-  const label = `${info.label}: ${formatValue(metric, value, settings.units)} ${displayUnit(metric, settings.units)}. ${severity} condition. ${stale ? "Stale sample. " : ""}${rejected ? "Rejected delivery; last valid value retained. " : ""}${paused ? "Simulation paused or ready. " : ""}Simulated data.`;
+  const reading = standby ? "0" : formatValue(metric, value, settings.units);
+  const label = `${info.label}: ${reading} ${displayUnit(metric, settings.units)}. ${standby ? "Standby; start the simulation to receive readings" : `${severity} condition`}. ${stale ? "Stale sample. " : ""}${rejected ? "Rejected delivery; last valid value retained. " : ""}${paused && !standby ? "Simulation paused. " : ""}Simulated data.`;
   return (
     <article
       className={`gauge-card panel ${stale ? "is-stale" : ""}`}
@@ -126,13 +129,15 @@ export function Gauge({
       </svg>
       <div className="gauge-reading">
         <strong data-testid={`value-${metric}`}>
-          {formatValue(metric, value, settings.units)}
+          {reading}
         </strong>
         <span>{displayUnit(metric, settings.units)}</span>
       </div>
       <div className={`gauge-foot ${stale ? "critical" : severity}`}>
         <span>
-          {stale
+          {standby
+            ? "STANDBY"
+            : stale
             ? "STALE SAMPLE"
             : severity === "normal"
               ? "WITHIN LIMITS"

@@ -78,6 +78,16 @@ const e2e = JSON.parse(await readFile(".local/e2e-results.json", "utf8"));
 const browser = JSON.parse(
   await readFile(".local/browser-measurements.json", "utf8"),
 );
+if (
+  !["chromium", "firefox", "webkit"].includes(browser.browser) ||
+  typeof browser.browserVersion !== "string" ||
+  !browser.browserVersion ||
+  !Object.hasOwn(browser, "browserChannel") ||
+  !["win32", "linux", "darwin"].includes(browser.browserPlatform)
+)
+  throw new Error(
+    "Current runtime browser identity is required; rerun the browser suite.",
+  );
 const browserCases = (suites) =>
   suites.flatMap((suite) => [
     ...(suite.specs || []).flatMap((spec) => spec.tests),
@@ -85,9 +95,18 @@ const browserCases = (suites) =>
   ]);
 const cases = browserCases(e2e.suites);
 // A filtered run cannot supply evidence for the full source suite.
-const configuredBrowserCases =
-  (await readFile("tests/e2e/studio.spec.ts", "utf8")).match(/^test\(/gm)
-    ?.length || 0;
+const browserSourceFiles = (
+  await readdir("tests/e2e", { recursive: true })
+).filter((name) => /\.spec\.(?:ts|tsx|js|mjs)$/.test(name));
+const configuredBrowserCases = (
+  await Promise.all(
+    browserSourceFiles.map(
+      async (name) =>
+        (await readFile(resolve("tests/e2e", name), "utf8")).match(/^test\(/gm)
+          ?.length || 0,
+    ),
+  )
+).reduce((total, count) => total + count, 0);
 const configuredUnitFiles = (
   await readdir("tests", { recursive: true })
 ).filter((name) => /\.test\.(ts|tsx)$/.test(name)).length;
@@ -118,11 +137,11 @@ for (const name of await readdir("dist/assets")) {
   });
 }
 const evidence = {
-  version: "0.1.0",
-  edition: "Local unreleased engineering hardening revision",
+  version: JSON.parse(await readFile("package.json", "utf8")).version,
+  edition: "Version 0.2.0 local verification checkpoint before publication",
   validationDate: "Fall 2026",
   verification:
-    "Local Windows engine and browser results for the unreleased hardening revision. Public hosting and release evidence files describe the earlier published baseline; no current hardening deployment was performed.",
+    "Engine and browser results use the recorded runtime browser identity. Public hosting, pull-request execution, and release verification are recorded separately.",
   unit: {
     passed: unit.numPassedTests,
     failed: unit.numFailedTests,
@@ -141,6 +160,9 @@ const evidence = {
   browser,
   accessibility: JSON.parse(
     await readFile(".local/accessibility-measurements.json", "utf8"),
+  ),
+  deviceLayout: JSON.parse(
+    await readFile(".local/device-page-layout-results.json", "utf8"),
   ),
   scenarios,
   bundles,

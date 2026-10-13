@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
+import { version as appVersion } from "../package.json";
 import {
   Activity,
   LayoutDashboard,
@@ -45,11 +46,16 @@ export function App() {
   const [persisted, setPersisted] = useState(true);
   const [help, setHelp] = useState(false);
   const s = state.simulation;
+  const standby = !state.hasStarted;
   const alerts = activeAlerts(state.diagnostics);
   const stale = s.time - s.receivedAt >= state.settings.timeoutSeconds;
   const rejected = s.delivery.status === "rejected";
   const announcement = [
-    state.running ? "Simulation running." : "Simulation paused or ready.",
+    standby
+      ? "Displays in standby. Start simulation to receive readings."
+      : state.running
+        ? "Simulation running."
+        : "Simulation paused.",
     stale ? "Readings stale." : "Readings fresh.",
     rejected
       ? "Sample rejected. Last valid readings retained."
@@ -158,7 +164,7 @@ export function App() {
             <br />
             No equipment connection.
           </p>
-          <span className="mono">ENGINE v0.1.0</span>
+          <span className="mono">ENGINE v{appVersion}</span>
         </div>
         <div className="sidebar-bottom">
           <a
@@ -238,7 +244,7 @@ export function App() {
                     ? "SAMPLE REJECTED"
                     : state.running
                       ? "SIMULATION RUNNING"
-                      : s.time === 0
+                      : standby
                         ? "READY TO START"
                         : "SIMULATION PAUSED"}
               </span>
@@ -340,6 +346,7 @@ export function App() {
                           settings={state.settings}
                           paused={!state.running}
                           rejected={rejected}
+                          standby={standby}
                         />
                       ),
                     )}
@@ -445,9 +452,14 @@ export function App() {
           )}
           <DeviceWorkspace
             telemetry={s.received}
+            history={state.history}
+            diagnostics={state.diagnostics}
+            simulationTime={s.time}
+            onAck={(key) => dispatch({ type: "ack", key })}
             settings={state.settings}
             stale={stale}
             running={state.running}
+            standby={standby}
             sampleStatus={s.delivery.status}
             severity={
               Object.fromEntries(
@@ -457,7 +469,8 @@ export function App() {
           />
           <footer className="page-footer">
             <span>
-              Cobalt Instrument Studio <span className="mono">0.1.0</span>
+              Cobalt Instrument Studio{" "}
+              <span className="mono">{appVersion}</span>
             </span>
             <span>Simulation for exploration · no safety control</span>
           </footer>

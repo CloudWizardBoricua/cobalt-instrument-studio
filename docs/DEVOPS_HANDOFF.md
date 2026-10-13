@@ -1,10 +1,10 @@
-# Local DevOps review and publication handoff
+# DevOps verification and publication handoff
 
 _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)
 
-Fall 2026 · Unreleased revision of version 0.1.0
+Fall 2026 · Version 0.2.0 release preparation
 
-The substantive application and workflow revision is approved for pushing the reviewed `feat/telemetry-devops-hardening` branch and creating its real PR. Modified GitHub execution and the actual PR/run links are pending. Approval does not include a merge to `main`, production deployment, a new version tag/Release, or branch-protection changes. Main production sites and the initial release remain unchanged.
+[PR #1](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/1) established the earlier main `453ea4a126fab0a44f4345871b401a5c11fbce86` checkpoint with successful CI and production. Version 0.2.0 implements five blue cockpit pages, standby and evidence corrections locally. Validation passed 100 unit and 17 browser tests, all nine pages of each report, metadata/links, and both hosting builds/downloads. Actual new publication remains pending and approved through reviewed PR/main and annotated `v0.2.0` release verification. Existing v0.1.0 is preserved.
 
 ## Reviewed scope
 
@@ -16,9 +16,21 @@ The substantive application and workflow revision is approved for pushing the re
 
 ## Actual execution and remaining evidence
 
-The [read-only remote baseline](workflow-remote-baseline.json) verifies the published source at commit `421ea725f9be740f86d7b61e445e37e18a1f4d0b`. Its [CI run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38333357919) passed 32 unit tests and 7 browser tests, and its [Pages run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38333358441) succeeded. The Netlify main deployment is ready. Fresh real-clock production-browser observations passed 10 check groups per site; direct assets/reports returned 200 and report hashes matched the unchanged initial release. These results concern the published three-scenario baseline and old workflows.
+The [PR execution record](workflow-pr-validation.json) verifies branch head `27cfdd078a1e961061a047e83593d4f87b361230` and tested merge `c8a58613e67e1c64a276496ff64d4c0a6d8cc8db`; the tested tree matches actual merge `453ea4a126fab0a44f4345871b401a5c11fbce86`. Downloaded evidence confirms **92/92 unit tests, 12/12 Linux Chromium browser tests**, 18 layout/focus/reduced-motion combinations, both static bases, and six authentic screenshots. Production artifact `cobalt-production-builds-1` had its ZIP digest and source/file hashes verified, with observed 14-day retention. [Retained production artifact](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341235636/artifacts/11786956557)
 
-## Actual local DevOps validation
+[Production HTTP/deployment verification](workflow-production-validation.json) confirms successful main CI and Pages deployment, ready Netlify production, and exact current report-download hashes at both origins. [Production browser verification](workflow-production-browser.json) passed 12/12 checks on each site using installed Edge: controlled-clock scenario paths plus a real-clock smoke. Measured wall times were 35.158 s on Netlify and 31.163 s on Pages, with 18 view/theme/width combinations per site. These durations are observations, not performance guarantees.
+
+## Artifact privacy finding and repository governance
+
+The original temporary test artifact included automatically captured Git author/committer contact metadata. Test execution succeeded, but this content inspection had a finding. With explicit approval, both affected temporary test artifacts were deleted and their absence verified; production artifacts were retained. Contact values are omitted from authored evidence. Disabling/sanitizing Git capture is a local correction that still needs publication and fresh CI verification. [Governance and cleanup evidence](workflow-governance-validation.json)
+
+`main` protection is now enabled and verified: a PR and strict **CI verification** from GitHub Actions are required, administrator enforcement is enabled, force pushes/deletions are blocked, and conversations must be resolved. Required reviewer approvals are zero. This actual state supersedes the historical unprotected baseline without rewriting that record.
+
+## Historical baseline
+
+The [read-only remote baseline](workflow-remote-baseline.json) verifies the earlier published source at commit `421ea725f9be740f86d7b61e445e37e18a1f4d0b`. Its [CI run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38333357919) passed 32 unit tests and 7 browser tests, and its [Pages run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38333358441) succeeded. Netlify was ready at that checkpoint. Real-clock production-browser observations passed 10 check groups per site; direct assets/reports returned 200 and report hashes matched the unchanged initial release. These historical results concern the three-scenario baseline and old workflows.
+
+## Earlier local DevOps checkpoint
 
 | Check | Observed result |
 | --- | --- |
@@ -33,28 +45,34 @@ The [read-only remote baseline](workflow-remote-baseline.json) verifies the publ
 | `npm run verify:privacy` | 87 text files passed privacy/content checks |
 | Local release archive packaging | Passed: 18 input-file hashes checked, five attachments verified, all 14 static-file hashes preserved through archive extraction |
 
-Failure screenshots use `only-on-failure`; traces use `retain-on-failure`. These are configured capture policies, not a claim that a failing browser case occurred. The earlier engineering report and hardening evidence retain their separate **58 unit/12 browser** checkpoint; they do not contain the later 92-test DevOps count. [Local DevOps evidence](devops-local-validation.json) records the checks above. This local verification does not establish that the modified workflows have executed on GitHub.
+Failure screenshots use `only-on-failure`; traces use `retain-on-failure`. These are capture policies, not a claim that a failing browser case occurred. The earlier engineering report recorded its **58 unit/12 browser** hardening checkpoint; [local DevOps evidence](devops-local-validation.json) separately records the later 92-test checkpoint above. The [successful PR CI run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341235636) establishes that earlier GitHub execution. Current version 0.2.0 report counts come from new local evidence.
 
-The ignored `.local/devops-release-dry-run` output contains the five prepared attachments. Its archive is 1,480,362 bytes with SHA-256 `bafeeb90e020addcead57560ecc33be1fa209de5697af028ca42dc467030826d`. This dry run uses current version 0.1.0 only to inspect packaging; its context is local and uncommitted. It creates or replaces no tag, Release, or public asset. A future publication still needs an approved new semantic version and actual GitHub verification.
+The earlier ignored `.local/devops-release-dry-run` output inspected five attachments using version 0.1.0 only as a local packaging format. It created or replaced no tag, Release, or public asset. That historical archive result does not establish the approved new version 0.2.0 package or its future GitHub execution.
 
 ## Remaining remote evidence
 
-The [annotated v0.1.0 tag](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/tree/v0.1.0) and [initial Release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0) already exist. The [release run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331500958) succeeded with 32 unit and 7 browser tests. Its only assets are the historical PDF/DOCX; a tested static archive and checksum manifest have not been published. The improved packaging path needs a new approved version, not replacement of that tag or Release.
+The [annotated v0.1.0 tag](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/tree/v0.1.0) and [initial Release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0) are preserved. Its [release run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331500958) passed 32 unit and 7 browser tests and attached the two historical reports. Version 0.2.0 is approved to execute the enhanced pipeline with a tested static archive and checksum manifest after current QA and CI pass; no new release is claimed yet.
 
-The approved substantive PR awaits actual creation and verified links. `main` is currently unprotected. **CI verification** is the recommended required check; this recommendation does not enable a repository rule. Local workflow validation is preparation, not proof that the modified YAML has executed on GitHub.
+The earlier substantive PR, main CI, and deployment paths have executed and been verified above. Version 0.2.0 has publication approval and awaits final local checks, new reviewed PR/main CI, and actual tag workflow execution. The initial two release assets remain historical and unchanged.
 
-## Proposed PR
+## Actual PR review
 
-Suggested title: **Harden Cobalt telemetry and verify publication workflows**.
+[PR #1](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/1).
 
-The approved PR description is prepared with the complete diff and actual validation above: application hardening and device workspace, neutral concept branding, report updates, inspectable CI artifacts, gated Pages publication, and release packaging. GitHub execution remains pending until those checks run. The substantive PR must link its actual successful run and artifacts after creation; no placeholder URL or artificial activity is needed.
+The merged PR describes the earlier hardening and DevOps checkpoint. Its successful PR run verifies that branch source; main CI separately verified the actual merge. A new substantive version 0.2.0 PR will include the device pages, evidence corrections, version alignment, and regenerated reports. It is authorized but no actual new PR/run URL is supplied until created and verified.
+
+## Local device-page follow-up
+
+Branch `feat/device-pages-and-evidence` implements **Gauges, Engine, Trends, Faults, and ACK** with shared softkeys, accepted history, and central acknowledgment. The graphite/black bezel, metallic rings, blue/cyan accents, and large white readouts remain a browser presentation of the existing simulator. Initial/reset standby shows zero in either unit system; Start or guided Run reveals accepted values, Pause holds them, and Reset returns presentation to zero. Zero placeholders never enter telemetry/model/diagnostic/history. Local checks passed 100/100 unit and 17/17 browser tests; both reports passed full nine-page visual and metadata/link QA. Actual new publication remains pending.
+
+Current browser checks covered 30 device-page/theme/width combinations and the existing 18 application accessibility combinations, with zero JavaScript errors and passing readout typography checks. Unit runner duration was 2.56 s; browser wall time was 37.817 s. Six authentic cockpit captures were retained. [Current local version 0.2.0 evidence](validation-evidence.json) is separate from earlier local and remote receipts.
 
 ## Approval boundaries and verification sequence
 
-1. Push the approved reviewed feature branch and open its real PR. Run PR CI, inspect artifacts, and fix actual failures on that branch. Add the resulting PR and successful run links to README. These feature branch/PR actions are now authorized.
-2. Obtain authorization for merging to `main`, which triggers the existing Netlify integration and the CI-gated Pages process. Monitor main CI and both providers. Verify the exact published source, referenced assets, controls, all five scenarios, workspace, mobile views, and direct report-download hashes on both sites.
-3. Select and review a new semantic version with aligned package, lockfile, changelog, notes, and report metadata. Only after version/publication authorization, create and push its new annotated tag. Preserve `v0.1.0` unchanged.
+1. Review the version 0.2.0 diff; local 100-unit/17-browser checks and full nine-page PDF/DOCX visual/metadata/link inspections are complete.
+2. Use the approved feature branch/PR/main publication process. Inspect new CI test outcomes and artifact content, then verify both actual production commits, behavior, and report hashes.
+3. Verify version 0.2.0 agreement across package, lockfile, changelog, notes, and reports; create and push the approved new annotated `v0.2.0` tag after CI succeeds. Preserve `v0.1.0` unchanged.
 4. Monitor the actual tag workflow. Verify one published Release, accurate notes, five expected attachments, SHA-256 manifest, downloaded bytes, and the static archive's tested contents. Add actual version tag, Release, workflow run, and download links.
-5. Consider required checks for `main` as a separately authorized repository setting. Record whether rules were actually enabled and verify their exact check names.
+5. Retain the verified main rules and confirm their required check after workflow changes. Record actual version 0.2.0 run, deployment, Release, and download links; publication approval alone is not execution evidence.
 
-The existing production URLs remain [Netlify primary](https://cobalt-instrument-studio.netlify.app/) and [GitHub Pages backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/). They currently show previously published source. The local application remains explicitly simulated and has no backend or hardware connection.
+The verified production URLs remain [Netlify primary](https://cobalt-instrument-studio.netlify.app/) and [GitHub Pages backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/), both at the merged checkpoint above. The application remains explicitly simulated and has no backend or hardware connection.

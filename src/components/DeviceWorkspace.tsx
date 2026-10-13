@@ -1,6 +1,8 @@
 import { useId, useState, type CSSProperties, type FormEvent } from "react";
 import {
   ChevronDown,
+  Maximize2,
+  Minimize2,
   Monitor,
   RotateCcw,
   Save,
@@ -27,11 +29,14 @@ import {
 import {
   METRICS,
   type Metric,
+  type Alert,
+  type Diagnostics,
   type Settings,
   type Severity,
   type Telemetry,
 } from "../engine/types";
 import "../device-workspace.css";
+import { DevicePreviewPages } from "./DevicePreviewPages";
 
 export interface DeviceWorkspaceProps {
   /** Only the central pipeline's last accepted sample belongs here. */
@@ -41,6 +46,11 @@ export interface DeviceWorkspaceProps {
   running: boolean;
   severity: Record<Metric, Severity>;
   sampleStatus?: string;
+  standby?: boolean;
+  history: Telemetry[];
+  diagnostics: Diagnostics;
+  simulationTime: number;
+  onAck: (key: Alert["key"]) => void;
 }
 interface Draft {
   metric: Metric;
@@ -58,8 +68,8 @@ function toDraft(properties: DeviceProperties): Draft {
 }
 function point(angle: number, radius: number) {
   return {
-    x: 80 + Math.cos((angle * Math.PI) / 180) * radius,
-    y: 72 + Math.sin((angle * Math.PI) / 180) * radius,
+    x: 110 + Math.cos((angle * Math.PI) / 180) * radius,
+    y: 110 + Math.sin((angle * Math.PI) / 180) * radius,
   };
 }
 function arc(start: number, end: number, radius: number) {
@@ -75,6 +85,9 @@ function DeviceInstrument({
   stale,
   settings,
   onSelect,
+  testIdPrefix = "device",
+  featured = false,
+  standby = false,
 }: {
   slot: DeviceSlot;
   selected: boolean;
@@ -83,24 +96,37 @@ function DeviceInstrument({
   stale: boolean;
   settings: Settings;
   onSelect: () => void;
+  testIdPrefix?: string;
+  featured?: boolean;
+  standby?: boolean;
 }) {
-  const fraction = deviceScalePosition(value, slot);
+  const fraction = standby ? 0 : deviceScalePosition(value, slot);
   const end = 145 + fraction * 250;
-  const needle = point(end, 40);
-  const rangeDescription = deviceRangeDescription(value, slot);
-  const reading = `${formatValue(slot.metric, value, settings.units)} ${displayUnit(slot.metric, settings.units)}`;
-  const condition = stale ? "Stale accepted sample" : `${severity} condition`;
+  const gradientId = useId().replaceAll(":", "");
+  const rangeDescription = standby
+    ? "Display scale inactive until simulation starts"
+    : deviceRangeDescription(value, slot);
+  const displayedValue = standby
+    ? "0"
+    : formatValue(slot.metric, value, settings.units);
+  const reading = `${displayedValue} ${displayUnit(slot.metric, settings.units)}`;
+  const condition = standby
+    ? "Standby — start simulation"
+    : stale
+      ? "Stale accepted sample"
+      : `${severity} condition`;
   return (
     <button
       type="button"
-      className={`device-preview-slot ${severity} ${stale ? "device-stale" : ""}`}
+      className={`device-preview-slot ${featured ? "device-preview-primary" : "device-preview-band"} ${severity} ${standby ? "device-standby" : ""} ${stale ? "device-stale" : ""}`}
       aria-pressed={selected}
       aria-label={`Select slot ${slot.id}: ${slot.label}. ${reading}. ${condition}. ${rangeDescription}. Simulated data.`}
-      data-testid={`device-slot-${slot.id}`}
+      data-testid={`${testIdPrefix}-slot-${slot.id}`}
       onClick={onSelect}
       style={
         {
           "--device-signal-color": metricInfo[slot.metric].color,
+          "--device-level": `${fraction * 100}%`,
         } as CSSProperties
       }
     >
@@ -108,78 +134,136 @@ function DeviceInstrument({
         <span>{slot.label}</span>
         <span className="mono">{String(slot.id).padStart(2, "0")}</span>
       </span>
-      <svg className="device-gauge" viewBox="0 0 160 112" aria-hidden="true">
-        <path
-          d={arc(145, 395, 53)}
-          fill="none"
-          stroke="var(--gauge-track)"
-          strokeWidth="6"
-          strokeLinecap="round"
-        />
-        <g className="device-gauge-ink">
-          {fraction > 0.002 && (
-            <path
-              d={arc(145, end, 53)}
+      <div className="device-dial-content">
+        {featured ? (
+          <svg
+            className="device-gauge"
+            viewBox="0 0 220 220"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient
+                id={`${gradientId}-metal`}
+                x1="0"
+                y1="0"
+                x2="1"
+                y2="1"
+              >
+                <stop offset="0" stopColor="#e8ecf1" />
+                <stop offset=".18" stopColor="#636e7c" />
+                <stop offset=".4" stopColor="#eff5fb" />
+                <stop offset=".6" stopColor="#636e7c" />
+                <stop offset=".82" stopColor="#b8c3cf" />
+                <stop offset="1" stopColor="#414b58" />
+              </linearGradient>
+              <radialGradient
+                id={`${gradientId}-face`}
+                cx=".48"
+                cy=".38"
+                r=".7"
+              >
+                <stop offset="0" stopColor="#123362" />
+                <stop offset=".65" stopColor="#06152c" />
+                <stop offset="1" stopColor="#030810" />
+              </radialGradient>
+            </defs>
+            <circle
+              cx="110"
+              cy="110"
+              r="102"
+              fill="#080b10"
+              stroke="#303b49"
+              strokeWidth="3"
+            />
+            <circle
+              cx="110"
+              cy="110"
+              r="94"
+              fill={`url(#${gradientId}-face)`}
+              stroke={`url(#${gradientId}-metal)`}
+              strokeWidth="10"
+            />
+            <circle
+              cx="110"
+              cy="110"
+              r="86"
               fill="none"
-              stroke="currentColor"
-              strokeWidth="6"
+              stroke="#12273f"
+              strokeWidth="2"
+            />
+            <path
+              d={arc(145, 395, 78)}
+              fill="none"
+              stroke="#1b3758"
+              strokeWidth="4"
               strokeLinecap="round"
             />
-          )}
-          <line
-            x1="80"
-            y1="72"
-            x2={needle.x}
-            y2={needle.y}
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <circle
-            cx="80"
-            cy="72"
-            r="4"
-            fill="var(--bg)"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          />
-        </g>
-        {[0, 1, 2, 3, 4, 5].map((tick) => {
-          const a = point(145 + tick * 50, 43),
-            b = point(145 + tick * 50, 47);
-          return (
-            <line
-              key={tick}
-              x1={a.x}
-              y1={a.y}
-              x2={b.x}
-              y2={b.y}
-              stroke="var(--muted)"
+            {fraction > 0.002 && (
+              <path
+                d={arc(145, end, 78)}
+                fill="none"
+                stroke="#48c6ff"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+            )}
+            {Array.from({ length: 26 }, (_, tick) => {
+              const a = point(145 + tick * 10, tick % 5 === 0 ? 66 : 70),
+                b = point(145 + tick * 10, 74);
+              return (
+                <line
+                  key={tick}
+                  x1={a.x}
+                  y1={a.y}
+                  x2={b.x}
+                  y2={b.y}
+                  stroke={tick % 5 === 0 ? "#ecf5ff" : "#89a5c6"}
+                  strokeWidth={tick % 5 === 0 ? 1.7 : 1}
+                />
+              );
+            })}
+            <path
+              d={arc(202, 310, 100)}
+              fill="none"
+              stroke="#ffffff"
               strokeWidth="1"
+              opacity=".55"
             />
-          );
-        })}
-        <text x="23" y="110" fill="var(--muted)" fontSize="9">
-          {formatValue(slot.metric, slot.min, settings.units)}
-        </text>
-        <text x="137" y="110" fill="var(--muted)" fontSize="9" textAnchor="end">
-          {formatValue(slot.metric, slot.max, settings.units)}
-        </text>
-      </svg>
-      <span className="device-reading">
-        <strong className="mono" data-testid={`device-value-${slot.id}`}>
-          {formatValue(slot.metric, value, settings.units)}
-        </strong>
-        <span>{displayUnit(slot.metric, settings.units)}</span>
+          </svg>
+        ) : (
+          <div className="device-band-meter" aria-hidden="true">
+            {Array.from({ length: 16 }, (_, index) => (
+              <span
+                key={index}
+                className={fraction >= (index + 1) / 16 ? "is-filled" : ""}
+              />
+            ))}
+          </div>
+        )}
+        <span className="device-reading">
+          <strong
+            className="mono"
+            data-testid={`${testIdPrefix}-value-${slot.id}`}
+          >
+            {displayedValue}
+          </strong>
+          <span>{displayUnit(slot.metric, settings.units)}</span>
+        </span>
+      </div>
+      <span className="device-dial-scale">
+        <span>{formatValue(slot.metric, slot.min, settings.units)}</span>
+        <span>{formatValue(slot.metric, slot.max, settings.units)}</span>
       </span>
       <span className="device-slot-status">
-        {stale
-          ? "STALE SAMPLE"
-          : severity === "normal"
-            ? "NORMAL"
-            : severity.toUpperCase()}
+        {standby
+          ? "STANDBY — START SIMULATION"
+          : stale
+            ? "STALE SAMPLE"
+            : severity === "normal"
+              ? "NORMAL"
+              : severity.toUpperCase()}
       </span>
-      {rangeDescription !== "Within display scale" && (
+      {!standby && rangeDescription !== "Within display scale" && (
         <span className="device-range-note">{rangeDescription}</span>
       )}
     </button>
@@ -193,9 +277,15 @@ export function DeviceWorkspace({
   running,
   severity,
   sampleStatus,
+  standby = false,
+  history,
+  diagnostics,
+  simulationTime,
+  onAck,
 }: DeviceWorkspaceProps) {
   const [layout, setLayout] = useState(createDefaultDeviceLayout);
   const [selectedId, setSelectedId] = useState<DeviceSlotId>(1);
+  const [expandedPreview, setExpandedPreview] = useState(false);
   const selected = layout.slots.find((slot) => slot.id === selectedId)!;
   const [draft, setDraft] = useState<Draft>(() => toDraft(selected));
   const [feedback, setFeedback] = useState<{
@@ -210,8 +300,9 @@ export function DeviceWorkspace({
     draft.label !== selected.label ||
     draft.min !== String(selected.min) ||
     draft.max !== String(selected.max);
-  const status =
-    sampleStatus === "rejected"
+  const status = standby
+    ? "Standby — start simulation"
+    : sampleStatus === "rejected"
       ? stale
         ? "Rejected delivery · stale accepted sample"
         : "Sample rejected · last valid readings retained"
@@ -219,13 +310,21 @@ export function DeviceWorkspace({
         ? "Stale accepted sample"
         : running
           ? "Receiving accepted samples"
-          : telemetry.time === 0
-            ? "Ready to start"
-            : "Simulation paused";
+          : "Simulation paused";
   function selectSlot(slot: DeviceSlot) {
     setSelectedId(slot.id);
     setDraft(toDraft(slot));
     setFeedback({ message: "" });
+  }
+  function inspectMetric(metric: Metric) {
+    const slot = layout.slots.find((item) => item.metric === metric);
+    if (slot) selectSlot(slot);
+    else {
+      setDraft(toDraft(defaultDeviceProperties(metric)));
+      setFeedback({
+        message: `Signal selected for slot ${selectedId}. Apply to change its display binding.`,
+      });
+    }
   }
   function bindSignal(metric: Metric) {
     if (draft.metric === metric) return;
@@ -296,7 +395,9 @@ export function DeviceWorkspace({
           Session-only layout · six fixed slots · display edits do not alter the
           simulator or alerts. Changes appear after Apply.
         </p>
-        <div className="device-workspace-grid">
+        <div
+          className={`device-workspace-grid ${expandedPreview ? "device-preview-expanded" : ""}`}
+        >
           <section
             className="device-signals"
             aria-labelledby={`${prefix}-signals`}
@@ -319,11 +420,25 @@ export function DeviceWorkspace({
                   </span>
                   <span className="device-signal-value">
                     <span className="mono">
-                      {formatValue(metric, telemetry[metric], settings.units)}{" "}
+                      {standby
+                        ? "0"
+                        : formatValue(
+                            metric,
+                            telemetry[metric],
+                            settings.units,
+                          )}{" "}
                       {displayUnit(metric, settings.units)}
                     </span>
-                    <small className={stale ? "critical" : severity[metric]}>
-                      {stale ? "Stale" : severity[metric]}
+                    <small
+                      className={
+                        standby
+                          ? "muted"
+                          : stale
+                            ? "critical"
+                            : severity[metric]
+                      }
+                    >
+                      {standby ? "Standby" : stale ? "Stale" : severity[metric]}
                     </small>
                   </span>
                 </button>
@@ -336,7 +451,24 @@ export function DeviceWorkspace({
           >
             <div className="device-panel-heading">
               <h3 id={`${prefix}-preview`}>Device preview</h3>
-              <span className="mono">LAYOUT v{layout.version}</span>
+              <button
+                className="device-preview-size"
+                type="button"
+                onClick={() => setExpandedPreview(!expandedPreview)}
+                aria-pressed={expandedPreview}
+                aria-label={
+                  expandedPreview
+                    ? "Restore preview size"
+                    : "Expand device preview"
+                }
+              >
+                {expandedPreview ? (
+                  <Minimize2 size={14} aria-hidden="true" />
+                ) : (
+                  <Maximize2 size={14} aria-hidden="true" />
+                )}
+                {expandedPreview ? "Restore size" : "Expand preview"}
+              </button>
             </div>
             <p>Select an instrument to edit its slot.</p>
             <div className="device-bezel">
@@ -344,27 +476,64 @@ export function DeviceWorkspace({
                 <span>COBALT DISPLAY</span>
                 <span>SIMULATED</span>
               </div>
-              <div className="device-slot-grid">
-                {layout.slots.map((slot) => (
+              <DevicePreviewPages
+                telemetry={telemetry}
+                standby={standby}
+                history={history}
+                diagnostics={diagnostics}
+                settings={settings}
+                stale={stale}
+                running={running}
+                simulationTime={simulationTime}
+                onAck={onAck}
+                onInspectMetric={inspectMetric}
+                gauges={
+                  <div className="device-slot-grid">
+                    {layout.slots.map((slot) => (
+                      <DeviceInstrument
+                        key={slot.id}
+                        slot={slot}
+                        featured={slot.id === 1}
+                        standby={standby}
+                        selected={slot.id === selectedId}
+                        value={telemetry[slot.metric]}
+                        severity={severity[slot.metric]}
+                        stale={stale}
+                        settings={settings}
+                        onSelect={() => selectSlot(slot)}
+                      />
+                    ))}
+                  </div>
+                }
+                engineGauge={
                   <DeviceInstrument
-                    key={slot.id}
-                    slot={slot}
-                    selected={slot.id === selectedId}
-                    value={telemetry[slot.metric]}
-                    severity={severity[slot.metric]}
+                    featured
+                    standby={standby}
+                    slot={
+                      layout.slots.find((slot) => slot.metric === "rpm") || {
+                        ...defaultDeviceProperties("rpm"),
+                        id: selectedId,
+                      }
+                    }
+                    selected={selected.metric === "rpm"}
+                    value={telemetry.rpm}
+                    severity={severity.rpm}
                     stale={stale}
                     settings={settings}
-                    onSelect={() => selectSlot(slot)}
+                    testIdPrefix="device-engine"
+                    onSelect={() => inspectMetric("rpm")}
                   />
-                ))}
-              </div>
+                }
+              />
               <div
                 className={`device-preview-status ${stale ? "critical" : "muted"}`}
                 data-testid="device-preview-status"
               >
                 <span>{status}</span>
                 <span className="mono">
-                  Accepted {formatTime(telemetry.time)}
+                  {standby
+                    ? "Awaiting start"
+                    : `Accepted ${formatTime(telemetry.time)}`}
                 </span>
               </div>
             </div>
@@ -374,7 +543,9 @@ export function DeviceWorkspace({
                   ? "Rejected deliveries cannot change the preview. It shows the last accepted sample."
                   : sampleStatus === "recovered"
                     ? "Valid sample delivery recovered; the preview follows accepted readings."
-                    : "Preview and signal browser share the central accepted sample."}
+                    : standby
+                      ? "Standby — start simulation. Display readouts are zero until the session starts; the central accepted sample remains intact."
+                      : "Preview and signal browser share the central accepted sample."}
               </p>
             )}
           </section>

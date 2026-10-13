@@ -1,10 +1,18 @@
-import { beforeAll, describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { afterEach, beforeAll, describe, expect, it } from "vitest";
+import {
+  copyFileSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { isAbsolute, join, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 let validateWorkflow: (source: string, filename: string) => unknown;
-let verifyWorkflowDirectory: () => { requiredCheck: string };
+let verifyWorkflowDirectory: (root?: string) => { requiredCheck: string };
 let isCurrentPagesSource: (options: {
   repository: string;
   expectedCommit: string;
@@ -20,6 +28,34 @@ beforeAll(async () => {
 });
 
 const ci = readFileSync(".github/workflows/ci.yml", "utf8");
+const temporaryRoots: string[] = [];
+afterEach(() => {
+  for (const root of temporaryRoots.splice(0)) {
+    const location = relative(resolve(tmpdir()), resolve(root));
+    if (
+      location.startsWith("..") ||
+      isAbsolute(location) ||
+      !location.startsWith("cobalt-ci-workflow-")
+    )
+      throw new Error(
+        "Temporary cleanup target is outside the test directory.",
+      );
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+const workflowFixture = (source: string) => {
+  const root = mkdtempSync(join(tmpdir(), "cobalt-ci-workflow-"));
+  temporaryRoots.push(root);
+  mkdirSync(join(root, ".github/workflows"), { recursive: true });
+  for (const name of ["ci.yml", "deploy-pages.yml", "release.yml"])
+    copyFileSync(
+      `.github/workflows/${name}`,
+      join(root, `.github/workflows/${name}`),
+    );
+  copyFileSync(".github/dependabot.yml", join(root, ".github/dependabot.yml"));
+  writeFileSync(join(root, ".github/workflows/ci.yml"), source);
+  return root;
+};
 describe("workflow validation and publication boundaries", () => {
   it("accepts the complete existing-path workflow contract", () =>
     expect(verifyWorkflowDirectory().requiredCheck).toBe("CI verification"));
@@ -62,6 +98,36 @@ describe("workflow validation and publication boundaries", () => {
         "release.yml",
       ),
     ).toThrow("unnecessary");
+  });
+  it("rejects report upload that bypasses privacy preparation", () => {
+    const root = workflowFixture(
+      ci.replace(
+        "if: always() && steps.test-report-privacy.outcome == 'success'",
+        "if: always()",
+      ),
+    );
+    expect(() => verifyWorkflowDirectory(root)).toThrow(
+      "private-safe preparation",
+    );
+  });
+  it("requires report preparation to run after test failure", () => {
+    const root = workflowFixture(
+      ci.replace(
+        "id: test-report-privacy\n        if: always()",
+        "id: test-report-privacy\n        if: success()",
+      ),
+    );
+    expect(() => verifyWorkflowDirectory(root)).toThrow(
+      "private-safe preparation",
+    );
+  });
+  it("rejects a retained JSON report absent from the sanitizer allowlist", () => {
+    const root = workflowFixture(
+      ci.replace(".local/unit-results.json", ".local/uninspected-report.json"),
+    );
+    expect(() => verifyWorkflowDirectory(root)).toThrow(
+      "private-safe preparation",
+    );
   });
 });
 

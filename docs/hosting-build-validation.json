@@ -12,14 +12,14 @@
         {
           "extension": "pdf",
           "status": 200,
-          "bytes": 283326,
-          "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
+          "bytes": 459765,
+          "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
         },
         {
           "extension": "docx",
           "status": 200,
-          "bytes": 315893,
-          "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
+          "bytes": 554147,
+          "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
         }
       ],
       "checks": [
@@ -48,14 +48,14 @@
         {
           "extension": "pdf",
           "status": 200,
-          "bytes": 283326,
-          "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
+          "bytes": 459765,
+          "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
         },
         {
           "extension": "docx",
           "status": 200,
-          "bytes": 315893,
-          "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
+          "bytes": 554147,
+          "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
         }
       ],
       "checks": [
@@ -82,14 +82,14 @@
       "gzipBytes": 110244
     },
     {
-      "file": "index-70nx4WS4.css",
-      "bytes": 33165,
-      "gzipBytes": 6645
+      "file": "index-BE25iLY-.css",
+      "bytes": 54619,
+      "gzipBytes": 10074
     },
     {
-      "file": "index-Cz0mqwIW.js",
-      "bytes": 273984,
-      "gzipBytes": 84971
+      "file": "index-DohvO5qE.js",
+      "bytes": 285537,
+      "gzipBytes": 87991
     }
   ]
 }

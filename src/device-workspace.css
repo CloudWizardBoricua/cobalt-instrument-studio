@@ -520,3 +520,38 @@
     transition: none !important;
   }
 }
+
+/* Keep the editing controls legible alongside the cockpit display. */
+.device-workspace-note,
+.device-workspace-grid h3,
+.device-workspace-grid h3 + p,
+.device-signal-button strong,
+.device-signal-button small,
+.device-signal-value > span,
+.device-properties label,
+.device-properties input[type="text"],
+.device-properties input[type="number"],
+.device-properties select,
+.device-properties small,
+.device-property-actions .button,
+.device-draft-state,
+.device-property-feedback {
+  font-size: 14px;
+}
+.device-signal-button {
+  min-height: 76px;
+}
+.device-properties label,
+.device-properties small,
+.device-workspace-note {
+  line-height: 1.7;
+}
+.device-signal-value {
+  flex-shrink: 1;
+}
+.device-signal-value > span {
+  white-space: normal;
+}
+.device-property-actions .button {
+  white-space: normal;
+}

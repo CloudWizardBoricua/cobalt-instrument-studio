@@ -5,6 +5,7 @@ export default defineConfig({
   workers: 1,
   timeout: 45000,
   retries: 0,
+  captureGitInfo: { commit: false, diff: false },
   reporter: [["list"], ["json", { outputFile: ".local/e2e-results.json" }]],
   use: {
     baseURL: "http://127.0.0.1:5173",

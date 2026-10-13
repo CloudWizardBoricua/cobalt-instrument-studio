@@ -1,24 +1,27 @@
 {
-  "version": "0.1.0",
-  "edition": "Local unreleased engineering hardening revision",
+  "version": "0.2.0",
+  "edition": "Version 0.2.0 local verification checkpoint before publication",
   "validationDate": "Fall 2026",
-  "verification": "Local Windows engine and browser results for the unreleased hardening revision. Public hosting and release evidence files describe the earlier published baseline; no current hardening deployment was performed.",
+  "verification": "Engine and browser results use the recorded runtime browser identity. Public hosting, pull-request execution, and release verification are recorded separately.",
   "unit": {
-    "passed": 58,
+    "passed": 100,
     "failed": 0,
-    "durationMs": 3447.779052734375
+    "durationMs": 3849.93115234375
   },
   "browserTests": {
-    "passed": 12,
+    "passed": 17,
     "failed": 0,
-    "durationMs": 107624.665,
+    "durationMs": 37817.23,
     "scenarioClock": "Virtual clock for guided paths; separate wall-clock start/pause smoke check."
   },
   "browser": {
     "realtimeSimulationSecondsObserved": 3,
-    "wallMillisecondsToObserve": 3587,
+    "wallMillisecondsToObserve": 3498,
     "javascriptErrors": [],
-    "browser": "Microsoft Edge Chromium",
+    "browser": "chromium",
+    "browserVersion": "155.0.4283.45",
+    "browserChannel": "msedge",
+    "browserPlatform": "win32",
     "desktop": {
       "width": 1440,
       "height": 1100
@@ -490,6 +493,192 @@
       }
     ],
     "scope": "Computed palette contrast, visible focus, width, reduced motion, and stable live-region content; no assistive-device certification."
+  },
+  "deviceLayout": {
+    "date": "Fall 2026",
+    "results": [
+      {
+        "theme": "night",
+        "width": 1440,
+        "page": "Gauges",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "night",
+        "width": 1440,
+        "page": "Engine",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "night",
+        "width": 1440,
+        "page": "Trends",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "night",
+        "width": 1440,
+        "page": "Faults",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "night",
+        "width": 1440,
+        "page": "ACK",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "night",
+        "width": 390,
+        "page": "Gauges",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "night",
+        "width": 390,
+        "page": "Engine",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "night",
+        "width": 390,
+        "page": "Trends",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "night",
+        "width": 390,
+        "page": "Faults",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "night",
+        "width": 390,
+        "page": "ACK",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "night",
+        "width": 320,
+        "page": "Gauges",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "night",
+        "width": 320,
+        "page": "Engine",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "night",
+        "width": 320,
+        "page": "Trends",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "night",
+        "width": 320,
+        "page": "Faults",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "night",
+        "width": 320,
+        "page": "ACK",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "day",
+        "width": 1440,
+        "page": "Gauges",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "day",
+        "width": 1440,
+        "page": "Engine",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "day",
+        "width": 1440,
+        "page": "Trends",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "day",
+        "width": 1440,
+        "page": "Faults",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "day",
+        "width": 1440,
+        "page": "ACK",
+        "scrollWidth": 1440
+      },
+      {
+        "theme": "day",
+        "width": 390,
+        "page": "Gauges",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "day",
+        "width": 390,
+        "page": "Engine",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "day",
+        "width": 390,
+        "page": "Trends",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "day",
+        "width": 390,
+        "page": "Faults",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "day",
+        "width": 390,
+        "page": "ACK",
+        "scrollWidth": 390
+      },
+      {
+        "theme": "day",
+        "width": 320,
+        "page": "Gauges",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "day",
+        "width": 320,
+        "page": "Engine",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "day",
+        "width": 320,
+        "page": "Trends",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "day",
+        "width": 320,
+        "page": "Faults",
+        "scrollWidth": 320
+      },
+      {
+        "theme": "day",
+        "width": 320,
+        "page": "ACK",
+        "scrollWidth": 320
+      }
+    ],
+    "javascriptErrors": []
   },
   "scenarios": [
     {
@@ -2185,14 +2374,14 @@
       "gzipBytes": 110244
     },
     {
-      "file": "index-70nx4WS4.css",
-      "bytes": 33165,
-      "gzipBytes": 6645
+      "file": "index-BE25iLY-.css",
+      "bytes": 54619,
+      "gzipBytes": 10074
     },
     {
-      "file": "index-dMgNQ6oV.js",
-      "bytes": 274211,
-      "gzipBytes": 85066
+      "file": "index-DohvO5qE.js",
+      "bytes": 285537,
+      "gzipBytes": 87991
     }
   ],
   "limits": {
@@ -2206,120 +2395,5 @@
     "Long-duration browser soak",
     "Real hardware response",
     "Public hosting uptime"
-  ],
-  "reports": [
-    {
-      "format": "pdf",
-      "pages": 9,
-      "bytes": 283326,
-      "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41",
-      "metadataAndRepositoryLink": "pass",
-      "packagedBytes": "pass",
-      "visualInspection": "All nine pages rendered and visually inspected; pass."
-    },
-    {
-      "format": "docx",
-      "pages": 9,
-      "bytes": 315893,
-      "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a",
-      "metadataAndRepositoryLink": "pass",
-      "packagedBytes": "pass",
-      "visualInspection": "All nine pages rendered and visually inspected; pass."
-    }
-  ],
-  "conceptLabelRecheck": {
-    "date": "Fall 2026",
-    "label": "Design concept",
-    "targetedBrowserWorkflowsPassed": 3,
-    "targetedBrowserWorkflowsFailed": 0,
-    "labelChecks": [
-      {
-        "width": 1440,
-        "theme": "night",
-        "view": "Dashboard",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 1440,
-        "theme": "night",
-        "view": "Diagnostics",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 1440,
-        "theme": "night",
-        "view": "Settings",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 1440,
-        "theme": "day",
-        "view": "Dashboard",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 1440,
-        "theme": "day",
-        "view": "Diagnostics",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 1440,
-        "theme": "day",
-        "view": "Settings",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 390,
-        "theme": "night",
-        "view": "Dashboard",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 390,
-        "theme": "night",
-        "view": "Diagnostics",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 390,
-        "theme": "night",
-        "view": "Settings",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 390,
-        "theme": "day",
-        "view": "Dashboard",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 390,
-        "theme": "day",
-        "view": "Diagnostics",
-        "label": "Design concept",
-        "result": "pass"
-      },
-      {
-        "width": 390,
-        "theme": "day",
-        "view": "Settings",
-        "label": "Design concept",
-        "result": "pass"
-      }
-    ],
-    "textAndReportScan": "pass",
-    "bothLocalProductionBuilds": "pass",
-    "publication": "not performed"
-  }
+  ]
 }
