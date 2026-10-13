@@ -12,6 +12,9 @@ import {
   CircleHelp,
   Radio,
   CheckCircle2,
+  Play,
+  Pause,
+  RotateCcw,
 } from "lucide-react";
 import { Gauge } from "./components/Gauge";
 import { TrendChart } from "./components/TrendChart";
@@ -190,6 +193,35 @@ export function App() {
             <strong>{view}</strong>
           </div>
           <div className="topbar-right">
+            <div
+              className="session-actions topbar-session-actions"
+              role="group"
+              aria-label="Simulation session controls"
+            >
+              <button
+                className="button primary"
+                onClick={() =>
+                  dispatch({ type: state.running ? "pause" : "start" })
+                }
+                aria-label={
+                  state.running ? "Pause simulation" : "Start simulation"
+                }
+              >
+                {state.running ? (
+                  <Pause size={16} aria-hidden="true" />
+                ) : (
+                  <Play size={16} aria-hidden="true" />
+                )}{" "}
+                {state.running ? "Pause" : "Start"}
+              </button>
+              <button
+                className="button secondary"
+                onClick={() => dispatch({ type: "reset" })}
+                aria-label="Reset session"
+              >
+                <RotateCcw size={16} aria-hidden="true" /> Reset
+              </button>
+            </div>
             <span className="local-tag">
               <span className="status-dot normal" />
               LOCAL ENGINE

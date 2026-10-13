@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Pause, RotateCcw, Radio, RefreshCw } from "lucide-react";
+import { Play, Radio, RefreshCw } from "lucide-react";
 import { formatTime, scenarios } from "../engine/model";
 import type { Action } from "../engine/studio";
 import type { Mode, ScenarioId, StudioState } from "../engine/types";
@@ -30,25 +30,6 @@ export function ControlPanel({
         <p className="muted small">
           One engine model. Six synchronized channels.
         </p>
-        <div className="session-actions">
-          <button
-            className="button primary"
-            onClick={() =>
-              dispatch({ type: state.running ? "pause" : "start" })
-            }
-            aria-label={state.running ? "Pause simulation" : "Start simulation"}
-          >
-            {state.running ? <Pause size={16} /> : <Play size={16} />}{" "}
-            {state.running ? "Pause" : "Start"}
-          </button>
-          <button
-            className="button secondary"
-            onClick={() => dispatch({ type: "reset" })}
-            aria-label="Reset session"
-          >
-            <RotateCcw size={16} /> Reset
-          </button>
-        </div>
         <label className="field-label" htmlFor="mode">
           Operating mode
         </label>
