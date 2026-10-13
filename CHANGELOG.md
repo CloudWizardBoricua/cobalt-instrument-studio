@@ -4,7 +4,7 @@ _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardB
 
 ## 0.2.0 — Fall 2026
 
-Prepared for the approved second engineering release. Final local validation passed 100/100 unit and 17/17 browser tests, including standby, typography, 30 device-page combinations and the existing 18 application accessibility combinations, with no JavaScript errors. Report layout inspection and actual version 0.2.0 GitHub publication remain pending. The earlier [PR #1](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/1) checkpoint at main `453ea4a126fab0a44f4345871b401a5c11fbce86` passed 92 unit and 12 browser tests and both production checks. Initial v0.1.0 is unchanged.
+Prepared for the approved second engineering release. Final local validation passed 100/100 unit and 17/17 browser tests, including standby, typography, 30 device-page combinations and the existing 18 application accessibility combinations, with no JavaScript errors. All nine PDF pages and nine DOCX pages passed visual inspection, and report metadata, dates, and repository links were checked. Actual version 0.2.0 GitHub publication remains pending. The earlier [PR #1](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/1) checkpoint at main `453ea4a126fab0a44f4345871b401a5c11fbce86` passed 92 unit and 12 browser tests and both production checks. Initial v0.1.0 is unchanged.
 
 - Added a version 1 telemetry acceptance boundary with required numeric fields, finite/plausible values, monotonic timestamps, duplicate/out-of-order rejection, and explicit reasons.
 - Preserved last valid readings, sample age, history, and telemetry debounce across rejected deliveries. Added counted, deduplicated rejection episodes and accepted-delivery recovery evidence.
@@ -24,7 +24,7 @@ Prepared for the approved second engineering release. Final local validation pas
 - Verified main protection requiring PRs and strict CI checks from GitHub Actions, administrator enforcement, resolved conversations, and blocked force pushes/deletions.
 - Recorded unnecessary Git contact metadata in temporary browser-test artifacts and verified approved removal of both affected artifacts while retaining production builds. Disabled automatic Git capture and added report sanitization with regression tests and a check before upload, including failing test runs.
 
-Five-page functionality, standby, typography, and the privacy correction are implemented and checked locally. Regenerated report inspection, remote CI, updated hosting checks, and the new annotated tag/Release must complete before publication is reported as verified.
+Five-page functionality, standby, typography, the privacy correction, and both regenerated reports are implemented and checked locally. Remote CI, updated hosting checks, and the new annotated tag/Release must complete before publication is reported as verified.
 
 ## 0.1.0 — Fall 2026
 
