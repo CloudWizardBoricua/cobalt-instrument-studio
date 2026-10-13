@@ -4,6 +4,7 @@ _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardB
 
 ## Unreleased — Fall 2026
 
+- Move Start/Pause and Reset into the shared top toolbar so session controls are visible near the top on desktop and mobile across all three views.
 - Open the Device workspace by default so its preview, signal browser, and property editor are visible without expanding it. Manual collapse remains available and persists through simulation updates and view changes for the session.
 
 ## 0.2.0 — Fall 2026
