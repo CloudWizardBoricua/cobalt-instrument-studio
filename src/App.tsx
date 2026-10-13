@@ -91,6 +91,9 @@ export function App() {
             <strong>COBALT</strong>
             <small>INSTRUMENT STUDIO</small>
             <span className="developer-credit">Developed by Daren Diaz</span>
+            <span className="inspiration-credit">
+              (Inspired by Enovation Controls)
+            </span>
           </span>
         </div>
         <div className="workspace-label">WORKSPACE</div>

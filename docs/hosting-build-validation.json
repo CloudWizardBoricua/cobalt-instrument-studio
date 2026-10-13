@@ -5,7 +5,7 @@
     {
       "name": "root",
       "buildCommand": "npm run build",
-      "buildWallMs": 6353,
+      "buildWallMs": 6342,
       "browser": "pass",
       "downloads": [
         {
@@ -36,7 +36,7 @@
     {
       "name": "project",
       "buildCommand": "npm run build:pages",
-      "buildWallMs": 6246,
+      "buildWallMs": 6418,
       "browser": "pass",
       "downloads": [
         {
@@ -72,14 +72,14 @@
       "gzipBytes": 110244
     },
     {
-      "file": "index-D7SLLYLf.css",
-      "bytes": 22951,
-      "gzipBytes": 5059
+      "file": "index-DIXygwGS.js",
+      "bytes": 252781,
+      "gzipBytes": 78922
     },
     {
-      "file": "index-DNByDxH9.js",
-      "bytes": 252690,
-      "gzipBytes": 78895
+      "file": "index-DxFcj419.css",
+      "bytes": 23006,
+      "gzipBytes": 5071
     }
   ]
 }

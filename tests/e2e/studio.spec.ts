@@ -281,6 +281,9 @@ test("desktop and mobile remain usable and produce authentic screenshots", async
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(390);
+  await page
+    .getByRole("heading", { name: "System diagnostics", exact: true })
+    .click();
   await page.screenshot({
     path: "docs/assets/diagnostics-mobile.png",
     fullPage: true,
