@@ -48,7 +48,7 @@ Diagnostics explains threshold triggers, sample rejection reasons, acknowledgmen
 - Accepted data is copied field by field. Rejections preserve the last valid sample; repeated reasons are counted and logged once per rejection episode. A valid delivery records recovery.
 - Five guided replays separating simulated process faults from sample delivery faults.
 - Configurable thresholds, hysteresis, debounce, acknowledgment, timeout, and transition events; bounded 240-sample history and 100-event retention.
-- A collapsible device workspace across Dashboard, Diagnostics, and Settings: six display slots, live accepted-data preview, a six-signal browser, and a selected-slot property editor.
+- A device workspace that opens by default across Dashboard, Diagnostics, and Settings: six display slots, live accepted-data preview, a six-signal browser, and a selected-slot property editor. Visitors can collapse it manually; that choice holds through telemetry updates and view changes until the page reloads.
 - Five local device pages with shared softkeys: Gauges, Engine, Trends from accepted history, Faults, and ACK wired to central acknowledgment. The physical panel appearance is a simulated browser preview.
 - Atomic display edits for binding, label, and finite ordered range within each signal's display domain. Out-of-scale numeric readings remain visible while the needle clamps. Changes do not affect engine commands or diagnostic rules.
 - Responsive three-view layout, visible keyboard focus, meaningful control/gauge descriptions, day/night appearance, reduced motion, and textual condition states.
