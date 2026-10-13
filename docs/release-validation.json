@@ -1,0 +1,48 @@
+{
+  "date": "Fall 2026",
+  "repository": "CloudWizardBoricua/cobalt-instrument-studio",
+  "version": "0.1.0",
+  "tag": "v0.1.0",
+  "approvedCommit": "3b556c6d509b39301549af2e0ee2ade69d4495c5",
+  "workflow": {
+    "name": "Publish versioned release",
+    "path": ".github/workflows/release.yml",
+    "runId": "38331500958",
+    "headSha": "3b556c6d509b39301549af2e0ee2ade69d4495c5",
+    "status": "success",
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331500958",
+    "jobs": ["verify: passed", "release: passed"]
+  },
+  "annotatedTag": {
+    "type": "tag",
+    "objectSha": "2872e40d6c982c4f6c1f38d9398aa79a2fb25c61",
+    "peeledCommit": "3b556c6d509b39301549af2e0ee2ade69d4495c5"
+  },
+  "release": {
+    "count": 1,
+    "id": 411136923,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0",
+    "draft": false,
+    "prerelease": false,
+    "createdByWorkflow": true,
+    "notesExactAfterCrlfNormalization": true
+  },
+  "assets": [
+    {
+      "name": "Cobalt_Engineering_Report.pdf",
+      "bytes": 191174,
+      "sha256": "7f6068ae10a7ca94c1621a629d573900585bb86f0c3a916a1a9c06f2ae5db285",
+      "anonymousGet": "passed",
+      "localBytesEqual": true,
+      "githubDigest": "matched"
+    },
+    {
+      "name": "Cobalt_Engineering_Report.docx",
+      "bytes": 220998,
+      "sha256": "de15ca8319103bf800bc1d8feddca9eb4959157583bf46c9fb46f4fddce680cb",
+      "anonymousGet": "passed",
+      "localBytesEqual": true,
+      "githubDigest": "matched"
+    }
+  ]
+}

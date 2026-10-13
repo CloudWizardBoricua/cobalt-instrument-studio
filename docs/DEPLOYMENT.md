@@ -14,9 +14,9 @@ Version 0.1.0 is publicly hosted at two independent HTTPS endpoints. Both serve 
 | GitHub Pages      | [cloudwizardboricua.github.io/cobalt-instrument-studio](https://cloudwizardboricua.github.io/cobalt-instrument-studio/) | Independent backup                   |
 | GitHub repository | [CloudWizardBoricua/cobalt-instrument-studio](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)           | Public source; default branch `main` |
 
-Anonymous HTTPS checks passed for each site's HTML entry, referenced assets, repository link, observed README, and direct PDF/DOCX downloads. Downloaded report bytes matched the local artifacts. Both origins passed live checks for six changing instruments, mode and speed/load controls, Start/Pause/Reset, normal replay, overheat acknowledgment, and communication timeout/recovery. Dashboard, Diagnostics, and Settings each fit a 390 px viewport without horizontal overflow; observed error-level console logs were empty. [Public browser validation](public-browser-validation.json) records the results. These checks establish observed access and behavior, not future availability.
+Anonymous HTTPS checks passed for each site's HTML entry, referenced assets, repository link, observed README, and direct PDF/DOCX downloads. Downloaded report bytes matched the local artifacts. Both origins passed live checks for six changing instruments, mode and speed/load controls, Start/Pause/Reset, normal replay, overheat acknowledgment, and communication timeout/recovery. Dashboard, Diagnostics, and Settings each fit a 390 px viewport without horizontal overflow; observed error-level console logs were empty. [Public browser validation](public-browser-validation.json) and [public HTTP validation](public-http-validation.json) record the results. These checks establish observed access and behavior, not future availability.
 
-The [CI run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38329820747) passed 32 unit tests and 7 Chromium browser tests on Linux. The [Pages deployment run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38329820753) also passed. The separately verified local browser baseline used Microsoft Edge on Windows.
+The [CI run for the final report commit](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331306537) passed 32 unit tests and 7 Chromium browser tests on Linux. The corresponding [Pages deployment run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331306485) also passed, and the Netlify deployment was ready. The separately verified local browser baseline used Microsoft Edge on Windows.
 
 ## Build and deployment paths
 
@@ -26,16 +26,13 @@ The [CI run](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/acti
 
 The Netlify site uses a repository-scoped, read-only deploy key and a push webhook. Anonymous access was enabled on the new site after its initial protected response. Global Git identity, team defaults, billing, and the Free plan were not changed; automatic top-up remains disabled.
 
-## Release checkpoint
+## Published release
 
-The authorized release process is:
+The [v0.1.0 GitHub Release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0) was created by the [tag-triggered workflow](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38331500958) after the production checks passed. The annotated tag points to commit `3b556c6d509b39301549af2e0ee2ade69d4495c5`; the [tagged source tree](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/tree/v0.1.0) provides that reviewed version.
 
-1. Confirm the passed anonymous production checks and current CI/deployment results before tagging the reviewed commit.
-2. Create and push one annotated `v0.1.0` tag after those checks pass.
-3. Let the tag-triggered release workflow verify the package version, tests, and build, then create exactly one release with the PDF and DOCX attached.
-4. Verify the actual release and attachment downloads. Do not create a second manual release.
+The release workflow passed 32 unit tests and 7 browser tests, verified the package/tag version, and created exactly one release with two report attachments. Reviewed notes matched the published notes. Anonymous PDF/DOCX attachment downloads matched the local report bytes. [Release validation](release-validation.json) records the result; no duplicate manual release was created.
 
-The tag has not been pushed and no release is claimed yet. Repository-local commits use the approved developer attribution and a GitHub noreply address; global Git identity remains unchanged. No project license has been selected; dependency licenses remain applicable.
+For future versions, review production and CI results before pushing the annotated version tag, let the workflow create the release, and verify its notes and downloads. Repository-local commits use the approved developer attribution and a GitHub noreply address; global Git identity remains unchanged. No project license has been selected; dependency licenses remain applicable.
 
 ## Hosting limits
 
