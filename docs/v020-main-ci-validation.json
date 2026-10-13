@@ -1,0 +1,403 @@
+{
+  "date": "Fall 2026",
+  "version": "0.2.0",
+  "scope": "Read-only verification of actual main CI and downloaded immutable artifacts; this inspection did not merge or publish.",
+  "repository": "CloudWizardBoricua/cobalt-instrument-studio",
+  "mainCommit": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+  "run": {
+    "id": 38346046807,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346046807",
+    "headSha": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+    "result": "success",
+    "event": "push",
+    "attempt": 1
+  },
+  "mainProof": {
+    "sha": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+    "treeSha": "ceb27470cb8d24e39f97716716ecd8c7e664d835",
+    "parents": [
+      "453ea4a126fab0a44f4345871b401a5c11fbce86",
+      "47caa1a2756bb7fe087229c7048dbdf45296b8a5"
+    ],
+    "source": "GitHub main branch, workflow run and immutable commit API"
+  },
+  "jobs": [
+    {
+      "name": "CI verification",
+      "result": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "result": "success"
+        },
+        {
+          "name": "Check out the exact source revision",
+          "result": "success"
+        },
+        {
+          "name": "Set up Node.js 24",
+          "result": "success"
+        },
+        {
+          "name": "Install dependencies from the committed lockfile",
+          "result": "success"
+        },
+        {
+          "name": "Validate workflow contracts and immutable action references",
+          "result": "success"
+        },
+        {
+          "name": "Check TypeScript",
+          "result": "success"
+        },
+        {
+          "name": "Run unit and release-contract tests with a JSON report",
+          "result": "success"
+        },
+        {
+          "name": "Check privacy and independent-project content",
+          "result": "success"
+        },
+        {
+          "name": "Build the Netlify root path",
+          "result": "success"
+        },
+        {
+          "name": "Build the GitHub Pages project path",
+          "result": "success"
+        },
+        {
+          "name": "Install Chromium and required browser libraries",
+          "result": "success"
+        },
+        {
+          "name": "Test browser workflows and capture screenshots and failure traces",
+          "result": "success"
+        },
+        {
+          "name": "Verify both production paths and exact report downloads",
+          "result": "success"
+        },
+        {
+          "name": "Check generated content before retaining build artifacts",
+          "result": "success"
+        },
+        {
+          "name": "Prepare private-safe test reports",
+          "result": "success"
+        },
+        {
+          "name": "Bind verified build contents to the source commit",
+          "result": "success"
+        },
+        {
+          "name": "Upload verified production builds and release inputs",
+          "result": "success"
+        },
+        {
+          "name": "Preserve test reports, screenshots, and failure traces",
+          "result": "success"
+        },
+        {
+          "name": "Post Set up Node.js 24",
+          "result": "success"
+        },
+        {
+          "name": "Post Check out the exact source revision",
+          "result": "success"
+        },
+        {
+          "name": "Complete job",
+          "result": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11789480222,
+      "name": "cobalt-production-builds-1",
+      "bytes": 2268992,
+      "sha256": "30f67ecd3f2e886a272523fdf4d8c74db563fa08ba79f3d793b9a84bd29f8802",
+      "githubDigestMatches": true,
+      "retentionDays": 14,
+      "observedLifetimeSeconds": 1209599,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346046807/artifacts/11789480222"
+    },
+    {
+      "id": 11788674159,
+      "name": "cobalt-test-results-1",
+      "bytes": 3203481,
+      "sha256": "61fbacae9f7e971e41992a03366d1dc3efb4ea39aeeb520b079ad1be45b2e6ea",
+      "githubDigestMatches": true,
+      "retentionDays": 7,
+      "observedLifetimeSeconds": 604799,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346046807/artifacts/11788674159"
+    }
+  ],
+  "production": {
+    "sourceCommit": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+    "executionContext": "github-actions",
+    "inventory": [
+      {
+        "name": "dist/assets/charts-DsTfUnqE.js",
+        "bytes": 373798,
+        "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800"
+      },
+      {
+        "name": "dist/assets/index-BE25iLY-.css",
+        "bytes": 54619,
+        "sha256": "e06290ea8eec535e5c5c49d48a07cc788fc4f129984052055db368c25caf94ef"
+      },
+      {
+        "name": "dist/assets/index-DfmU5i0F.js",
+        "bytes": 285764,
+        "sha256": "46529d6b7dd08f4a3adb951fd6f354de1236db08a2afe0febaf04e60a8cfd490"
+      },
+      {
+        "name": "dist/favicon.svg",
+        "bytes": 328,
+        "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1"
+      },
+      {
+        "name": "dist/index.html",
+        "bytes": 1111,
+        "sha256": "52a4545f579ab9c0243000467b2c650e6de33db79c46a50d2550d4180cd2e98a"
+      },
+      {
+        "name": "dist/reports/Cobalt_Engineering_Report.docx",
+        "bytes": 554147,
+        "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
+      },
+      {
+        "name": "dist/reports/Cobalt_Engineering_Report.pdf",
+        "bytes": 459765,
+        "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
+      },
+      {
+        "name": "dist-pages/assets/charts-DsTfUnqE.js",
+        "bytes": 373798,
+        "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800"
+      },
+      {
+        "name": "dist-pages/assets/index-BE25iLY-.css",
+        "bytes": 54619,
+        "sha256": "e06290ea8eec535e5c5c49d48a07cc788fc4f129984052055db368c25caf94ef"
+      },
+      {
+        "name": "dist-pages/assets/index-CLKYI3na.js",
+        "bytes": 285839,
+        "sha256": "97ce507aa8d4e6409d407baa7160bb18203664d9aa447cf180dff319e614e3e2"
+      },
+      {
+        "name": "dist-pages/favicon.svg",
+        "bytes": 328,
+        "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1"
+      },
+      {
+        "name": "dist-pages/index.html",
+        "bytes": 1211,
+        "sha256": "2325416cf4f40b77030ec389e53ee0855a366ddb56d5fe98f849395bdf2e03b0"
+      },
+      {
+        "name": "dist-pages/reports/Cobalt_Engineering_Report.docx",
+        "bytes": 554147,
+        "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
+      },
+      {
+        "name": "dist-pages/reports/Cobalt_Engineering_Report.pdf",
+        "bytes": 459765,
+        "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
+      },
+      {
+        "name": "package.json",
+        "bytes": 1188,
+        "sha256": "eb0e0381a305b0b54d1f028d3ff0e455a2a9a62dd556bfacfffdca6bc1f9e9e8"
+      },
+      {
+        "name": "CHANGELOG.md",
+        "bytes": 5238,
+        "sha256": "90866880335fea07db240e0c6844823ba5525c20b72f025c5d4f86515dd4b7c8"
+      },
+      {
+        "name": "docs/RELEASE_NOTES.md",
+        "bytes": 2975,
+        "sha256": "10adb385b5ca32259440e517e1cf2504f6d86d3806d8d58b15aa1d46d0bf9d55"
+      },
+      {
+        "name": "docs/report-source.json",
+        "bytes": 25035,
+        "sha256": "645e4acc14c9ee2653f4621f19789f4ad94716db9eec5cb5f03ea83d5bc5b0ab"
+      }
+    ],
+    "unrecordedFiles": false,
+    "reports": [
+      {
+        "name": "Cobalt_Engineering_Report.pdf",
+        "bytes": 459765,
+        "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9",
+        "bothHostingCopiesEqual": true
+      },
+      {
+        "name": "Cobalt_Engineering_Report.docx",
+        "bytes": 554147,
+        "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79",
+        "bothHostingCopiesEqual": true
+      }
+    ]
+  },
+  "tests": {
+    "unit": {
+      "passed": 100,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 17,
+      "failed": 0,
+      "identity": {
+        "realtimeSimulationSecondsObserved": 3,
+        "wallMillisecondsToObserve": 3536,
+        "javascriptErrors": [],
+        "browser": "chromium",
+        "browserVersion": "156.0.8078.4",
+        "browserChannel": null,
+        "browserPlatform": "linux",
+        "desktop": {
+          "width": 1440,
+          "height": 1100
+        }
+      }
+    },
+    "deviceLayout": {
+      "combinations": 30,
+      "pages": [
+        "Gauges",
+        "Engine",
+        "Trends",
+        "Faults",
+        "ACK"
+      ],
+      "widths": [
+        1440,
+        390,
+        320
+      ],
+      "themes": [
+        "night",
+        "day"
+      ],
+      "allWithinViewport": true,
+      "javascriptErrors": 0
+    },
+    "screenshots": [
+      {
+        "path": "docs/assets/dashboard-desktop.png",
+        "bytes": 172748,
+        "sha256": "b0e6e91eac396ee84ad2d6e0b85478e4fd381653681503b94bbdb2a5fb71ec2b",
+        "width": 1440,
+        "height": 1100
+      },
+      {
+        "path": "docs/assets/dashboard-mobile.png",
+        "bytes": 226786,
+        "sha256": "72eba7374feac3397642157b5516e4cf4f9b00132a377bb1a56134b3891e7e21",
+        "width": 390,
+        "height": 3523
+      },
+      {
+        "path": "docs/assets/diagnostics-mobile.png",
+        "bytes": 172636,
+        "sha256": "1053cbd873027778c83fd76e12321398ccc0ec86bcac6081d31c8a1c2441342a",
+        "width": 390,
+        "height": 2741
+      },
+      {
+        "path": "docs/assets/oil-pressure-mobile.png",
+        "bytes": 190416,
+        "sha256": "380455132744043e5e730063ad12db7c7ea5e18f6f8a219f2819af87686ffb34",
+        "width": 390,
+        "height": 2903
+      },
+      {
+        "path": "docs/assets/rejected-sample-desktop.png",
+        "bytes": 21588,
+        "sha256": "f7ecaae20d8729f7a555231efa0667f737b2e816fab21c5d8b27976e0b5fb367",
+        "width": 1156,
+        "height": 225
+      },
+      {
+        "path": "docs/assets/workspace-desktop.png",
+        "bytes": 398364,
+        "sha256": "af744010bcf99788d6b806ed971bb43e6fe0dc622c9adc2da1e97e74583a68da",
+        "width": 1156,
+        "height": 1267
+      },
+      {
+        "path": "docs/assets/device-cockpit-engine.png",
+        "bytes": 382069,
+        "sha256": "31e70782e67760b0fc3d414191a269a8ad7e2074f0d94938c4510a1e0f6e7c91",
+        "width": 1114,
+        "height": 959
+      },
+      {
+        "path": "docs/assets/device-cockpit-gauges.png",
+        "bytes": 438160,
+        "sha256": "f5d21cc2ff5a5136e8b11b9b4f09a16f8e168d2421afb5456452cee878cb30e6",
+        "width": 1114,
+        "height": 1113
+      },
+      {
+        "path": "docs/assets/device-cockpit-trends.png",
+        "bytes": 401579,
+        "sha256": "1c12f8d5fbd55f98e1ee04f656fa5f2eb1d072ce2178096b890b01971c88b6de",
+        "width": 1114,
+        "height": 1076
+      },
+      {
+        "path": "docs/assets/device-cockpit-faults.png",
+        "bytes": 272046,
+        "sha256": "454e440d41d23f4209f248194b43b73f5f43f1ec5368850127c3e9cfc9d4c341",
+        "width": 1114,
+        "height": 779
+      },
+      {
+        "path": "docs/assets/device-cockpit-ack.png",
+        "bytes": 265140,
+        "sha256": "c1269ad20da1782a425218fa6a6618bec76a83aade099ad3560257fb320e4514",
+        "width": 1114,
+        "height": 779
+      },
+      {
+        "path": "docs/assets/device-cockpit-mobile.png",
+        "bytes": 294217,
+        "sha256": "e8df7336a53ee5b994e025bc85237e7d109fb2ebb178e0e607c19cf0da51631d",
+        "width": 328,
+        "height": 1708
+      }
+    ],
+    "selectedJSONPrivacy": "passed; no Git commit/diff metadata, contact/token values or private Windows user paths",
+    "allRetainedJSONPrivacy": "passed; all seven retained JSON files inspected",
+    "fileInventory": [
+      ".local/accessibility-measurements.json",
+      ".local/browser-measurements.json",
+      ".local/device-page-layout-results.json",
+      ".local/e2e-results.json",
+      ".local/unit-results.json",
+      "docs/assets/dashboard-desktop.png",
+      "docs/assets/dashboard-mobile.png",
+      "docs/assets/device-cockpit-ack.png",
+      "docs/assets/device-cockpit-engine.png",
+      "docs/assets/device-cockpit-faults.png",
+      "docs/assets/device-cockpit-gauges.png",
+      "docs/assets/device-cockpit-mobile.png",
+      "docs/assets/device-cockpit-trends.png",
+      "docs/assets/diagnostics-mobile.png",
+      "docs/assets/oil-pressure-mobile.png",
+      "docs/assets/rejected-sample-desktop.png",
+      "docs/assets/workspace-desktop.png",
+      "docs/hosting-build-validation.json",
+      "test-results/.last-run.json"
+    ],
+    "failureTraces": 0
+  }
+}

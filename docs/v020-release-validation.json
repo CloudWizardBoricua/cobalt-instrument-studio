@@ -1,0 +1,178 @@
+{
+  "date": "Fall 2026",
+  "repository": "CloudWizardBoricua/cobalt-instrument-studio",
+  "version": "0.2.0",
+  "tag": "v0.2.0",
+  "mainCommit": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+  "status": "passed",
+  "operation": "Read-only GitHub inspection and inbound downloads; no tags, releases, assets, workflows, or repository content were modified.",
+  "annotatedTag": {
+    "objectSha": "6717225a7628961153b7804cf07cc0906e6f0e5d",
+    "type": "tag",
+    "peeledCommit": "5e7615a98478ae14301da4377c9e6a2255cd2139"
+  },
+  "workflow": {
+    "id": 38346481631,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346481631",
+    "path": ".github/workflows/release.yml",
+    "event": "push",
+    "headSha": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+    "ref": "v0.2.0",
+    "status": "completed",
+    "conclusion": "success",
+    "attempt": 1,
+    "jobs": [
+      {
+        "name": "Verify annotated tag and version agreement",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Verify the tagged builds with CI / CI verification",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Package and publish verified release",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "release": {
+    "id": 411273630,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.2.0",
+    "countForTag": 1,
+    "draft": false,
+    "prerelease": false,
+    "notesMatchTaggedSource": true,
+    "successfulRunAndCommitLinked": true,
+    "allFiveChecksumsInPublishedNotes": true
+  },
+  "assets": [
+    {
+      "name": "Cobalt_Engineering_Report.docx",
+      "bytes": 554147,
+      "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79",
+      "githubDigestMatches": true,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Engineering_Report.docx"
+    },
+    {
+      "name": "Cobalt_Engineering_Report.pdf",
+      "bytes": 459765,
+      "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9",
+      "githubDigestMatches": true,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Engineering_Report.pdf"
+    },
+    {
+      "name": "Cobalt_Static_Build_v0.2.0.tar.gz",
+      "bytes": 2257932,
+      "sha256": "7642947cf965916121b286ff5b765c112a93cd45890e582eaacc9bf8be64014d",
+      "githubDigestMatches": true,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Static_Build_v0.2.0.tar.gz"
+    },
+    {
+      "name": "release-manifest.json",
+      "bytes": 3336,
+      "sha256": "21bfb4ca37821f893420a6d4505d455908eef65345aa90f3b7f0665b31cf9a89",
+      "githubDigestMatches": true,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/release-manifest.json"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 381,
+      "sha256": "460ea396fd975988242d2473538b8718ef9ab934bd650239b75eb9fc1aeed651",
+      "githubDigestMatches": true,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/SHA256SUMS.txt"
+    }
+  ],
+  "archive": {
+    "name": "Cobalt_Static_Build_v0.2.0.tar.gz",
+    "fileCount": 14,
+    "allFileHashesMatchTestedManifest": true,
+    "bothEmbeddedReportsMatchAttachments": true,
+    "bases": {
+      "dist": "/",
+      "dist-pages": "/cobalt-instrument-studio/"
+    }
+  },
+  "manifest": {
+    "schemaVersion": 1,
+    "version": "0.2.0",
+    "tag": "v0.2.0",
+    "sourceCommit": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+    "executionContext": "github-actions",
+    "checks": [
+      "typecheck",
+      "unit",
+      "privacy",
+      "browser",
+      "static-hosting"
+    ]
+  },
+  "historicalInitialRelease": {
+    "tag": "v0.1.0",
+    "annotatedObjectSha": "2872e40d6c982c4f6c1f38d9398aa79a2fb25c61",
+    "commit": "3b556c6d509b39301549af2e0ee2ade69d4495c5",
+    "releaseId": 411136923,
+    "unchanged": true,
+    "assetCount": 2
+  },
+  "localDownloadDirectory": ".local/v020-release-assets-eO8Pl7",
+  "limitations": [
+    "Release asset and archive inspection does not independently establish production uptime, physical equipment integration, or runtime/browser behavior."
+  ],
+  "tagCI": {
+    "date": "Fall 2026",
+    "version": "0.2.0",
+    "scope": "Read-only inspection of actual tag CI test artifact; no local test rerun or remote mutation.",
+    "run": {
+      "id": 38346481631,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346481631",
+      "result": "success",
+      "headSha": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+      "ref": "v0.2.0",
+      "attempt": 1
+    },
+    "artifact": {
+      "id": 11789331591,
+      "name": "cobalt-test-results-1",
+      "bytes": 3203455,
+      "sha256": "040e8b49f45a507ce337a5dd1ca620e8f5af2ea640d3d08dd3b8ce8dcc6379f7",
+      "githubDigestMatches": true,
+      "retentionDays": 7
+    },
+    "unit": {
+      "passed": 100,
+      "failed": 0,
+      "pending": 0
+    },
+    "browser": {
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "identity": {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "channel": null,
+        "platform": "linux"
+      }
+    },
+    "deviceLayouts": {
+      "combinations": 30,
+      "withinViewport": true,
+      "javascriptErrors": 0
+    },
+    "screenshots": 12,
+    "privacy": {
+      "selectedReports": 6,
+      "allRetainedJSONFiles": 7,
+      "passed": true
+    },
+    "lastRun": {
+      "status": "passed",
+      "failedTests": 0
+    }
+  }
+}

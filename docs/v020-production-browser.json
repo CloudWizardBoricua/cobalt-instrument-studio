@@ -1,0 +1,1511 @@
+{
+  "date": "Fall 2026",
+  "version": "0.2.0",
+  "sourceCommit": "5e7615a98478ae14301da4377c9e6a2255cd2139",
+  "method": "Fresh isolated installed Edge contexts load actual public origins; copied current source tests write only ignored evidence. Hosting deployment/source/report proof is separate in v020-production-validation.json.",
+  "sites": [
+    {
+      "key": "primary",
+      "url": "https://cobalt-instrument-studio.netlify.app/",
+      "unitSystemStandby": "Literal zero in metric and imperial displays passed; Start, Pause, Reset, and guided replay verified.",
+      "browserTests": {
+        "passed": 17,
+        "failed": 0,
+        "durationMs": 44458.214,
+        "scenarioClock": "Controlled clock for guided paths, separate real-clock start/pause smoke."
+      },
+      "browserRuntime": {
+        "realtimeSimulationSecondsObserved": 3,
+        "wallMillisecondsToObserve": 3486,
+        "javascriptErrors": [],
+        "browser": "chromium",
+        "browserVersion": "155.0.4283.45",
+        "browserChannel": "msedge",
+        "browserPlatform": "win32",
+        "desktop": {
+          "width": 1440,
+          "height": 1100
+        }
+      },
+      "deviceLayout": {
+        "date": "Fall 2026",
+        "results": [
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Gauges",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Engine",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Trends",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Faults",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "ACK",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Gauges",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Engine",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Trends",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Faults",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "ACK",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Gauges",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Engine",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Trends",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Faults",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "ACK",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Gauges",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Engine",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Trends",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Faults",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "ACK",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Gauges",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Engine",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Trends",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Faults",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "ACK",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Gauges",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Engine",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Trends",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Faults",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "ACK",
+            "scrollWidth": 320
+          }
+        ],
+        "javascriptErrors": []
+      },
+      "accessibility": {
+        "checks": [
+          {
+            "width": 1440,
+            "theme": "day",
+            "view": "Dashboard",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "day",
+            "view": "Diagnostics",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "day",
+            "view": "Settings",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Day",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "night",
+            "view": "Dashboard",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "night",
+            "view": "Diagnostics",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "night",
+            "view": "Settings",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Night",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 390,
+            "theme": "day",
+            "view": "Dashboard",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 390,
+            "theme": "day",
+            "view": "Diagnostics",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 390,
+            "theme": "day",
+            "view": "Settings",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Day",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 390,
+            "theme": "night",
+            "view": "Dashboard",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 390,
+            "theme": "night",
+            "view": "Diagnostics",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 390,
+            "theme": "night",
+            "view": "Settings",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Night",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 320,
+            "theme": "day",
+            "view": "Dashboard",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 320,
+            "theme": "day",
+            "view": "Diagnostics",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 320,
+            "theme": "day",
+            "view": "Settings",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Day",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 320,
+            "theme": "night",
+            "view": "Dashboard",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 320,
+            "theme": "night",
+            "view": "Diagnostics",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 320,
+            "theme": "night",
+            "view": "Settings",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Night",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          }
+        ],
+        "scope": "Computed palette contrast, visible focus, width, reduced motion, and stable live-region content; no assistive-device certification."
+      },
+      "testCases": [
+        {
+          "title": "device navigation and engine inspection preserve the accepted sample and display properties",
+          "result": "passed"
+        },
+        {
+          "title": "device ACK shares acknowledgment, escalation and clearing with central diagnostics",
+          "result": "passed"
+        },
+        {
+          "title": "three device trends retain accepted history through invalid deliveries and resume on recovery",
+          "result": "passed"
+        },
+        {
+          "title": "all five device pages fit desktop and narrow screens in both themes",
+          "result": "passed"
+        },
+        {
+          "title": "all instrument displays stay at zero until start, hold on pause and return to zero on reset",
+          "result": "passed"
+        },
+        {
+          "title": "invalid delivery preserves all accepted readings, ages them, and recovers",
+          "result": "passed"
+        },
+        {
+          "title": "oil pressure loss escalates after acknowledgment and clears on recovery",
+          "result": "passed"
+        },
+        {
+          "title": "device properties apply atomically, retain across views, and preserve the engine",
+          "result": "passed"
+        },
+        {
+          "title": "all views support keyboard focus, day/night contrast, mobile, and stable announcements",
+          "result": "passed"
+        },
+        {
+          "title": "device workspace supports keyboard selection, property submission, and reset",
+          "result": "passed"
+        },
+        {
+          "title": "desktop controls update real telemetry, pause, and reset",
+          "result": "passed"
+        },
+        {
+          "title": "normal ramp runs all instruments and changes selected trend series",
+          "result": "passed"
+        },
+        {
+          "title": "overheat warning escalates, acknowledgment records review, reset resolves",
+          "result": "passed"
+        },
+        {
+          "title": "communication loss freezes values, marks stale, and restores automatically",
+          "result": "passed"
+        },
+        {
+          "title": "settings validate thresholds and persist appearance, units, and visibility",
+          "result": "passed"
+        },
+        {
+          "title": "CSV exports download with explicit simulation labeling",
+          "result": "passed"
+        },
+        {
+          "title": "desktop and mobile remain usable and produce authentic screenshots",
+          "result": "passed"
+        }
+      ],
+      "screenshots": "Ignored isolated captures under .local/v020-public-e2e/primary/assets"
+    },
+    {
+      "key": "backup",
+      "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/",
+      "unitSystemStandby": "Literal zero in metric and imperial displays passed; Start, Pause, Reset, and guided replay verified.",
+      "browserTests": {
+        "passed": 17,
+        "failed": 0,
+        "durationMs": 47479.667,
+        "scenarioClock": "Controlled clock for guided paths, separate real-clock start/pause smoke."
+      },
+      "browserRuntime": {
+        "realtimeSimulationSecondsObserved": 3,
+        "wallMillisecondsToObserve": 3517,
+        "javascriptErrors": [],
+        "browser": "chromium",
+        "browserVersion": "155.0.4283.45",
+        "browserChannel": "msedge",
+        "browserPlatform": "win32",
+        "desktop": {
+          "width": 1440,
+          "height": 1100
+        }
+      },
+      "deviceLayout": {
+        "date": "Fall 2026",
+        "results": [
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Gauges",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Engine",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Trends",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "Faults",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 1440,
+            "page": "ACK",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Gauges",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Engine",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Trends",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "Faults",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 390,
+            "page": "ACK",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Gauges",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Engine",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Trends",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "Faults",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "night",
+            "width": 320,
+            "page": "ACK",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Gauges",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Engine",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Trends",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "Faults",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 1440,
+            "page": "ACK",
+            "scrollWidth": 1440
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Gauges",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Engine",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Trends",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "Faults",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 390,
+            "page": "ACK",
+            "scrollWidth": 390
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Gauges",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Engine",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Trends",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "Faults",
+            "scrollWidth": 320
+          },
+          {
+            "theme": "day",
+            "width": 320,
+            "page": "ACK",
+            "scrollWidth": 320
+          }
+        ],
+        "javascriptErrors": []
+      },
+      "accessibility": {
+        "checks": [
+          {
+            "width": 1440,
+            "theme": "day",
+            "view": "Dashboard",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "day",
+            "view": "Diagnostics",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "day",
+            "view": "Settings",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Day",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "night",
+            "view": "Dashboard",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "night",
+            "view": "Diagnostics",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 1440,
+            "theme": "night",
+            "view": "Settings",
+            "scrollWidth": 1440,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Night",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 390,
+            "theme": "day",
+            "view": "Dashboard",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 390,
+            "theme": "day",
+            "view": "Diagnostics",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 390,
+            "theme": "day",
+            "view": "Settings",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Day",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 390,
+            "theme": "night",
+            "view": "Dashboard",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 390,
+            "theme": "night",
+            "view": "Diagnostics",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 390,
+            "theme": "night",
+            "view": "Settings",
+            "scrollWidth": 390,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Night",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 320,
+            "theme": "day",
+            "view": "Dashboard",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 320,
+            "theme": "day",
+            "view": "Diagnostics",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 320,
+            "theme": "day",
+            "view": "Settings",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Day",
+                "ratio": 5.271171248509958
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.271171248509958
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.49982322728535,
+              "--muted": 6.30252006817017,
+              "--accent": 5.986453723270191,
+              "--normal": 5.481182230243913,
+              "--warning": 5.357732035431237,
+              "--critical": 6.011699232420015
+            }
+          },
+          {
+            "width": 320,
+            "theme": "night",
+            "view": "Dashboard",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Dashboard",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 320,
+            "theme": "night",
+            "view": "Diagnostics",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Diagnostics",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          },
+          {
+            "width": 320,
+            "theme": "night",
+            "view": "Settings",
+            "scrollWidth": 320,
+            "actualControls": [
+              {
+                "text": "Settings",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Night",
+                "ratio": 5.619989258937964
+              },
+              {
+                "text": "Imperial",
+                "ratio": 5.619989258937964
+              }
+            ],
+            "focusStyle": "solid",
+            "focusWidth": 3,
+            "transitionSeconds": 0,
+            "contrast": {
+              "--text": 15.220003223570584,
+              "--muted": 8.349579077832807,
+              "--accent": 4.67131416411582,
+              "--normal": 10.062411762888228,
+              "--warning": 10.492449915487203,
+              "--critical": 6.878870054369958
+            }
+          }
+        ],
+        "scope": "Computed palette contrast, visible focus, width, reduced motion, and stable live-region content; no assistive-device certification."
+      },
+      "testCases": [
+        {
+          "title": "device navigation and engine inspection preserve the accepted sample and display properties",
+          "result": "passed"
+        },
+        {
+          "title": "device ACK shares acknowledgment, escalation and clearing with central diagnostics",
+          "result": "passed"
+        },
+        {
+          "title": "three device trends retain accepted history through invalid deliveries and resume on recovery",
+          "result": "passed"
+        },
+        {
+          "title": "all five device pages fit desktop and narrow screens in both themes",
+          "result": "passed"
+        },
+        {
+          "title": "all instrument displays stay at zero until start, hold on pause and return to zero on reset",
+          "result": "passed"
+        },
+        {
+          "title": "invalid delivery preserves all accepted readings, ages them, and recovers",
+          "result": "passed"
+        },
+        {
+          "title": "oil pressure loss escalates after acknowledgment and clears on recovery",
+          "result": "passed"
+        },
+        {
+          "title": "device properties apply atomically, retain across views, and preserve the engine",
+          "result": "passed"
+        },
+        {
+          "title": "all views support keyboard focus, day/night contrast, mobile, and stable announcements",
+          "result": "passed"
+        },
+        {
+          "title": "device workspace supports keyboard selection, property submission, and reset",
+          "result": "passed"
+        },
+        {
+          "title": "desktop controls update real telemetry, pause, and reset",
+          "result": "passed"
+        },
+        {
+          "title": "normal ramp runs all instruments and changes selected trend series",
+          "result": "passed"
+        },
+        {
+          "title": "overheat warning escalates, acknowledgment records review, reset resolves",
+          "result": "passed"
+        },
+        {
+          "title": "communication loss freezes values, marks stale, and restores automatically",
+          "result": "passed"
+        },
+        {
+          "title": "settings validate thresholds and persist appearance, units, and visibility",
+          "result": "passed"
+        },
+        {
+          "title": "CSV exports download with explicit simulation labeling",
+          "result": "passed"
+        },
+        {
+          "title": "desktop and mobile remain usable and produce authentic screenshots",
+          "result": "passed"
+        }
+      ],
+      "screenshots": "Ignored isolated captures under .local/v020-public-e2e/backup/assets"
+    }
+  ],
+  "unmeasured": [
+    "Safari/Firefox",
+    "Physical mobile device",
+    "Real equipment",
+    "Long-duration soak",
+    "Uptime guarantee"
+  ]
+}
