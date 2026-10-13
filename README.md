@@ -14,6 +14,10 @@ An original industrial telemetry simulator built to make operating behavior insp
 
 ![Actual desktop browser capture of the simulator](docs/assets/dashboard-desktop.png)
 
+![Device workspace with simulated Engine preview, signal browser, and Slot 1 property editor showing an unapplied display-label draft](docs/assets/device-workspace-engine.png)
+
+Device workspace with the simulated Engine preview, signal browser, and display property editor. The label change shown is an unapplied draft.
+
 ## Published version and verification
 
 Try [Netlify, the primary demo](https://cobalt-instrument-studio.netlify.app/), or [GitHub Pages, the independent backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/). Version 0.2.0 was merged through [PR #11](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/11) at main commit `5e7615a98478ae14301da4377c9e6a2255cd2139` and is deployed on both sites.
