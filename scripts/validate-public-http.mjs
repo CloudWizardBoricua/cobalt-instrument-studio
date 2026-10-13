@@ -263,6 +263,30 @@ async function inspectSite(name, site, output, repository, reports) {
     }
     let sourceReferenceFound = html.includes(repository.href);
     for (const asset of assets) {
+      const observedUrl = new URL(asset.reference, site);
+      if (
+        name === "primary" &&
+        asset.kind === "javascript" &&
+        observedUrl.origin === site.origin &&
+        observedUrl.pathname === "/.netlify/scripts/hud" &&
+        observedUrl.search === "?variant=public" &&
+        !observedUrl.hash
+      ) {
+        // Netlify injects this provider badge after the application build.
+        const hostingAsset = await get(
+          observedUrl,
+          "javascript",
+          "/.netlify/scripts/",
+        );
+        result.hostingAssets ??= [];
+        result.hostingAssets.push({
+          path: observedUrl.pathname + observedUrl.search,
+          status: hostingAsset.status,
+          bytes: hostingAsset.bytes.length,
+          localBuildMatches: "Provider asset; no local build counterpart",
+        });
+        continue;
+      }
       const url = publicAssetUrl(asset.reference, site);
       const response = await get(url, asset.kind, site.pathname);
       const relativePath = decodeURIComponent(
@@ -306,7 +330,7 @@ async function inspectSite(name, site, output, repository, reports) {
         "The public build does not contain the configured source repository URL.",
       );
     result.checks.push(
-      "Linked JavaScript, CSS and favicon use the correct base and match the current local build",
+      "Application JavaScript, CSS and favicon use the correct base and match the current local build",
     );
     result.checks.push(
       "The configured public source repository URL is present in the delivered app code",

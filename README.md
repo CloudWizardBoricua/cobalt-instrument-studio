@@ -12,6 +12,8 @@ An original industrial telemetry simulator built to make operating behavior insp
 
 ## Explore the project
 
+Open the [live Netlify demo](https://cobalt-instrument-studio.netlify.app/) or the independent [GitHub Pages backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/). The [public source repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio) uses `main` as its default branch. Both sites serve static assets and run the simulation in your browser.
+
 Start the simulation, choose Idle, Normal, High Load, or Fault, and adjust speed/load commands. Pause freezes simulation time; Reset creates a fresh session. The guided scenarios use seed `27041`:
 
 - **Normal operating ramp:** moves from idle to normal speed and load while oil pressure follows and temperature responds slowly.
@@ -29,7 +31,7 @@ Open Diagnostics to inspect trigger reasons, acknowledge alerts, and review reco
 - Dashboard, Diagnostics, and Settings views with responsive layout, day/night appearance, metric/imperial display, and gauge visibility preferences.
 - Validated, versioned LocalStorage preferences with fallback when storage is unavailable. No telemetry or event persistence.
 - An engineering evidence panel and local CSV downloads explicitly labeled as simulated.
-- PDF/DOCX reports, real desktop/mobile screenshots, tests, and prepared CI/release/hosting configuration.
+- PDF/DOCX reports, real desktop/mobile screenshots, tests, passing remote CI, and two verified public static deployments.
 
 ## Run and validate
 
@@ -75,9 +77,9 @@ Temperature has first-order inertia. Oil pressure rises with speed and weakens u
 
 ## Validation evidence
 
-The current verified baseline is **32 unit tests and 7 browser tests passing**. The suite covers normal/fault/recovery paths, pause/reset, seeded replay, limits, persistence, CSV download, and 1440 px desktop / 390 px mobile layouts. Guided browser tests use a controlled clock; a separate real-time smoke check verifies visible updates and pause behavior. Exact observations are in [validation evidence](docs/validation-evidence.json) and the engineering report.
+The current verified baseline is **32 unit tests and 7 browser tests passing** on local Windows with Microsoft Edge and separately in [GitHub Actions on Linux with Chromium](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38329820747). The suite covers normal/fault/recovery paths, pause/reset, seeded replay, limits, persistence, CSV download, and 1440 px desktop / 390 px mobile layouts. Guided browser tests use a controlled clock; a separate real-time smoke check verifies visible updates and pause behavior. Exact observations are in [validation evidence](docs/validation-evidence.json) and the engineering report.
 
-No heap-memory benchmark, frame-rate benchmark, long-duration browser soak, Safari/Firefox result, hardware measurement, public uptime measurement, or remote GitHub Actions pass is claimed. The privacy script checks text; binary metadata and screenshots require separate inspection.
+The [Pages deployment workflow](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38329820753) also passed. Anonymous HTTPS checks verified both public HTML entries, referenced assets, source links, the observed README, and PDF/DOCX downloads whose bytes matched the local reports. Live production checks passed on both origins: six changing instruments, mode and speed/load controls, Start/Pause/Reset, normal replay, overheat acknowledgment, and communication timeout/recovery. All three views fit a 390 px mobile viewport without horizontal overflow; observed error-level console logs were empty. Exact results are in [public browser validation](docs/public-browser-validation.json). No physical cellular-network check, heap-memory benchmark, frame-rate benchmark, long-duration browser soak, Safari/Firefox result, hardware measurement, or public uptime measurement is claimed. The privacy script checks text; binary metadata and screenshots require separate inspection.
 
 ## Current demo and hypothetical production system
 
@@ -88,7 +90,7 @@ No heap-memory benchmark, frame-rate benchmark, long-duration browser soak, Safa
 | Safety        | Display and simulation controls only         | Separate hazard analysis, safety controls, hardware validation, and applicable certification |
 | Security      | No login, backend, equipment, or credentials | Device authentication, authorization, credential lifecycle, and system isolation             |
 | Logs          | Bounded memory and local CSV export          | Durable storage, retention, integrity, access controls, and audit trails                     |
-| Reliability   | Local unit/browser checks                    | Cross-browser testing, hardware in the loop, soak tests, monitoring, and rollback            |
+| Reliability   | Local and remote unit/browser checks         | Cross-browser testing, hardware in the loop, soak tests, monitoring, and rollback            |
 
 CAN/J1939 is a hypothetical future interface only. Generic applications could include generator instrumentation training, fleet diagnostic workflow evaluation, and pump/motor condition-display prototyping. Equipment-specific thresholds and software behavior would need independent validation before real use.
 
@@ -97,9 +99,11 @@ CAN/J1939 is a hypothetical future interface only. Generic applications could in
 - [Engineering report PDF](docs/Cobalt_Engineering_Report.pdf)
 - [Editable engineering report DOCX](docs/Cobalt_Engineering_Report.docx)
 - [15 prioritized future improvements](docs/ROADMAP.md)
-- [Publication preparation and cellular inspection](docs/DEPLOYMENT.md)
+- [Verified hosting and cellular inspection](docs/DEPLOYMENT.md)
 - [Changelog](CHANGELOG.md)
 
-The report source and builder are in `docs/report-source.json` and `scripts/build-report.py`. Report generation uses Python document tools and is separate from site operation. The prepared version is **0.1.0**. No repository, commit, release, or site has been published. CI and tag-triggered release files are scaffolding awaiting a real remote run. No public deployment URL or status badge is invented.
+The report source and builder are in `docs/report-source.json` and `scripts/build-report.py`. Report generation uses Python document tools and is separate from site operation. Version **0.1.0** is published to both sites. The PDF and DOCX each contain seven visually checked pages. The tag-triggered release workflow is prepared; the release tag will be pushed only after final production verification. No release is claimed yet.
+
+The reports are also available directly from the hosted builds: [Netlify PDF](https://cobalt-instrument-studio.netlify.app/reports/Cobalt_Engineering_Report.pdf), [Netlify DOCX](https://cobalt-instrument-studio.netlify.app/reports/Cobalt_Engineering_Report.docx), [Pages PDF](https://cloudwizardboricua.github.io/cobalt-instrument-studio/reports/Cobalt_Engineering_Report.pdf), and [Pages DOCX](https://cloudwizardboricua.github.io/cobalt-instrument-studio/reports/Cobalt_Engineering_Report.docx).
 
 React, TypeScript, Vite, Recharts, Lucide, and Vitest provide the implementation stack. No project license has been selected; third-party dependencies retain their own licenses.

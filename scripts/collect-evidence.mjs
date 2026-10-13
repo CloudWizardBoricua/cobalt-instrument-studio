@@ -70,6 +70,8 @@ for (const name of await readdir("dist/assets")) {
 const evidence = {
   version: "0.1.0",
   validationDate: "Fall 2026",
+  verification:
+    "Local Windows engine and browser results. Remote CI is recorded separately in README.md; public hosting checks are recorded in public-http-validation.json and public-browser-validation.json.",
   unit: {
     passed: unit.numPassedTests,
     failed: unit.numFailedTests,
@@ -95,7 +97,6 @@ const evidence = {
     "Long-duration browser soak",
     "Real hardware response",
     "Public hosting uptime",
-    "Remote GitHub Actions execution",
   ],
 };
 await mkdir("docs", { recursive: true });

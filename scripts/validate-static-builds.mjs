@@ -222,7 +222,7 @@ await writeFile(
     {
       date: "Fall 2026",
       verification:
-        "Local static production builds only. External hosts have not been published or tested.",
+        "Local static production-build verification. Public HTTP and browser verification are recorded separately in public-http-validation.json and public-browser-validation.json.",
       results,
       bundles,
     },

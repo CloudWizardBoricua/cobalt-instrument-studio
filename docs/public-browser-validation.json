@@ -1,0 +1,135 @@
+{
+  "date": "Fall 2026",
+  "method": "Anonymous production browser checks through Cua with real timers; no virtual clock. Mobile checks used exact 390px hidden production tabs.",
+  "results": [
+    {
+      "name": "primary",
+      "url": "https://cobalt-instrument-studio.netlify.app/",
+      "checks": [
+        "renders anonymously",
+        "six instruments present",
+        "developer credit visible",
+        "mode selection",
+        "speed and load adjustment",
+        "start advances simulation",
+        "pause freezes displayed values and simulation time",
+        "reset clears simulation time",
+        "normal replay updates all six instruments without an alert",
+        "overheat alert and acknowledgment",
+        "overheat warning and critical transitions recorded",
+        "reset resolves overheat condition",
+        "communication timeout shows stale readings",
+        "communication sample delivery and normal status recover automatically",
+        "visible Source control has the verified public repository URL",
+        "Dashboard, Diagnostics, Settings usable at 390px with no horizontal overflow"
+      ],
+      "manualTime": "00:36",
+      "pausedValues": ["650", "33", "172", "13.2", "76.0", "1"],
+      "pausedTime": "00:36",
+      "normalInitial": ["800", "33", "182", "13.8", "76.0", "12"],
+      "normalReplay": {
+        "time": "01:03",
+        "values": ["1748", "57", "188", "14.1", "75.9", "52"],
+        "allSixChanged": true
+      },
+      "overheatAlertObserved": "Coolant temperature\nCRITICAL\n\n236.8 °F is above 235 °F.\n\nActive since 00:18 simulation time\nAcknowledge",
+      "stale": {
+        "time": "00:16",
+        "sampleAge": "12.0 s",
+        "values": ["1649", "54", "183", "14.0", "76.0", "48"],
+        "samples": "10 / 240"
+      },
+      "recovery": {
+        "time": "01:25",
+        "samples": "148 / 240"
+      },
+      "mobile": {
+        "views": [
+          {
+            "scrollWidth": 375,
+            "width": 390,
+            "name": "Dashboard"
+          },
+          {
+            "scrollWidth": 375,
+            "width": 390,
+            "name": "Diagnostics"
+          },
+          {
+            "scrollWidth": 375,
+            "width": 390,
+            "name": "Settings"
+          }
+        ]
+      },
+      "consoleErrorEntriesObserved": 0
+    },
+    {
+      "name": "backup",
+      "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/",
+      "checks": [
+        "renders anonymously",
+        "six instruments present",
+        "developer credit visible",
+        "mode selection",
+        "speed and load adjustment",
+        "start advances simulation",
+        "pause freezes displayed values and simulation time",
+        "reset clears simulation time",
+        "normal replay updates all six instruments without an alert",
+        "overheat alert and acknowledgment",
+        "overheat warning and critical transitions recorded",
+        "reset resolves overheat condition",
+        "communication timeout shows stale readings",
+        "communication sample delivery and normal status recover automatically",
+        "visible Source control has the verified public repository URL",
+        "Dashboard, Diagnostics, Settings usable at 390px with no horizontal overflow"
+      ],
+      "manualTime": "00:36",
+      "pausedValues": ["650", "33", "172", "13.2", "76.0", "1"],
+      "pausedTime": "00:36",
+      "normalInitial": ["800", "33", "182", "13.8", "76.0", "12"],
+      "normalReplay": {
+        "time": "01:03",
+        "values": ["1748", "57", "188", "14.1", "75.9", "52"],
+        "allSixChanged": true
+      },
+      "overheatAlertObserved": "Coolant temperature\nCRITICAL\n\n236.8 °F is above 235 °F.\n\nActive since 00:18 simulation time\nAcknowledge",
+      "stale": {
+        "time": "00:15",
+        "sampleAge": "11.0 s",
+        "values": ["1649", "54", "183", "14.0", "76.0", "48"],
+        "samples": "10 / 240"
+      },
+      "recovery": {
+        "time": "01:29",
+        "samples": "155 / 240"
+      },
+      "mobile": {
+        "views": [
+          {
+            "scrollWidth": 375,
+            "width": 390,
+            "name": "Dashboard"
+          },
+          {
+            "scrollWidth": 375,
+            "width": 390,
+            "name": "Diagnostics"
+          },
+          {
+            "scrollWidth": 375,
+            "width": 390,
+            "name": "Settings"
+          }
+        ]
+      },
+      "consoleErrorEntriesObserved": 0
+    }
+  ],
+  "status": "pass",
+  "limitations": [
+    "Browser viewport emulation, not a physical iPhone/cellular-network test.",
+    "No cross-browser, equipment, uptime, or long-duration soak claim."
+  ]
+}

@@ -14,7 +14,7 @@
         },
         {
           "kind": "paragraph",
-          "text": "The local implementation includes six synchronized instruments, four operating modes, three replayable scenarios, validated thresholds, acknowledgment and recovery rules, bounded history, local settings, and CSV export. Validation recorded {{unitPassed}} unit tests and {{browserPassed}} browser tests passing. Public hosting, hardware integration, and production validation remain outside the implemented capability."
+          "text": "Six synchronized instruments support four modes, three replays, validated alerts, acknowledgment and recovery, bounded history, local settings, and CSV export. Local and remote checks each passed {{unitPassed}} unit and {{browserPassed}} browser tests. Netlify and GitHub Pages are public; hardware integration and equipment production validation remain future work."
         },
         {
           "kind": "image",
@@ -91,11 +91,11 @@
               "Authenticated configuration, durable audit and retention"
             ],
             [
-              "Release preparation",
-              "CI and tag/version verification files",
+              "Publication and release",
+              "Passing CI, two hosted builds, tag/version checks",
               "Reviewable checks and version traceability",
               "Repeatable software build review",
-              "Verified remote runs and deployment safeguards"
+              "Release completion and operational safeguards"
             ]
           ]
         },
@@ -221,7 +221,7 @@
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Local validation completed {{unitPassed}} unit checks and {{browserPassed}} browser checks with zero failures in the final baseline. TypeScript and production compilation were checked separately. Tests exercise behavior through both the pure engine and the actual rendered application."
+          "text": "Local Windows/Edge validation and remote Linux/Chromium CI each passed {{unitPassed}} unit tests and {{browserPassed}} browser tests. TypeScript and production compilation passed separately. Tests cover the pure engine and rendered application."
         },
         {
           "kind": "table",
@@ -285,8 +285,8 @@
             ],
             [
               "Remote CI and hosting",
-              "Prepared workflow and hosting files; no remote run or publication.",
-              "Not run"
+              "CI and Pages passed; both live sites, controls, scenarios, and reports checked.",
+              "Pass"
             ]
           ]
         },
@@ -347,12 +347,12 @@
             ],
             [
               "Testing",
-              "Deterministic model tests and local Edge browser paths.",
+              "Deterministic model tests plus local Edge and remote Chromium browser paths.",
               "Hardware in the loop, calibrated sensor tests, network impairment, cross-browser/device checks, soak tests, and recovery exercises."
             ],
             [
               "Reliability",
-              "Fixed simulation step and prepared static hosting builds.",
+              "Fixed simulation step and two verified static hosting builds.",
               "Defined service objectives, power/network failure behavior, deployment safeguards, monitoring, backup, and rollback."
             ]
           ]
@@ -412,11 +412,11 @@
         },
         {
           "kind": "paragraph",
-          "text": "Version 0.1.0 is prepared locally. CI, GitHub Pages deployment, issue forms, and a tag-triggered release workflow are present but have not run remotely. Netlify production is the intended primary shareable endpoint and Pages is the independent backup. Public repository creation, commits/pushes, site deployment, and the v0.1.0 tag/release require a separate authorized publication step after inspection."
+          "text": "Version 0.1.0 is publicly hosted. Source: https://github.com/CloudWizardBoricua/cobalt-instrument-studio. Primary demo: https://cobalt-instrument-studio.netlify.app/. Backup: https://cloudwizardboricua.github.io/cobalt-instrument-studio/. Remote CI passed 32 unit and 7 browser tests, and Pages deployed successfully. An annotated v0.1.0 tag triggers version/test checks and one workflow-created release with report attachments."
         },
         {
           "kind": "paragraph",
-          "text": "Both hosted builds will serve static assets and downloadable reports, without requiring the development computer to remain powered on. Provider permissions, quotas, plan limits, and future availability must be checked during publication; no uptime guarantee or verified public endpoint exists yet."
+          "text": "Anonymous HTTPS checks verified assets, source access, and matching PDF/DOCX downloads. Both reports have seven visually checked pages. Both sites passed live controls, all guided replays, and 390 px layouts in three views; no error-level console logs appeared. Physical cellular access was not tested. Hosting requires no development computer; provider quotas and future availability remain limitations."
         }
       ]
     }

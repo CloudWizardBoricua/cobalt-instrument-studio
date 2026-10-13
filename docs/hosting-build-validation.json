@@ -1,24 +1,24 @@
 {
   "date": "Fall 2026",
-  "verification": "Local static production builds only. External hosts have not been published or tested.",
+  "verification": "Local static production-build verification. Public HTTP and browser verification are recorded separately in public-http-validation.json and public-browser-validation.json.",
   "results": [
     {
       "name": "root",
       "buildCommand": "npm run build",
-      "buildWallMs": 13049,
+      "buildWallMs": 7535,
       "browser": "pass",
       "downloads": [
         {
           "extension": "pdf",
           "status": 200,
-          "bytes": 191115,
-          "sha256": "c8193fe3730e7d78d567caf6e01ac6aee8951b3c8a077c10557090d9b0cef2a3"
+          "bytes": 191174,
+          "sha256": "7f6068ae10a7ca94c1621a629d573900585bb86f0c3a916a1a9c06f2ae5db285"
         },
         {
           "extension": "docx",
           "status": 200,
-          "bytes": 220936,
-          "sha256": "adf051723e81f7bc6d6ba11e92d912003e1425dfa03673fa054a3f3ed04ee459"
+          "bytes": 220998,
+          "sha256": "de15ca8319103bf800bc1d8feddca9eb4959157583bf46c9fb46f4fddce680cb"
         }
       ],
       "checks": [
@@ -36,20 +36,20 @@
     {
       "name": "project",
       "buildCommand": "npm run build:pages",
-      "buildWallMs": 13184,
+      "buildWallMs": 7435,
       "browser": "pass",
       "downloads": [
         {
           "extension": "pdf",
           "status": 200,
-          "bytes": 191115,
-          "sha256": "c8193fe3730e7d78d567caf6e01ac6aee8951b3c8a077c10557090d9b0cef2a3"
+          "bytes": 191174,
+          "sha256": "7f6068ae10a7ca94c1621a629d573900585bb86f0c3a916a1a9c06f2ae5db285"
         },
         {
           "extension": "docx",
           "status": 200,
-          "bytes": 220936,
-          "sha256": "adf051723e81f7bc6d6ba11e92d912003e1425dfa03673fa054a3f3ed04ee459"
+          "bytes": 220998,
+          "sha256": "de15ca8319103bf800bc1d8feddca9eb4959157583bf46c9fb46f4fddce680cb"
         }
       ],
       "checks": [
@@ -72,9 +72,9 @@
       "gzipBytes": 110244
     },
     {
-      "file": "index-CuZPLnu2.js",
-      "bytes": 251962,
-      "gzipBytes": 78677
+      "file": "index-CyuzUI5K.js",
+      "bytes": 252189,
+      "gzipBytes": 78784
     },
     {
       "file": "index-D7cNQiWl.css",

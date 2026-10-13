@@ -1,0 +1,173 @@
+{
+  "date": "Fall 2026",
+  "verification": "Anonymous HTTP GET validation of the explicitly supplied public endpoints. No browser session or app interaction was performed by this script.",
+  "limitations": [
+    "HTTP-only: rendering, interactive behavior, responsiveness, accessibility and JavaScript console errors require separate browser verification.",
+    "The presence of a repository URL in app code does not prove the source control is visible or clickable in a browser.",
+    "DOCX byte matching verifies artifact delivery and does not establish Word layout quality.",
+    "No credentials, hosting mutations, CI checks or release checks are performed."
+  ],
+  "targets": {
+    "primary": "https://cobalt-instrument-studio.netlify.app/",
+    "backup": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/",
+    "repository": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio"
+  },
+  "status": "pass",
+  "results": [
+    {
+      "name": "primary",
+      "url": "https://cobalt-instrument-studio.netlify.app/",
+      "status": "pass",
+      "checks": [
+        "HTTPS index returned 200 with the expected app title",
+        "Application JavaScript, CSS and favicon use the correct base and match the current local build",
+        "The configured public source repository URL is present in the delivered app code",
+        "Direct PDF and DOCX downloads match the current docs artifacts by SHA256"
+      ],
+      "assets": [
+        {
+          "kind": "favicon",
+          "path": "/favicon.svg",
+          "status": 200,
+          "bytes": 328,
+          "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1",
+          "localBuildMatches": true
+        },
+        {
+          "kind": "javascript",
+          "path": "/assets/index-CyuzUI5K.js",
+          "status": 200,
+          "bytes": 252189,
+          "sha256": "26c517b3e331b85ff3752feb9fd83255a3281332f0a3e4b608cdb9063fc77281",
+          "localBuildMatches": true
+        },
+        {
+          "kind": "javascript",
+          "path": "/assets/charts-DsTfUnqE.js",
+          "status": 200,
+          "bytes": 373798,
+          "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800",
+          "localBuildMatches": true
+        },
+        {
+          "kind": "stylesheet",
+          "path": "/assets/index-D7cNQiWl.css",
+          "status": 200,
+          "bytes": 23748,
+          "sha256": "1130c03aed5d85367d8db130cc8463a6b0e640460d653af48e6c3040bef7fde0",
+          "localBuildMatches": true
+        }
+      ],
+      "downloads": [
+        {
+          "extension": "pdf",
+          "path": "/reports/Cobalt_Engineering_Report.pdf",
+          "status": 200,
+          "bytes": 191115,
+          "sha256": "c8193fe3730e7d78d567caf6e01ac6aee8951b3c8a077c10557090d9b0cef2a3",
+          "currentReportMatches": true
+        },
+        {
+          "extension": "docx",
+          "path": "/reports/Cobalt_Engineering_Report.docx",
+          "status": 200,
+          "bytes": 220936,
+          "sha256": "adf051723e81f7bc6d6ba11e92d912003e1425dfa03673fa054a3f3ed04ee459",
+          "currentReportMatches": true
+        }
+      ],
+      "index": {
+        "status": 200,
+        "bytes": 1621
+      },
+      "hostingAssets": [
+        {
+          "path": "/.netlify/scripts/hud?variant=public",
+          "status": 200,
+          "bytes": 34481,
+          "localBuildMatches": "Provider asset; no local build counterpart"
+        }
+      ]
+    },
+    {
+      "name": "backup",
+      "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/",
+      "status": "pass",
+      "checks": [
+        "HTTPS index returned 200 with the expected app title",
+        "Application JavaScript, CSS and favicon use the correct base and match the current local build",
+        "The configured public source repository URL is present in the delivered app code",
+        "Direct PDF and DOCX downloads match the current docs artifacts by SHA256"
+      ],
+      "assets": [
+        {
+          "kind": "favicon",
+          "path": "/cobalt-instrument-studio/favicon.svg",
+          "status": 200,
+          "bytes": 328,
+          "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1",
+          "localBuildMatches": true
+        },
+        {
+          "kind": "javascript",
+          "path": "/cobalt-instrument-studio/assets/index-CRDkgyZq.js",
+          "status": 200,
+          "bytes": 252264,
+          "sha256": "ad8d8b2bb962cae194b75e0463e68d2b86bceb1245293657f7271d9270c7ed74",
+          "localBuildMatches": true
+        },
+        {
+          "kind": "javascript",
+          "path": "/cobalt-instrument-studio/assets/charts-DsTfUnqE.js",
+          "status": 200,
+          "bytes": 373798,
+          "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800",
+          "localBuildMatches": true
+        },
+        {
+          "kind": "stylesheet",
+          "path": "/cobalt-instrument-studio/assets/index-D7cNQiWl.css",
+          "status": 200,
+          "bytes": 23748,
+          "sha256": "1130c03aed5d85367d8db130cc8463a6b0e640460d653af48e6c3040bef7fde0",
+          "localBuildMatches": true
+        }
+      ],
+      "downloads": [
+        {
+          "extension": "pdf",
+          "path": "/cobalt-instrument-studio/reports/Cobalt_Engineering_Report.pdf",
+          "status": 200,
+          "bytes": 191115,
+          "sha256": "c8193fe3730e7d78d567caf6e01ac6aee8951b3c8a077c10557090d9b0cef2a3",
+          "currentReportMatches": true
+        },
+        {
+          "extension": "docx",
+          "path": "/cobalt-instrument-studio/reports/Cobalt_Engineering_Report.docx",
+          "status": 200,
+          "bytes": 220936,
+          "sha256": "adf051723e81f7bc6d6ba11e92d912003e1425dfa03673fa054a3f3ed04ee459",
+          "currentReportMatches": true
+        }
+      ],
+      "index": {
+        "status": 200,
+        "bytes": 1211
+      }
+    },
+    {
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio",
+      "status": "pass",
+      "repository": {
+        "status": 200,
+        "bytes": 308901
+      },
+      "readme": {
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/blob/main/README.md",
+        "status": 200,
+        "bytes": 269887
+      }
+    }
+  ]
+}
