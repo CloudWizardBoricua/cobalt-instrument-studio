@@ -285,6 +285,7 @@ export function DeviceWorkspace({
 }: DeviceWorkspaceProps) {
   const [layout, setLayout] = useState(createDefaultDeviceLayout);
   const [selectedId, setSelectedId] = useState<DeviceSlotId>(1);
+  const [workspaceOpen, setWorkspaceOpen] = useState(true);
   const [expandedPreview, setExpandedPreview] = useState(false);
   const selected = layout.slots.find((slot) => slot.id === selectedId)!;
   const [draft, setDraft] = useState<Draft>(() => toDraft(selected));
@@ -373,7 +374,12 @@ export function DeviceWorkspace({
     feedback.field === field ||
     (feedback.field === "range" && (field === "min" || field === "max"));
   return (
-    <details className="panel device-workspace" data-testid="device-workspace">
+    <details
+      className="panel device-workspace"
+      data-testid="device-workspace"
+      open={workspaceOpen}
+      onToggle={(event) => setWorkspaceOpen(event.currentTarget.open)}
+    >
       <summary>
         <span className="device-summary-title">
           <Monitor size={18} aria-hidden="true" />

@@ -31,7 +31,10 @@ test("invalid delivery preserves all accepted readings, ages them, and recovers"
   await expect(page.getByTestId("session-status")).toHaveText(
     "SAMPLE REJECTED",
   );
-  await page.getByTestId("device-workspace").locator("summary").click();
+  await expect(page.getByTestId("device-workspace")).toHaveAttribute(
+    "open",
+    "",
+  );
   await expect(page.getByTestId("device-preview-status")).toContainText(
     "last valid readings retained",
   );
@@ -149,7 +152,7 @@ test("device properties apply atomically, retain across views, and preserve the 
   const rpm = await page.getByTestId("value-rpm").innerText();
   const history = await page.getByTestId("sample-count").innerText();
   const workspace = page.getByTestId("device-workspace");
-  await workspace.locator("summary").click();
+  await expect(workspace).toHaveAttribute("open", "");
   await page
     .getByRole("button", {
       name: "Bind Oil pressure to selected slot",
@@ -196,7 +199,7 @@ test("device properties apply atomically, retain across views, and preserve the 
     .click();
   await expect(page.getByTestId("device-slot-1")).toContainText("Engine speed");
   await page.reload();
-  await workspace.locator("summary").click();
+  await expect(workspace).toHaveAttribute("open", "");
   await expect(page.getByTestId("device-slot-1")).toContainText("Engine speed");
 });
 
@@ -361,8 +364,22 @@ test("all views support keyboard focus, day/night contrast, mobile, and stable a
 test("device workspace supports keyboard selection, property submission, and reset", async ({
   page,
 }) => {
+  await page.clock.install();
+  await page.clock.pauseAt(new Date());
   await page.goto("/");
   const workspace = page.getByTestId("device-workspace");
+  await expect(workspace).toHaveAttribute("open", "");
+  await workspace.locator("summary").focus();
+  await page.keyboard.press("Enter");
+  await expect(workspace).not.toHaveAttribute("open", "");
+  await page
+    .getByRole("button", { name: "Start simulation", exact: true })
+    .click();
+  await page.clock.runFor(2000);
+  await expect(workspace).not.toHaveAttribute("open", "");
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  await expect(workspace).not.toHaveAttribute("open", "");
+  await page.getByRole("button", { name: "Dashboard", exact: true }).click();
   await workspace.locator("summary").focus();
   await page.keyboard.press("Enter");
   await expect(workspace).toHaveAttribute("open", "");

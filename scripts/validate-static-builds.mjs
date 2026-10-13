@@ -219,7 +219,7 @@ try {
         /normal condition/,
       );
       const workspace = page.getByTestId("device-workspace");
-      await workspace.locator("summary").click();
+      await expect(workspace).toHaveAttribute("open", "");
       await page
         .getByLabel("Display label", { exact: true })
         .fill("Production preview");

@@ -2,6 +2,10 @@
 
 _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)
 
+## Unreleased — Fall 2026
+
+- Open the Device workspace by default so its preview, signal browser, and property editor are visible without expanding it. Manual collapse remains available and persists through simulation updates and view changes for the session.
+
 ## 0.2.0 — Fall 2026
 
 Published to both static hosts through [PR #11](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/11) at main `5e7615a98478ae14301da4377c9e6a2255cd2139`. [Final PR CI](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38345775927) and [main CI](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346046807) passed 100/100 unit and 17/17 Linux Chromium browser tests, with clean inspected artifacts. Both public sites passed 17/17 browser tests, including 30 device-page and 18 application layout combinations per origin, with no JavaScript errors. All nine PDF pages and nine DOCX pages passed visual inspection, and report metadata, dates, and repository links were checked. The annotated v0.2.0 tag's [release workflow](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346481631) succeeded and published one [verified Release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.2.0) with five inspected assets. Initial v0.1.0 is unchanged.

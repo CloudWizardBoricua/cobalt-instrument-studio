@@ -11,7 +11,7 @@ test("device navigation and engine inspection preserve the accepted sample and d
     .getByRole("button", { name: "Start simulation", exact: true })
     .click();
   const workspace = page.getByTestId("device-workspace");
-  await workspace.locator("summary").click();
+  await expect(workspace).toHaveAttribute("open", "");
   await workspace
     .getByRole("button", { name: "Expand device preview", exact: true })
     .click();
@@ -72,7 +72,7 @@ test("device ACK shares acknowledgment, escalation and clearing with central dia
   await page.getByRole("button", { name: "Run scenario", exact: true }).click();
   await page.clock.runFor(12000);
   const workspace = page.getByTestId("device-workspace");
-  await workspace.locator("summary").click();
+  await expect(workspace).toHaveAttribute("open", "");
   await workspace
     .getByRole("button", { name: "Expand device preview", exact: true })
     .click();
@@ -133,7 +133,7 @@ test("three device trends retain accepted history through invalid deliveries and
   await page.clock.runFor(4500);
   const count = await page.getByTestId("sample-count").innerText();
   const workspace = page.getByTestId("device-workspace");
-  await workspace.locator("summary").click();
+  await expect(workspace).toHaveAttribute("open", "");
   await workspace
     .getByRole("button", { name: "Expand device preview", exact: true })
     .click();
@@ -168,7 +168,7 @@ test("all five device pages fit desktop and narrow screens in both themes", asyn
 }) => {
   await page.goto("/");
   const workspace = page.getByTestId("device-workspace");
-  await workspace.locator("summary").click();
+  await expect(workspace).toHaveAttribute("open", "");
   await workspace
     .getByRole("button", { name: "Expand device preview", exact: true })
     .click();
@@ -246,7 +246,7 @@ test("all instrument displays stay at zero until start, hold on pause and return
   await page.getByRole("button", { name: "Dashboard", exact: true }).click();
   await expect(page.getByTestId("value-coolantTemp")).toHaveText("0");
   const workspace = page.getByTestId("device-workspace");
-  await workspace.locator("summary").click();
+  await expect(workspace).toHaveAttribute("open", "");
   for (let slot = 1; slot <= 6; slot++)
     await expect(workspace.getByTestId(`device-value-${slot}`)).toHaveText("0");
   await expect(workspace.getByTestId("device-preview-status")).toContainText(
