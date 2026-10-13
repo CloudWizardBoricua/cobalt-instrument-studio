@@ -211,11 +211,11 @@ export function App() {
             <section className="panel help-panel">
               <h2>Explore the simulator</h2>
               <p>
-                Select a guided scenario to start a repeatable run. Watch the
-                instruments, then open Diagnostics to inspect transitions and
-                acknowledge alerts. Pause freezes simulation time; Reset starts
-                a fresh session. Settings persist only display and threshold
-                preferences.
+                Choose a guided scenario, then select Run scenario to start a
+                repeatable run. Watch the instruments, then open Diagnostics to
+                inspect transitions and acknowledge alerts. Pause freezes
+                simulation time; Reset starts a fresh session. Settings persist
+                only display and threshold preferences.
               </p>
               <p>
                 Coolant overheat reaches warning and critical conditions.

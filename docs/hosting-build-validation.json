@@ -5,7 +5,7 @@
     {
       "name": "root",
       "buildCommand": "npm run build",
-      "buildWallMs": 7535,
+      "buildWallMs": 6353,
       "browser": "pass",
       "downloads": [
         {
@@ -36,7 +36,7 @@
     {
       "name": "project",
       "buildCommand": "npm run build:pages",
-      "buildWallMs": 7435,
+      "buildWallMs": 6246,
       "browser": "pass",
       "downloads": [
         {
@@ -72,15 +72,14 @@
       "gzipBytes": 110244
     },
     {
-      "file": "index-CyuzUI5K.js",
-      "bytes": 252189,
-      "gzipBytes": 78784
+      "file": "index-D7SLLYLf.css",
+      "bytes": 22951,
+      "gzipBytes": 5059
     },
     {
-      "file": "index-D7cNQiWl.css",
-      "bytes": 23748,
-      "gzipBytes": 5157
+      "file": "index-DNByDxH9.js",
+      "bytes": 252690,
+      "gzipBytes": 78895
     }
-  ],
-  "reportRefresh": "Final reports resynchronized; direct HTTP downloads rechecked on both local build paths. Previously recorded application browser checks and build timings retained."
+  ]
 }

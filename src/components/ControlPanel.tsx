@@ -1,14 +1,8 @@
-import {
-  Play,
-  Pause,
-  RotateCcw,
-  Radio,
-  ChevronRight,
-  RefreshCw,
-} from "lucide-react";
+import { useState } from "react";
+import { Play, Pause, RotateCcw, Radio, RefreshCw } from "lucide-react";
 import { formatTime, scenarios } from "../engine/model";
 import type { Action } from "../engine/studio";
-import type { Mode, StudioState } from "../engine/types";
+import type { Mode, ScenarioId, StudioState } from "../engine/types";
 
 export function ControlPanel({
   state,
@@ -18,6 +12,10 @@ export function ControlPanel({
   dispatch: React.Dispatch<Action>;
 }) {
   const s = state.simulation;
+  const [selectedId, setSelectedId] = useState<Exclude<ScenarioId, "manual">>(
+    s.scenario === "manual" ? "normal-ramp" : s.scenario,
+  );
+  const selectedScenario = scenarios.find((item) => item.id === selectedId)!;
   const scenario = scenarios.find((item) => item.id === s.scenario);
   const progress = scenario
     ? Math.min(100, (s.time / scenario.duration) * 100)
@@ -139,26 +137,49 @@ export function ControlPanel({
           <span className="small-label">REPLAYABLE</span>
         </div>
         <p className="muted small">Explore a repeatable operating sequence.</p>
-        <div className="scenario-list">
-          {scenarios.map((item) => (
-            <button
-              key={item.id}
-              className={`scenario-option ${s.scenario === item.id ? "selected" : ""}`}
-              onClick={() => dispatch({ type: "scenario", scenario: item.id })}
-              aria-label={`Run ${item.title}`}
-              aria-pressed={s.scenario === item.id}
-            >
-              <span className="scenario-number">{item.number}</span>
-              <span>
-                <strong>{item.title}</strong>
-                <small>{item.description}</small>
-              </span>
-              <ChevronRight size={15} />
-            </button>
-          ))}
+        <div className="scenario-picker">
+          <label className="field-label" htmlFor="guided-scenario">
+            Scenario
+          </label>
+          <select
+            id="guided-scenario"
+            value={selectedId}
+            aria-describedby="scenario-description"
+            onChange={(event) => {
+              const selected = scenarios.find(
+                (item) => item.id === event.target.value,
+              );
+              if (selected) setSelectedId(selected.id);
+            }}
+          >
+            {scenarios.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.title}
+              </option>
+            ))}
+          </select>
+          <p
+            id="scenario-description"
+            className="scenario-description"
+            data-testid="scenario-description"
+          >
+            {selectedScenario.description}
+          </p>
+          <button
+            className="button primary scenario-run"
+            onClick={() => dispatch({ type: "scenario", scenario: selectedId })}
+          >
+            <Play size={16} /> Run scenario
+          </button>
+          <p className="micro muted scenario-start-note">
+            Starting a replay resets the session.
+          </p>
         </div>
         {scenario && (
           <div className="scenario-explainer" data-testid="scenario-explainer">
+            <strong className="scenario-active">
+              Active scenario: {scenario.title}
+            </strong>
             <div className="range-label">
               <strong>
                 {progress >= 100 ? "Sequence complete" : "Sequence in progress"}

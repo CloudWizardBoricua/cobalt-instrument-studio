@@ -14,7 +14,7 @@ An original industrial telemetry simulator built to make operating behavior insp
 
 Open the [live Netlify demo](https://cobalt-instrument-studio.netlify.app/) or the independent [GitHub Pages backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/). The [public source repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio) uses `main` as its default branch. Both sites serve static assets and run the simulation in your browser.
 
-Start the simulation, choose Idle, Normal, High Load, or Fault, and adjust speed/load commands. Pause freezes simulation time; Reset creates a fresh session. The guided scenarios use seed `27041`:
+Start the simulation, choose Idle, Normal, High Load, or Fault, and adjust speed/load commands. Pause freezes simulation time; Reset creates a fresh session. Choose a guided scenario from the dropdown, then select **Run scenario**. Choosing an option alone does not interrupt the current replay. The guided scenarios use seed `27041`:
 
 - **Normal operating ramp:** moves from idle to normal speed and load while oil pressure follows and temperature responds slowly.
 - **Coolant overheat:** introduces cooling degradation at 6 simulated seconds. With defaults, coolant warning begins at 14 s and critical at 18.5 s.

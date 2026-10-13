@@ -55,8 +55,28 @@ test("normal ramp runs all instruments and changes selected trend series", async
 }) => {
   await page.clock.install();
   await page.goto("/");
-  await page.getByRole("button", { name: "Run Normal operating ramp" }).click();
-  await page.clock.runFor(35000);
+  await page.getByLabel("Scenario", { exact: true }).selectOption("overheat");
+  await expect(page.getByTestId("scenario-description")).toContainText(
+    "Follow a thermal fault",
+  );
+  await page.clock.runFor(1000);
+  await expect(page.getByTestId("simulation-time")).toHaveText("00:00");
+  await expect(page.getByTestId("session-status")).toHaveText("READY TO START");
+  await expect(page.getByTestId("scenario-explainer")).toHaveCount(0);
+  await page
+    .getByLabel("Scenario", { exact: true })
+    .selectOption("normal-ramp");
+  await page.getByRole("button", { name: "Run scenario", exact: true }).click();
+  await page.clock.runFor(5000);
+  await page.getByLabel("Scenario", { exact: true }).selectOption("overheat");
+  await expect(page.getByTestId("simulation-time")).toHaveText("00:05");
+  await expect(page.getByTestId("scenario-explainer")).toContainText(
+    "Normal operating ramp",
+  );
+  await expect(page.getByTestId("scenario-explainer")).toContainText(
+    "Ramps from idle to normal operation",
+  );
+  await page.clock.runFor(30000);
   await expect(page.getByTestId("operating-mode")).toHaveText("Normal");
   await expect(page.getByTestId("diagnostic-status")).toHaveText("Normal");
   await expect(page.getByTestId("value-rpm")).toHaveText(/17\d\d/);
@@ -72,6 +92,15 @@ test("normal ramp runs all instruments and changes selected trend series", async
     .click();
   await expect(page.getByTestId("simulation-time")).toHaveText("00:00");
   await expect(page.getByTestId("value-rpm")).toHaveText("800");
+  await expect(page.getByTestId("scenario-explainer")).toContainText(
+    "Normal operating ramp",
+  );
+  await page.getByLabel("Scenario", { exact: true }).selectOption("overheat");
+  await page.getByRole("button", { name: "Run scenario", exact: true }).click();
+  await expect(page.getByTestId("scenario-explainer")).toContainText(
+    "Coolant overheat",
+  );
+  await expect(page.getByTestId("simulation-time")).toHaveText("00:00");
 });
 
 test("overheat warning escalates, acknowledgment records review, reset resolves", async ({
@@ -79,7 +108,8 @@ test("overheat warning escalates, acknowledgment records review, reset resolves"
 }) => {
   await page.clock.install();
   await page.goto("/");
-  await page.getByRole("button", { name: "Run Coolant overheat" }).click();
+  await page.getByLabel("Scenario", { exact: true }).selectOption("overheat");
+  await page.getByRole("button", { name: "Run scenario", exact: true }).click();
   await page.clock.runFor(17500);
   await page.getByRole("button", { name: "Diagnostics", exact: true }).click();
   await expect(page.getByTestId("alert-coolantTemp")).toContainText("warning");
@@ -116,7 +146,10 @@ test("communication loss freezes values, marks stale, and restores automatically
 }) => {
   await page.clock.install();
   await page.goto("/");
-  await page.getByRole("button", { name: "Run Communication loss" }).click();
+  await page
+    .getByLabel("Scenario", { exact: true })
+    .selectOption("communication-loss");
+  await page.getByRole("button", { name: "Run scenario", exact: true }).click();
   await page.clock.runFor(4500);
   const fuel = await page.getByTestId("value-fuelLevel").innerText();
   const count = await page.getByTestId("sample-count").innerText();
@@ -212,7 +245,10 @@ test("desktop and mobile remain usable and produce authentic screenshots", async
 }) => {
   await page.clock.install();
   await page.goto("/");
-  await page.getByRole("button", { name: "Run Normal operating ramp" }).click();
+  await page
+    .getByLabel("Scenario", { exact: true })
+    .selectOption("normal-ramp");
+  await page.getByRole("button", { name: "Run scenario", exact: true }).click();
   await page.clock.runFor(28000);
   await page.getByRole("button", { name: "Pause simulation" }).click();
   await mkdir("docs/assets", { recursive: true });
@@ -236,7 +272,10 @@ test("desktop and mobile remain usable and produce authentic screenshots", async
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(390);
   await page.getByRole("button", { name: "Diagnostics", exact: true }).click();
-  await page.getByRole("button", { name: "Run Communication loss" }).click();
+  await page
+    .getByLabel("Scenario", { exact: true })
+    .selectOption("communication-loss");
+  await page.getByRole("button", { name: "Run scenario", exact: true }).click();
   await page.clock.runFor(11000);
   await expect(page.getByTestId("alert-communication")).toBeVisible();
   expect(

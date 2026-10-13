@@ -728,54 +728,28 @@ input[type="range"] {
   margin-top: 12px;
   font-size: 9px;
 }
-.scenario-list {
-  margin-top: 15px;
-  display: grid;
-  gap: 10px;
+.scenario-picker {
+  margin-top: 18px;
 }
-.scenario-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--panel-raised);
-  padding: 12px 10px;
-  text-align: left;
-  width: 100%;
-  min-height: 79px;
-}
-.scenario-option:hover,
-.scenario-option.selected {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-.scenario-number {
-  color: var(--accent);
-  font-family: Consolas, monospace;
-  font-size: 10px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  padding: 7px 5px;
-  border-radius: 5px;
-  align-self: flex-start;
-}
-.scenario-option strong {
-  display: block;
-  font-size: 10px;
-  font-weight: 550;
-}
-.scenario-option small {
-  display: block;
-  font-size: 9px;
+.scenario-description {
+  font-size: 11px;
   color: var(--muted);
   line-height: 1.5;
-  margin-top: 5px;
+  margin: 10px 0 14px;
+  min-height: 33px;
 }
-.scenario-option > svg {
-  flex-shrink: 0;
-  color: var(--muted);
-  margin-left: auto;
+.scenario-run {
+  width: 100%;
+  min-height: 40px;
+}
+.scenario-start-note {
+  margin-top: 9px;
+}
+.scenario-active {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 14px;
 }
 .scenario-explainer {
   border-top: 1px solid var(--border);
@@ -1222,12 +1196,6 @@ input[type="range"] {
   .trend-chart {
     height: 230px;
   }
-  .scenario-option strong {
-    font-size: 11px;
-  }
-  .scenario-option small {
-    font-size: 10px;
-  }
   .controls-panel > .small,
   .scenario-panel > .small {
     font-size: 11px;
@@ -1547,16 +1515,6 @@ input[type="range"] {
   .scenario-panel {
     padding: 16px;
   }
-  .scenario-option {
-    padding: 10px 8px;
-    gap: 8px;
-  }
-  .scenario-option strong {
-    font-size: 10px;
-  }
-  .scenario-option small {
-    font-size: 9px;
-  }
   .evidence-panel {
     padding: 18px;
   }
@@ -1656,15 +1614,6 @@ input[type="range"] {
   .controls-panel,
   .scenario-panel {
     padding: 19px;
-  }
-  .scenario-option strong {
-    font-size: 12px;
-  }
-  .scenario-option small {
-    font-size: 10px;
-  }
-  .scenario-option {
-    padding: 12px;
   }
   .scenario-panel .small-label {
     font-size: 7px;

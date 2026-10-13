@@ -49,7 +49,7 @@ export function TrendChart({
         <div className="chart-empty">
           <span className="pulse-line">⌁</span>
           <strong>Ready to capture telemetry</strong>
-          <p>Start the simulator or select a guided scenario.</p>
+          <p>Start the simulator or run a guided scenario.</p>
         </div>
       ) : (
         <ResponsiveContainer width="100%" height="100%" minWidth={0}>

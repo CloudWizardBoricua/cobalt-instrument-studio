@@ -4,6 +4,7 @@ _Developed by Daren Diaz_
 
 ## Unreleased
 
+- Replaced guided scenario cards with a compact dropdown, descriptions, and an explicit Run scenario action; retained active replay progress and replay controls.
 - Further interface improvements remain planned work.
 
 ## 0.1.0 — Fall 2026

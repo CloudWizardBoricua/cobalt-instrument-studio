@@ -136,7 +136,10 @@ try {
         });
       }
       await page
-        .getByRole("button", { name: "Run Coolant overheat", exact: true })
+        .getByLabel("Scenario", { exact: true })
+        .selectOption("overheat");
+      await page
+        .getByRole("button", { name: "Run scenario", exact: true })
         .click();
       await page.clock.runFor(35000);
       await page
@@ -146,7 +149,10 @@ try {
         "critical",
       );
       await page
-        .getByRole("button", { name: "Run Communication loss", exact: true })
+        .getByLabel("Scenario", { exact: true })
+        .selectOption("communication-loss");
+      await page
+        .getByRole("button", { name: "Run scenario", exact: true })
         .click();
       await page.clock.runFor(11000);
       if (
@@ -165,7 +171,10 @@ try {
         .getByRole("button", { name: "Dashboard", exact: true })
         .click();
       await page
-        .getByRole("button", { name: "Run Normal operating ramp", exact: true })
+        .getByLabel("Scenario", { exact: true })
+        .selectOption("normal-ramp");
+      await page
+        .getByRole("button", { name: "Run scenario", exact: true })
         .click();
       await page.clock.runFor(125000);
       if (
