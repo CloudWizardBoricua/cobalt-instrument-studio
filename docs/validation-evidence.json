@@ -1,21 +1,22 @@
 {
   "version": "0.1.0",
+  "edition": "Local unreleased engineering hardening revision",
   "validationDate": "Fall 2026",
-  "verification": "Local Windows engine and browser results. Remote CI is recorded separately in README.md; public hosting checks are recorded in public-http-validation.json and public-browser-validation.json.",
+  "verification": "Local Windows engine and browser results for the unreleased hardening revision. Public hosting and release evidence files describe the earlier published baseline; no current hardening deployment was performed.",
   "unit": {
-    "passed": 32,
+    "passed": 58,
     "failed": 0,
-    "durationMs": 2472.561767578125
+    "durationMs": 3447.779052734375
   },
   "browserTests": {
-    "passed": 7,
+    "passed": 12,
     "failed": 0,
-    "durationMs": 34747.459,
+    "durationMs": 107624.665,
     "scenarioClock": "Virtual clock for guided paths; separate wall-clock start/pause smoke check."
   },
   "browser": {
     "realtimeSimulationSecondsObserved": 3,
-    "wallMillisecondsToObserve": 3626,
+    "wallMillisecondsToObserve": 3587,
     "javascriptErrors": [],
     "browser": "Microsoft Edge Chromium",
     "desktop": {
@@ -23,9 +24,477 @@
       "height": 1100
     }
   },
+  "accessibility": {
+    "checks": [
+      {
+        "width": 1440,
+        "theme": "day",
+        "view": "Dashboard",
+        "scrollWidth": 1440,
+        "actualControls": [
+          {
+            "text": "Dashboard",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 1440,
+        "theme": "day",
+        "view": "Diagnostics",
+        "scrollWidth": 1440,
+        "actualControls": [
+          {
+            "text": "Diagnostics",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 1440,
+        "theme": "day",
+        "view": "Settings",
+        "scrollWidth": 1440,
+        "actualControls": [
+          {
+            "text": "Settings",
+            "ratio": 5.271171248509958
+          },
+          {
+            "text": "Day",
+            "ratio": 5.271171248509958
+          },
+          {
+            "text": "Imperial",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 1440,
+        "theme": "night",
+        "view": "Dashboard",
+        "scrollWidth": 1440,
+        "actualControls": [
+          {
+            "text": "Dashboard",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 1440,
+        "theme": "night",
+        "view": "Diagnostics",
+        "scrollWidth": 1440,
+        "actualControls": [
+          {
+            "text": "Diagnostics",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 1440,
+        "theme": "night",
+        "view": "Settings",
+        "scrollWidth": 1440,
+        "actualControls": [
+          {
+            "text": "Settings",
+            "ratio": 5.619989258937964
+          },
+          {
+            "text": "Night",
+            "ratio": 5.619989258937964
+          },
+          {
+            "text": "Imperial",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 390,
+        "theme": "day",
+        "view": "Dashboard",
+        "scrollWidth": 390,
+        "actualControls": [
+          {
+            "text": "Dashboard",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 390,
+        "theme": "day",
+        "view": "Diagnostics",
+        "scrollWidth": 390,
+        "actualControls": [
+          {
+            "text": "Diagnostics",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 390,
+        "theme": "day",
+        "view": "Settings",
+        "scrollWidth": 390,
+        "actualControls": [
+          {
+            "text": "Settings",
+            "ratio": 5.271171248509958
+          },
+          {
+            "text": "Day",
+            "ratio": 5.271171248509958
+          },
+          {
+            "text": "Imperial",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 390,
+        "theme": "night",
+        "view": "Dashboard",
+        "scrollWidth": 390,
+        "actualControls": [
+          {
+            "text": "Dashboard",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 390,
+        "theme": "night",
+        "view": "Diagnostics",
+        "scrollWidth": 390,
+        "actualControls": [
+          {
+            "text": "Diagnostics",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 390,
+        "theme": "night",
+        "view": "Settings",
+        "scrollWidth": 390,
+        "actualControls": [
+          {
+            "text": "Settings",
+            "ratio": 5.619989258937964
+          },
+          {
+            "text": "Night",
+            "ratio": 5.619989258937964
+          },
+          {
+            "text": "Imperial",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 320,
+        "theme": "day",
+        "view": "Dashboard",
+        "scrollWidth": 320,
+        "actualControls": [
+          {
+            "text": "Dashboard",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 320,
+        "theme": "day",
+        "view": "Diagnostics",
+        "scrollWidth": 320,
+        "actualControls": [
+          {
+            "text": "Diagnostics",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 320,
+        "theme": "day",
+        "view": "Settings",
+        "scrollWidth": 320,
+        "actualControls": [
+          {
+            "text": "Settings",
+            "ratio": 5.271171248509958
+          },
+          {
+            "text": "Day",
+            "ratio": 5.271171248509958
+          },
+          {
+            "text": "Imperial",
+            "ratio": 5.271171248509958
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.49982322728535,
+          "--muted": 6.30252006817017,
+          "--accent": 5.986453723270191,
+          "--normal": 5.481182230243913,
+          "--warning": 5.357732035431237,
+          "--critical": 6.011699232420015
+        }
+      },
+      {
+        "width": 320,
+        "theme": "night",
+        "view": "Dashboard",
+        "scrollWidth": 320,
+        "actualControls": [
+          {
+            "text": "Dashboard",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 320,
+        "theme": "night",
+        "view": "Diagnostics",
+        "scrollWidth": 320,
+        "actualControls": [
+          {
+            "text": "Diagnostics",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      },
+      {
+        "width": 320,
+        "theme": "night",
+        "view": "Settings",
+        "scrollWidth": 320,
+        "actualControls": [
+          {
+            "text": "Settings",
+            "ratio": 5.619989258937964
+          },
+          {
+            "text": "Night",
+            "ratio": 5.619989258937964
+          },
+          {
+            "text": "Imperial",
+            "ratio": 5.619989258937964
+          }
+        ],
+        "focusStyle": "solid",
+        "focusWidth": 3,
+        "transitionSeconds": 0,
+        "contrast": {
+          "--text": 15.220003223570584,
+          "--muted": 8.349579077832807,
+          "--accent": 4.67131416411582,
+          "--normal": 10.062411762888228,
+          "--warning": 10.492449915487203,
+          "--critical": 6.878870054369958
+        }
+      }
+    ],
+    "scope": "Computed palette contrast, visible focus, width, reduced motion, and stable live-region content; no assistive-device certification."
+  },
   "scenarios": [
     {
       "id": "normal-ramp",
+      "faultDomain": "none",
       "seed": 27041,
       "simulationSeconds": 35,
       "finalTelemetry": {
@@ -38,10 +507,25 @@
         "engineLoad": 51.83159342515302
       },
       "retainedSamples": 71,
+      "delivery": {
+        "contractVersion": 1,
+        "status": "accepted",
+        "acceptedCount": 71,
+        "rejectedCount": 0,
+        "consecutiveRejected": 0,
+        "lastAttemptAt": 35,
+        "lastRejectedAt": null,
+        "lastRecoveryAt": null,
+        "issues": [],
+        "episodeCodes": [],
+        "notices": []
+      },
+      "observations": [],
       "transitions": []
     },
     {
       "id": "overheat",
+      "faultDomain": "process",
       "seed": 27041,
       "simulationSeconds": 35,
       "finalTelemetry": {
@@ -54,14 +538,30 @@
         "engineLoad": 48.3468131967223
       },
       "retainedSamples": 71,
+      "delivery": {
+        "contractVersion": 1,
+        "status": "accepted",
+        "acceptedCount": 71,
+        "rejectedCount": 0,
+        "consecutiveRejected": 0,
+        "lastAttemptAt": 35,
+        "lastRejectedAt": null,
+        "lastRecoveryAt": null,
+        "issues": [],
+        "episodeCodes": [],
+        "notices": []
+      },
+      "observations": [],
       "transitions": [
         {
           "time": 14,
+          "kind": "transition",
           "severity": "warning",
           "message": "Coolant temperature: normal → warning. 223.5 °F is above 220 °F."
         },
         {
           "time": 18.5,
+          "kind": "transition",
           "severity": "critical",
           "message": "Coolant temperature: warning → critical. 236.8 °F is above 235 °F."
         }
@@ -69,28 +569,1611 @@
     },
     {
       "id": "communication-loss",
+      "faultDomain": "delivery",
       "seed": 27041,
-      "simulationSeconds": 35,
+      "simulationSeconds": 25,
       "finalTelemetry": {
-        "time": 35,
-        "rpm": 1656.2412673828458,
-        "oilPressure": 55.221929158440716,
-        "coolantTemp": 187.46445255116384,
-        "batteryVoltage": 14.112161270989272,
-        "fuelLevel": 75.92997292658119,
-        "engineLoad": 48.3468131967223
+        "time": 25,
+        "rpm": 1646.5941430856196,
+        "oilPressure": 54.7705419170571,
+        "coolantTemp": 186.21812567487237,
+        "batteryVoltage": 14.092422383916384,
+        "fuelLevel": 75.95001510447375,
+        "engineLoad": 47.821354516834695
       },
-      "retainedSamples": 47,
+      "retainedSamples": 27,
+      "delivery": {
+        "contractVersion": 1,
+        "status": "accepted",
+        "acceptedCount": 27,
+        "rejectedCount": 0,
+        "consecutiveRejected": 0,
+        "lastAttemptAt": 25,
+        "lastRejectedAt": null,
+        "lastRecoveryAt": null,
+        "issues": [],
+        "episodeCodes": [],
+        "notices": []
+      },
+      "observations": [],
       "transitions": [
         {
           "time": 6.5,
+          "kind": "transition",
           "severity": "critical",
-          "message": "Communication: normal → critical. No new sample for 2.0 s; timeout is 2 s."
+          "message": "Communication: normal → critical. No valid sample for 2.0 s; timeout is 2 s."
         },
         {
           "time": 17,
+          "kind": "transition",
           "severity": "normal",
-          "message": "Communication: critical → normal. Sample delivery resumed."
+          "message": "Communication: critical → normal. Fresh valid sample delivery resumed."
+        }
+      ]
+    },
+    {
+      "id": "oil-pressure-loss",
+      "faultDomain": "process",
+      "seed": 27041,
+      "simulationSeconds": 42,
+      "finalTelemetry": {
+        "time": 42,
+        "rpm": 1650.186029655651,
+        "oilPressure": 52.42482271728953,
+        "coolantTemp": 188.2014299837828,
+        "batteryVoltage": 14.101373713631395,
+        "fuelLevel": 75.91596239488376,
+        "engineLoad": 48.023307548848166
+      },
+      "retainedSamples": 85,
+      "delivery": {
+        "contractVersion": 1,
+        "status": "accepted",
+        "acceptedCount": 85,
+        "rejectedCount": 0,
+        "consecutiveRejected": 0,
+        "lastAttemptAt": 42,
+        "lastRejectedAt": null,
+        "lastRecoveryAt": null,
+        "issues": [],
+        "episodeCodes": [],
+        "notices": []
+      },
+      "observations": [
+        {
+          "time": 0.5,
+          "validAt": 0.5,
+          "oilPressure": 52.55977681074754,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 1,
+          "validAt": 1,
+          "oilPressure": 53.04414734610091,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 1.5,
+          "validAt": 1.5,
+          "oilPressure": 53.41207065478861,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 2,
+          "validAt": 2,
+          "oilPressure": 53.657175375573665,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 2.5,
+          "validAt": 2.5,
+          "oilPressure": 53.83441413793565,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 3,
+          "validAt": 3,
+          "oilPressure": 54.089335122480044,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 3.5,
+          "validAt": 3.5,
+          "oilPressure": 54.19023333041767,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 4,
+          "validAt": 4,
+          "oilPressure": 54.38470028292694,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 4.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 5,
+          "validAt": 5,
+          "oilPressure": 50.84088231108566,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 5.5,
+          "validAt": 5.5,
+          "oilPressure": 47.42384142615727,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 6,
+          "validAt": 6,
+          "oilPressure": 44.311919572230615,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 6.5,
+          "validAt": 6.5,
+          "oilPressure": 41.39704189190277,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 7,
+          "validAt": 7,
+          "oilPressure": 38.66752323800221,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 7.5,
+          "validAt": 7.5,
+          "oilPressure": 36.290142044303714,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 8,
+          "validAt": 8,
+          "oilPressure": 34.05394387955733,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 8.5,
+          "validAt": 8.5,
+          "oilPressure": 31.90305156223691,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 9,
+          "validAt": 9,
+          "oilPressure": 29.992561185715847,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 9.5,
+          "validAt": 9.5,
+          "oilPressure": 28.209461316325214,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 10,
+          "validAt": 10,
+          "oilPressure": 26.57002997947842,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 10.5,
+          "validAt": 10.5,
+          "oilPressure": 25.02971720275688,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 11,
+          "validAt": 11,
+          "oilPressure": 23.57255618772509,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 11.5,
+          "validAt": 11.5,
+          "oilPressure": 22.19918111911895,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 12,
+          "validAt": 12,
+          "oilPressure": 20.97096691459227,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 12.5,
+          "validAt": 12.5,
+          "oilPressure": 19.93321305087219,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 13,
+          "validAt": 13,
+          "oilPressure": 18.845709862198962,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 13.5,
+          "validAt": 13.5,
+          "oilPressure": 17.804261413385515,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 14,
+          "validAt": 14,
+          "oilPressure": 16.97753037994986,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 14.5,
+          "validAt": 14.5,
+          "oilPressure": 16.084174374960426,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 15,
+          "validAt": 15,
+          "oilPressure": 15.391645097547455,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 15.5,
+          "validAt": 15.5,
+          "oilPressure": 14.726092951261595,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 16,
+          "validAt": 16,
+          "oilPressure": 13.998531277240328,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 16.5,
+          "validAt": 16.5,
+          "oilPressure": 13.395815252474694,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 17,
+          "validAt": 17,
+          "oilPressure": 12.82998620285863,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 17.5,
+          "validAt": 17.5,
+          "oilPressure": 12.293058326668888,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 18,
+          "validAt": 18,
+          "oilPressure": 11.85412378164907,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 18.5,
+          "validAt": 18.5,
+          "oilPressure": 11.434994088259923,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 19,
+          "validAt": 19,
+          "oilPressure": 11.028828430427817,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 19.5,
+          "validAt": 19.5,
+          "oilPressure": 10.568684940547985,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 20,
+          "validAt": 20,
+          "oilPressure": 10.310409691840807,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 20.5,
+          "validAt": 20.5,
+          "oilPressure": 9.958521437939808,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 21,
+          "validAt": 21,
+          "oilPressure": 9.742922057567954,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 21.5,
+          "validAt": 21.5,
+          "oilPressure": 9.49243524982979,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 22,
+          "validAt": 22,
+          "oilPressure": 9.156358877627714,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 22.5,
+          "validAt": 22.5,
+          "oilPressure": 8.87133878966596,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 23,
+          "validAt": 23,
+          "oilPressure": 8.694657240177078,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 23.5,
+          "validAt": 23.5,
+          "oilPressure": 8.435028203761531,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 24,
+          "validAt": 24,
+          "oilPressure": 11.841881922113028,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 24.5,
+          "validAt": 24.5,
+          "oilPressure": 15.065377723298798,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 25,
+          "validAt": 25,
+          "oilPressure": 18.02041186093847,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 25.5,
+          "validAt": 25.5,
+          "oilPressure": 20.869845552243316,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "critical",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 26,
+          "validAt": 26,
+          "oilPressure": 23.40992200698163,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 26.5,
+          "validAt": 26.5,
+          "oilPressure": 25.758685771031995,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 27,
+          "validAt": 27,
+          "oilPressure": 28.035740927637722,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "warning",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 27.5,
+          "validAt": 27.5,
+          "oilPressure": 30.109911566976482,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 28,
+          "validAt": 28,
+          "oilPressure": 31.954270103080596,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 28.5,
+          "validAt": 28.5,
+          "oilPressure": 33.594231486158634,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 29,
+          "validAt": 29,
+          "oilPressure": 35.233725479601965,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 29.5,
+          "validAt": 29.5,
+          "oilPressure": 36.760071850024694,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 30,
+          "validAt": 30,
+          "oilPressure": 38.15869689968548,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 30.5,
+          "validAt": 30.5,
+          "oilPressure": 39.485467319311546,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 31,
+          "validAt": 31,
+          "oilPressure": 40.687140645378236,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 31.5,
+          "validAt": 31.5,
+          "oilPressure": 41.85083050156615,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 32,
+          "validAt": 32,
+          "oilPressure": 42.8484454023989,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 32.5,
+          "validAt": 32.5,
+          "oilPressure": 43.8368413776035,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 33,
+          "validAt": 33,
+          "oilPressure": 44.68632683557525,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 33.5,
+          "validAt": 33.5,
+          "oilPressure": 45.44398848075917,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 34,
+          "validAt": 34,
+          "oilPressure": 46.24780458724105,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 34.5,
+          "validAt": 34.5,
+          "oilPressure": 46.990228090949735,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 35,
+          "validAt": 35,
+          "oilPressure": 47.58367801219625,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 35.5,
+          "validAt": 35.5,
+          "oilPressure": 48.05399567709502,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 36,
+          "validAt": 36,
+          "oilPressure": 48.485408614002566,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 36.5,
+          "validAt": 36.5,
+          "oilPressure": 48.912415484092016,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 37,
+          "validAt": 37,
+          "oilPressure": 49.36268206474297,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 37.5,
+          "validAt": 37.5,
+          "oilPressure": 49.81536016918117,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 38,
+          "validAt": 38,
+          "oilPressure": 50.22188115725432,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 38.5,
+          "validAt": 38.5,
+          "oilPressure": 50.661802045619886,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 39,
+          "validAt": 39,
+          "oilPressure": 50.912501149747094,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 39.5,
+          "validAt": 39.5,
+          "oilPressure": 51.164313297686206,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 40,
+          "validAt": 40,
+          "oilPressure": 51.473742486019,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 40.5,
+          "validAt": 40.5,
+          "oilPressure": 51.819364560479706,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 41,
+          "validAt": 41,
+          "oilPressure": 52.07252741147347,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 41.5,
+          "validAt": 41.5,
+          "oilPressure": 52.26316416277191,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 42,
+          "validAt": 42,
+          "oilPressure": 52.42482271728953,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        }
+      ],
+      "transitions": [
+        {
+          "time": 11.5,
+          "kind": "transition",
+          "severity": "warning",
+          "message": "Oil pressure: normal → warning. 22.2 psi is below 24 psi."
+        },
+        {
+          "time": 15.5,
+          "kind": "transition",
+          "severity": "critical",
+          "message": "Oil pressure: warning → critical. 14.7 psi is below 16 psi."
+        },
+        {
+          "time": 26,
+          "kind": "transition",
+          "severity": "warning",
+          "message": "Oil pressure: critical → warning. 23.4 psi is below 24 psi."
+        },
+        {
+          "time": 27.5,
+          "kind": "transition",
+          "severity": "normal",
+          "message": "Oil pressure: warning → normal. Value returned beyond the recovery threshold."
+        }
+      ]
+    },
+    {
+      "id": "invalid-sample-delivery",
+      "faultDomain": "delivery",
+      "seed": 27041,
+      "simulationSeconds": 25,
+      "finalTelemetry": {
+        "time": 25,
+        "rpm": 1646.5941430856196,
+        "oilPressure": 54.7705419170571,
+        "coolantTemp": 186.21812567487237,
+        "batteryVoltage": 14.092422383916384,
+        "fuelLevel": 75.95001510447375,
+        "engineLoad": 47.821354516834695
+      },
+      "retainedSamples": 27,
+      "delivery": {
+        "contractVersion": 1,
+        "status": "recovered",
+        "acceptedCount": 27,
+        "rejectedCount": 24,
+        "consecutiveRejected": 0,
+        "lastAttemptAt": 25,
+        "lastRejectedAt": 16.5,
+        "lastRecoveryAt": 17,
+        "issues": [
+          {
+            "code": "out-of-order-timestamp",
+            "field": "time",
+            "message": "Out-of-order sample timestamp; sample is older than the last accepted sample."
+          }
+        ],
+        "episodeCodes": [],
+        "notices": []
+      },
+      "observations": [
+        {
+          "time": 0.5,
+          "validAt": 0.5,
+          "oilPressure": 52.55977681074754,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 1,
+          "validAt": 1,
+          "oilPressure": 53.04414734610091,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 1.5,
+          "validAt": 1.5,
+          "oilPressure": 53.41207065478861,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 2,
+          "validAt": 2,
+          "oilPressure": 53.657175375573665,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 2.5,
+          "validAt": 2.5,
+          "oilPressure": 53.83441413793565,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 3,
+          "validAt": 3,
+          "oilPressure": 54.089335122480044,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 3.5,
+          "validAt": 3.5,
+          "oilPressure": 54.19023333041767,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 4,
+          "validAt": 4,
+          "oilPressure": 54.38470028292694,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 4.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "accepted",
+          "rejectedCount": 0,
+          "rejectionCodes": [],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 1,
+          "rejectionCodes": [
+            "non-finite"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 5.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 2,
+          "rejectionCodes": [
+            "non-finite"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 6,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 3,
+          "rejectionCodes": [
+            "non-finite"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 6.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 4,
+          "rejectionCodes": [
+            "non-finite"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 7,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 5,
+          "rejectionCodes": [
+            "non-finite"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 7.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 6,
+          "rejectionCodes": [
+            "non-finite"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 8,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 7,
+          "rejectionCodes": [
+            "missing-field"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 8.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 8,
+          "rejectionCodes": [
+            "missing-field"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 9,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 9,
+          "rejectionCodes": [
+            "missing-field"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 9.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 10,
+          "rejectionCodes": [
+            "numeric-type"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 10,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 11,
+          "rejectionCodes": [
+            "numeric-type"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 10.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 12,
+          "rejectionCodes": [
+            "numeric-type"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 11,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 13,
+          "rejectionCodes": [
+            "duplicate-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 11.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 14,
+          "rejectionCodes": [
+            "duplicate-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 12,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 15,
+          "rejectionCodes": [
+            "duplicate-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 12.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 16,
+          "rejectionCodes": [
+            "duplicate-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 13,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 17,
+          "rejectionCodes": [
+            "duplicate-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 13.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 18,
+          "rejectionCodes": [
+            "duplicate-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 14,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 19,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 14.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 20,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 15,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 21,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 15.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 22,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 16,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 23,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 16.5,
+          "validAt": 4.5,
+          "oilPressure": 54.391176180697016,
+          "deliveryStatus": "rejected",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "critical"
+        },
+        {
+          "time": 17,
+          "validAt": 17,
+          "oilPressure": 54.854463630418465,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 17.5,
+          "validAt": 17.5,
+          "oilPressure": 54.83420708068958,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 18,
+          "validAt": 18,
+          "oilPressure": 54.880041539987154,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 18.5,
+          "validAt": 18.5,
+          "oilPressure": 54.907104345258794,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 19,
+          "validAt": 19,
+          "oilPressure": 54.91099683711045,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 19.5,
+          "validAt": 19.5,
+          "oilPressure": 54.8205017082851,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 20,
+          "validAt": 20,
+          "oilPressure": 54.92433396471551,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 20.5,
+          "validAt": 20.5,
+          "oilPressure": 54.89309222668403,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 21,
+          "validAt": 21,
+          "oilPressure": 54.98667804195236,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 21.5,
+          "validAt": 21.5,
+          "oilPressure": 55.01467005856498,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 22,
+          "validAt": 22,
+          "oilPressure": 54.92361738624236,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 22.5,
+          "validAt": 22.5,
+          "oilPressure": 54.86941354750969,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 23,
+          "validAt": 23,
+          "oilPressure": 54.916974992350134,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 23.5,
+          "validAt": 23.5,
+          "oilPressure": 54.8534069567685,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 24,
+          "validAt": 24,
+          "oilPressure": 54.77779249890012,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 24.5,
+          "validAt": 24.5,
+          "oilPressure": 54.788939862736136,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        },
+        {
+          "time": 25,
+          "validAt": 25,
+          "oilPressure": 54.7705419170571,
+          "deliveryStatus": "recovered",
+          "rejectedCount": 24,
+          "rejectionCodes": [
+            "out-of-order-timestamp"
+          ],
+          "oilSeverity": "normal",
+          "communicationSeverity": "normal"
+        }
+      ],
+      "transitions": [
+        {
+          "time": 5,
+          "kind": "validation",
+          "severity": "warning",
+          "message": "Telemetry rejected (non-finite). oilPressure must be finite. Last valid instrument readings retained."
+        },
+        {
+          "time": 6.5,
+          "kind": "transition",
+          "severity": "critical",
+          "message": "Communication: normal → critical. No valid sample for 2.0 s; timeout is 2 s."
+        },
+        {
+          "time": 8,
+          "kind": "validation",
+          "severity": "warning",
+          "message": "Telemetry rejected (missing-field). Required field batteryVoltage is missing. Last valid instrument readings retained."
+        },
+        {
+          "time": 9.5,
+          "kind": "validation",
+          "severity": "warning",
+          "message": "Telemetry rejected (numeric-type). rpm must be a number; numeric strings are not accepted. Last valid instrument readings retained."
+        },
+        {
+          "time": 11,
+          "kind": "validation",
+          "severity": "warning",
+          "message": "Telemetry rejected (duplicate-timestamp). Duplicate sample timestamp; an accepted sample already has this time. Last valid instrument readings retained."
+        },
+        {
+          "time": 14,
+          "kind": "validation",
+          "severity": "warning",
+          "message": "Telemetry rejected (out-of-order-timestamp). Out-of-order sample timestamp; sample is older than the last accepted sample. Last valid instrument readings retained."
+        },
+        {
+          "time": 17,
+          "kind": "recovery",
+          "severity": "normal",
+          "message": "Telemetry delivery recovered. Valid contract v1 sample accepted after 24 rejected attempts."
+        },
+        {
+          "time": 17,
+          "kind": "transition",
+          "severity": "normal",
+          "message": "Communication: critical → normal. Fresh valid sample delivery resumed."
         }
       ]
     }
@@ -102,14 +2185,14 @@
       "gzipBytes": 110244
     },
     {
-      "file": "index-CyuzUI5K.js",
-      "bytes": 252189,
-      "gzipBytes": 78784
+      "file": "index-70nx4WS4.css",
+      "bytes": 33165,
+      "gzipBytes": 6645
     },
     {
-      "file": "index-D7cNQiWl.css",
-      "bytes": 23748,
-      "gzipBytes": 5157
+      "file": "index-dMgNQ6oV.js",
+      "bytes": 274211,
+      "gzipBytes": 85066
     }
   ],
   "limits": {
@@ -123,5 +2206,120 @@
     "Long-duration browser soak",
     "Real hardware response",
     "Public hosting uptime"
-  ]
+  ],
+  "reports": [
+    {
+      "format": "pdf",
+      "pages": 9,
+      "bytes": 283326,
+      "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41",
+      "metadataAndRepositoryLink": "pass",
+      "packagedBytes": "pass",
+      "visualInspection": "All nine pages rendered and visually inspected; pass."
+    },
+    {
+      "format": "docx",
+      "pages": 9,
+      "bytes": 315893,
+      "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a",
+      "metadataAndRepositoryLink": "pass",
+      "packagedBytes": "pass",
+      "visualInspection": "All nine pages rendered and visually inspected; pass."
+    }
+  ],
+  "conceptLabelRecheck": {
+    "date": "Fall 2026",
+    "label": "Design concept",
+    "targetedBrowserWorkflowsPassed": 3,
+    "targetedBrowserWorkflowsFailed": 0,
+    "labelChecks": [
+      {
+        "width": 1440,
+        "theme": "night",
+        "view": "Dashboard",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 1440,
+        "theme": "night",
+        "view": "Diagnostics",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 1440,
+        "theme": "night",
+        "view": "Settings",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 1440,
+        "theme": "day",
+        "view": "Dashboard",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 1440,
+        "theme": "day",
+        "view": "Diagnostics",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 1440,
+        "theme": "day",
+        "view": "Settings",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 390,
+        "theme": "night",
+        "view": "Dashboard",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 390,
+        "theme": "night",
+        "view": "Diagnostics",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 390,
+        "theme": "night",
+        "view": "Settings",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 390,
+        "theme": "day",
+        "view": "Dashboard",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 390,
+        "theme": "day",
+        "view": "Diagnostics",
+        "label": "Design concept",
+        "result": "pass"
+      },
+      {
+        "width": 390,
+        "theme": "day",
+        "view": "Settings",
+        "label": "Design concept",
+        "result": "pass"
+      }
+    ],
+    "textAndReportScan": "pass",
+    "bothLocalProductionBuilds": "pass",
+    "publication": "not performed"
+  }
 }

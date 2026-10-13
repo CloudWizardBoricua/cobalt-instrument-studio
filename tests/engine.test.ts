@@ -228,13 +228,27 @@ describe("diagnostic rules", () => {
   });
   it("debounces received samples and deduplicates sustained alerts", () => {
     let d = createDiagnostics();
-    const s = createSimulation();
+    let s = createSimulation();
     s.received.coolantTemp = 225;
     d = updateDiagnostics(d, s, defaultSettings);
     expect(d.alerts.coolantTemp.severity).toBe("normal");
+    s = {
+      ...s,
+      time: 0.5,
+      receivedAt: 0.5,
+      received: { ...s.received, time: 0.5 },
+    };
     d = updateDiagnostics(d, s, defaultSettings);
     expect(d.alerts.coolantTemp.severity).toBe("warning");
-    for (let i = 0; i < 30; i++) d = updateDiagnostics(d, s, defaultSettings);
+    for (let i = 0; i < 30; i++) {
+      s = {
+        ...s,
+        time: s.time + 0.5,
+        receivedAt: s.time + 0.5,
+        received: { ...s.received, time: s.time + 0.5 },
+      };
+      d = updateDiagnostics(d, s, defaultSettings);
+    }
     expect(d.events).toHaveLength(1);
     expect(activeAlerts(d)).toHaveLength(1);
   });
@@ -242,6 +256,9 @@ describe("diagnostic rules", () => {
     const s = createSimulation();
     s.received.coolantTemp = 225;
     const initial = updateDiagnostics(createDiagnostics(), s, defaultSettings);
+    const duplicate = updateDiagnostics(initial, s, defaultSettings);
+    expect(duplicate.alerts.coolantTemp.severity).toBe("normal");
+    expect(duplicate.alerts.coolantTemp.candidateSamples).toBe(1);
     const delayed = { ...s, time: 1 };
     const d = updateDiagnostics(initial, delayed, defaultSettings);
     expect(d.alerts.coolantTemp.severity).toBe("normal");

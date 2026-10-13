@@ -8,43 +8,73 @@ concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  verify:
+  preflight:
+    name: Verify annotated tag and version agreement
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v6
+      - name: Check out the tagged source and annotated tag
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
+          fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: 24
           package-manager-cache: false
-      - run: node scripts/verify-release.mjs
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run verify:privacy
-      - run: npm run build
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      - name: Verify tag, package, changelog, notes, and report versions
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node scripts/verify-release.mjs
+  verify:
+    name: Verify the tagged builds with CI
+    needs: preflight
+    uses: ./.github/workflows/ci.yml
   release:
-    needs: verify
+    name: Package and publish verified release
+    needs: [preflight, verify]
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - name: Check out the same verified source for packaging tools
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
-      - name: Publish one release for an existing reviewed tag
+      - name: Set up Node.js without dependency installation
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Download the production builds that passed CI in this run
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          artifact-ids: ${{ needs.verify.outputs.production-artifact-id }}
+          path: .local/tested-builds
+          merge-multiple: true
+          digest-mismatch: error
+      - name: Package reports and round-trip the tested static archive
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node scripts/package-release.mjs .local/tested-builds .local/release-package
+      - name: Preserve verified release attachments for inspection
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: cobalt-release-attachments-${{ github.run_attempt }}
+          retention-days: 30
+          if-no-files-found: error
+          # Only these five named files are retained from the ignored local directory.
+          include-hidden-files: true
+          path: |
+            .local/release-package/Cobalt_Engineering_Report.pdf
+            .local/release-package/Cobalt_Engineering_Report.docx
+            .local/release-package/Cobalt_Static_Build_${{ github.ref_name }}.tar.gz
+            .local/release-package/SHA256SUMS.txt
+            .local/release-package/release-manifest.json
+      - name: Publish exactly one verified release and validate uploaded assets
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.ref_name }}
-          GH_REPO: ${{ github.repository }}
-        run: |
-          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            echo "Release already exists; leaving it unchanged."
-            exit 0
-          fi
-          gh release create "$RELEASE_TAG" --verify-tag --title "Cobalt Instrument Studio $RELEASE_TAG" --notes-file docs/RELEASE_NOTES.md docs/Cobalt_Engineering_Report.pdf docs/Cobalt_Engineering_Report.docx
+        run: node scripts/publish-release.mjs .local/release-package .local/tested-builds

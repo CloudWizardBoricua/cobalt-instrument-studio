@@ -11,6 +11,7 @@ export default defineConfig({
     viewport: { width: 1440, height: 1100 },
     reducedMotion: "reduce",
     trace: "retain-on-failure",
+    screenshot: "only-on-failure",
     channel: process.env.CI
       ? undefined
       : process.env.PW_BROWSER_CHANNEL || "msedge",

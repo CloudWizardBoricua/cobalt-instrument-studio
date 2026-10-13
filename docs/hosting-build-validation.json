@@ -5,26 +5,31 @@
     {
       "name": "root",
       "buildCommand": "npm run build",
-      "buildWallMs": 6342,
+      "buildWallMs": null,
+      "buildExecution": "Previously built; this command verifies existing output.",
       "browser": "pass",
       "downloads": [
         {
           "extension": "pdf",
           "status": 200,
-          "bytes": 191174,
-          "sha256": "7f6068ae10a7ca94c1621a629d573900585bb86f0c3a916a1a9c06f2ae5db285"
+          "bytes": 283326,
+          "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
         },
         {
           "extension": "docx",
           "status": 200,
-          "bytes": 220998,
-          "sha256": "de15ca8319103bf800bc1d8feddca9eb4959157583bf46c9fb46f4fddce680cb"
+          "bytes": 315893,
+          "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
         }
       ],
       "checks": [
         "six instruments",
         "overheat critical",
         "communication timeout and recovery",
+        "invalid delivery retention and recovery",
+        "oil pressure escalation and recovery",
+        "device property application",
+        "adjacent developer source link",
         "bounded 240 samples",
         "mobile width",
         "refresh",
@@ -36,26 +41,31 @@
     {
       "name": "project",
       "buildCommand": "npm run build:pages",
-      "buildWallMs": 6418,
+      "buildWallMs": null,
+      "buildExecution": "Previously built; this command verifies existing output.",
       "browser": "pass",
       "downloads": [
         {
           "extension": "pdf",
           "status": 200,
-          "bytes": 191174,
-          "sha256": "7f6068ae10a7ca94c1621a629d573900585bb86f0c3a916a1a9c06f2ae5db285"
+          "bytes": 283326,
+          "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
         },
         {
           "extension": "docx",
           "status": 200,
-          "bytes": 220998,
-          "sha256": "de15ca8319103bf800bc1d8feddca9eb4959157583bf46c9fb46f4fddce680cb"
+          "bytes": 315893,
+          "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
         }
       ],
       "checks": [
         "six instruments",
         "overheat critical",
         "communication timeout and recovery",
+        "invalid delivery retention and recovery",
+        "oil pressure escalation and recovery",
+        "device property application",
+        "adjacent developer source link",
         "bounded 240 samples",
         "mobile width",
         "refresh",
@@ -72,14 +82,14 @@
       "gzipBytes": 110244
     },
     {
-      "file": "index-DIXygwGS.js",
-      "bytes": 252781,
-      "gzipBytes": 78922
+      "file": "index-70nx4WS4.css",
+      "bytes": 33165,
+      "gzipBytes": 6645
     },
     {
-      "file": "index-DxFcj419.css",
-      "bytes": 23006,
-      "gzipBytes": 5071
+      "file": "index-Cz0mqwIW.js",
+      "bytes": 273984,
+      "gzipBytes": 84971
     }
   ]
 }

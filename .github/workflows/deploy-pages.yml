@@ -1,49 +1,81 @@
 name: Publish GitHub Pages
 on:
-  workflow_dispatch:
-  push:
+  workflow_run:
+    workflows: [Continuous integration]
     branches: [main]
+    types: [completed]
 permissions:
   contents: read
 concurrency:
   group: pages
   cancel-in-progress: false
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    env:
-      VITE_SOURCE_URL: ${{ github.server_url }}/${{ github.repository }}
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          package-manager-cache: false
-      - uses: actions/configure-pages@v5
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run verify:privacy
-      - run: npm run build
-      - run: npm run build:pages
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: dist-pages
-  deploy:
-    needs: build
+  prepare:
+    name: Verify the successful main build for Pages
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
+      actions: read
+      pages: read
+    outputs:
+      current: ${{ steps.current.outputs.current }}
+    steps:
+      - name: Check out the exact CI source for artifact verification
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - name: Set up Node.js 24 for the artifact verifier
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Download builds from the exact successful CI run and attempt
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: cobalt-production-builds-${{ github.event.workflow_run.run_attempt }}
+          path: .local/verified-pages
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+          digest-mismatch: error
+      - name: Verify the CI source commit and every artifact file hash
+        env:
+          EXPECTED_COMMIT: ${{ github.event.workflow_run.head_sha }}
+        run: node scripts/verify-build-verification.mjs .local/verified-pages --expected-commit "$EXPECTED_COMMIT"
+      - name: Read the existing Pages configuration
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - name: Skip a completed CI revision that is no longer main
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EXPECTED_COMMIT: ${{ github.event.workflow_run.head_sha }}
+        run: node scripts/check-pages-source.mjs
+      - name: Upload the tested Pages output without rebuilding it
+        if: steps.current.outputs.current == 'true'
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: .local/verified-pages/dist-pages
+          retention-days: 1
+  deploy:
+    name: Deploy the verified Pages artifact
+    needs: prepare
+    if: needs.prepare.outputs.current == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy verified artifact
+      - name: Deploy the verified Pages artifact
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

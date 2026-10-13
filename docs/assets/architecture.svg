@@ -17,14 +17,14 @@
 			<text x="157.9365" y="135" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(6%,14%,25%); stroke:none;" transform="translate(0,270) scale(1,-1)">Engine model</text>
 			<text x="154.976" y="121" style="font-family: Helvetica; font-size: 9px;fill: rgb(27%,36%,47%); stroke:none;" transform="translate(0,242) scale(1,-1)">seed and fixed step</text>
 			<rect x="272" y="110" width="116" height="43" rx="5" ry="5" style="stroke: rgb(61%,70%,82%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,98%); fill-rule: evenodd;"/>
-			<text x="288.1175" y="135" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(6%,14%,25%); stroke:none;" transform="translate(0,270) scale(1,-1)">Sample delivery</text>
-			<text x="294.738" y="121" style="font-family: Helvetica; font-size: 9px;fill: rgb(27%,36%,47%); stroke:none;" transform="translate(0,242) scale(1,-1)">loss and recovery</text>
+			<text x="303.7155" y="135" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(6%,14%,25%); stroke:none;" transform="translate(0,270) scale(1,-1)">Validation</text>
+			<text x="287.23199999999997" y="121" style="font-family: Helvetica; font-size: 9px;fill: rgb(27%,36%,47%); stroke:none;" transform="translate(0,242) scale(1,-1)">version, bounds, time</text>
 			<rect x="408" y="110" width="116" height="43" rx="5" ry="5" style="stroke: rgb(61%,70%,82%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,98%); fill-rule: evenodd;"/>
 			<text x="427.4835" y="135" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(6%,14%,25%); stroke:none;" transform="translate(0,270) scale(1,-1)">Received state</text>
-			<text x="427.73199999999997" y="121" style="font-family: Helvetica; font-size: 9px;fill: rgb(27%,36%,47%); stroke:none;" transform="translate(0,242) scale(1,-1)">one shared sample</text>
+			<text x="423.7315" y="121" style="font-family: Helvetica; font-size: 9px;fill: rgb(27%,36%,47%); stroke:none;" transform="translate(0,242) scale(1,-1)">last accepted sample</text>
 			<rect x="544" y="110" width="116" height="43" rx="5" ry="5" style="stroke: rgb(61%,70%,82%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,98%); fill-rule: evenodd;"/>
 			<text x="570.5235" y="135" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(6%,14%,25%); stroke:none;" transform="translate(0,270) scale(1,-1)">Instruments</text>
-			<text x="580.49" y="121" style="font-family: Helvetica; font-size: 9px;fill: rgb(27%,36%,47%); stroke:none;" transform="translate(0,242) scale(1,-1)">six gauges</text>
+			<text x="561.7295" y="121" style="font-family: Helvetica; font-size: 9px;fill: rgb(27%,36%,47%); stroke:none;" transform="translate(0,242) scale(1,-1)">gauges and preview</text>
 			<path d="M 116,131 L 136,131 Z" style="stroke: rgb(9%,36%,82%); stroke-linecap: butt; stroke-width: 1.4;"/>
 			<polygon points="136 131, 131 134, 131 128" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,36%,82%); fill-rule: evenodd;"/>
 			<path d="M 252,131 L 272,131 Z" style="stroke: rgb(9%,36%,82%); stroke-linecap: butt; stroke-width: 1.4;"/>

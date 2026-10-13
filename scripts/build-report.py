@@ -14,6 +14,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
+from docx.opc.constants import RELATIONSHIP_TYPE
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.styles import ParagraphStyle
@@ -56,7 +57,7 @@ def architecture():
         if x2 > x1: points = [x2, y2, x2 - 5, y2 + 3, x2 - 5, y2 - 3]
         else: points = [x2, y2, x2 - 3, y2 + 5, x2 + 3, y2 + 5]
         drawing.add(Polygon(points, fillColor=colors.HexColor('#175CD3'), strokeColor=None))
-    for args in [(0, 110, 116, 'Commands', 'mode and scenario'), (136, 110, 116, 'Engine model', 'seed and fixed step'), (272, 110, 116, 'Sample delivery', 'loss and recovery'), (408, 110, 116, 'Received state', 'one shared sample'), (544, 110, 116, 'Instruments', 'six gauges')]: node(*args)
+    for args in [(0, 110, 116, 'Commands', 'mode and scenario'), (136, 110, 116, 'Engine model', 'seed and fixed step'), (272, 110, 116, 'Validation', 'version, bounds, time'), (408, 110, 116, 'Received state', 'last accepted sample'), (544, 110, 116, 'Instruments', 'gauges and preview')]: node(*args)
     for x in [116, 252, 388, 524]: arrow(x, 131, x + 20, 131)
     node(136, 22, 116, 'Settings', 'validated rules')
     node(272, 22, 116, 'Diagnostics', 'alerts and events')
@@ -133,7 +134,7 @@ doc.core_properties.comments = ''
 doc.core_properties.keywords = 'simulation, instrumentation, diagnostics'
 footer = section.footer.paragraphs[0]
 footer.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-footer.add_run('Cobalt Instrument Studio 0.1.0  |  ').font.size = Pt(8)
+footer.add_run(f"Cobalt Instrument Studio {source['version']}  |  ").font.size = Pt(8)
 field = OxmlElement('w:fldSimple'); field.set(qn('w:instr'), 'PAGE'); footer._p.append(field)
 
 pdf_body = ParagraphStyle('body', fontName='Helvetica', fontSize=10.7, leading=14.1, textColor=colors.black, spaceAfter=9)
@@ -146,6 +147,19 @@ pdf_cell = ParagraphStyle('cell', parent=pdf_body, fontSize=9.2, leading=12, spa
 pdf_headcell = ParagraphStyle('headcell', parent=pdf_cell, fontName='Helvetica-Bold', textColor=colors.white)
 pdf_story = []
 def para(text): return Paragraph(escape(fill(text)), pdf_body)
+
+def add_repository_link(paragraph, url):
+    paragraph.add_run(' | ').font.size = Pt(10)
+    link = OxmlElement('w:hyperlink')
+    link.set(qn('r:id'), paragraph.part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True))
+    run = OxmlElement('w:r')
+    properties = OxmlElement('w:rPr')
+    color = OxmlElement('w:color'); color.set(qn('w:val'), '175CD3'); properties.append(color)
+    size = OxmlElement('w:sz'); size.set(qn('w:val'), '20'); properties.append(size)
+    underline = OxmlElement('w:u'); underline.set(qn('w:val'), 'single'); properties.append(underline)
+    run.append(properties)
+    text = OxmlElement('w:t'); text.text = 'GitHub'; run.append(text)
+    link.append(run); paragraph._p.append(link)
 
 def add_table(block):
     rows = [block['columns']] + block['rows']
@@ -201,9 +215,12 @@ for index, page in enumerate(source['pages']):
         credit.paragraph_format.space_after = Pt(6)
         credit.runs[0].font.size = Pt(10)
         credit.runs[0].font.color.rgb = RGBColor.from_string('50617A')
+        repository = source.get('authorRepository')
+        if repository: add_repository_link(credit, repository)
         doc.add_paragraph(f"Version {source['version']}  |  {source['date']}")
         pdf_credit = ParagraphStyle('credit', parent=pdf_body, fontSize=10, leading=13, textColor=colors.HexColor('#50617A'), spaceAfter=6)
-        pdf_story.extend([Paragraph(escape(source['title']), pdf_title), Paragraph(escape(source['subtitle']), pdf_subtitle), Paragraph(escape(source['authorCredit']), pdf_credit), para(f"Version {source['version']}  |  {source['date']}")])
+        pdf_credit_text = escape(source['authorCredit']) + (f' | <link href="{escape(repository)}" color="#175CD3"><u>GitHub</u></link>' if repository else '')
+        pdf_story.extend([Paragraph(escape(source['title']), pdf_title), Paragraph(escape(source['subtitle']), pdf_subtitle), Paragraph(pdf_credit_text, pdf_credit), para(f"Version {source['version']}  |  {source['date']}")])
     page_heading = doc.add_paragraph(page['title'], style='Heading 1')
     page_heading.paragraph_format.page_break_before = bool(index)
     pdf_story.append(Paragraph(escape(page['title']), pdf_heading))
@@ -228,7 +245,7 @@ pdf_path = Path('docs/Cobalt_Engineering_Report.pdf')
 doc.save(docx_path)
 def footer_pdf(canvas, document):
     canvas.saveState(); canvas.setFont('Helvetica', 8); canvas.setFillColor(colors.HexColor('#50617A'))
-    canvas.drawRightString(7.7 * 72, 0.33 * 72, f'Cobalt Instrument Studio 0.1.0  |  {document.page}')
+    canvas.drawRightString(7.7 * 72, 0.33 * 72, f"Cobalt Instrument Studio {source['version']}  |  {document.page}")
     canvas.restoreState()
 pdf = SimpleDocTemplate(str(pdf_path), pagesize=(8.5 * 72, 11 * 72), leftMargin=0.8 * 72, rightMargin=0.8 * 72, topMargin=0.65 * 72, bottomMargin=0.65 * 72, title=f"{source['title']} Engineering Report", author='', subject='Simulated instrumentation architecture and validation', creator='Cobalt report builder')
 pdf.build(pdf_story, onFirstPage=footer_pdf, onLaterPages=footer_pdf)

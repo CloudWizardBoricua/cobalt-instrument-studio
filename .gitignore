@@ -10,3 +10,4 @@ playwright-report/
 !.env.example
 *.log
 __pycache__/
+build-verification.json

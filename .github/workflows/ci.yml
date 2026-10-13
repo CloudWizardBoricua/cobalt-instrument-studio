@@ -3,28 +3,100 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_call:
+    outputs:
+      production-artifact-id:
+        description: Immutable artifact containing the verified root and Pages builds.
+        value: ${{ jobs.verify.outputs.production-artifact-id }}
+      production-artifact-name:
+        description: Attempt-specific verified artifact name.
+        value: ${{ jobs.verify.outputs.production-artifact-name }}
 permissions:
   contents: read
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-verification
   cancel-in-progress: true
 jobs:
   verify:
+    name: CI verification
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+    env:
+      VITE_SOURCE_URL: ${{ github.server_url }}/${{ github.repository }}
+    outputs:
+      production-artifact-id: ${{ steps.production.outputs.artifact-id }}
+      production-artifact-name: cobalt-production-builds-${{ github.run_attempt }}
     steps:
-      - uses: actions/checkout@v6
+      - name: Check out the exact source revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - name: Set up Node.js 24
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run verify:privacy
-      - run: npm run build
-      - run: npm run build:pages
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+          package-manager-cache: false
+      - name: Install dependencies from the committed lockfile
+        run: npm ci
+      - name: Validate workflow contracts and immutable action references
+        run: npm run verify:workflows
+      - name: Check TypeScript
+        run: npm run typecheck
+      - name: Run unit and release-contract tests with a JSON report
+        run: npm run test:ci
+      - name: Check privacy and independent-project content
+        run: npm run verify:privacy
+      - name: Build the Netlify root path
+        run: npm run build
+      - name: Build the GitHub Pages project path
+        run: npm run build:pages
+      - name: Install Chromium and required browser libraries
+        run: npx playwright install --with-deps chromium
+      - name: Test browser workflows and capture screenshots and failure traces
+        run: npm run test:e2e
+      - name: Verify both production paths and exact report downloads
+        run: npm run verify:static -- --skip-build
+      - name: Check generated content before retaining build artifacts
+        run: npm run verify:privacy
+      - name: Bind verified build contents to the source commit
+        run: node scripts/record-build-verification.mjs
+      - name: Upload verified production builds and release inputs
+        id: production
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: cobalt-production-builds-${{ github.run_attempt }}
+          path: |
+            dist/
+            dist-pages/
+            package.json
+            CHANGELOG.md
+            docs/RELEASE_NOTES.md
+            docs/report-source.json
+            build-verification.json
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 6
+          include-hidden-files: false
+      - name: Preserve test reports, screenshots, and failure traces
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: cobalt-test-results-${{ github.run_attempt }}
+          path: |
+            .local/unit-results.json
+            .local/e2e-results.json
+            .local/browser-measurements.json
+            .local/accessibility-measurements.json
+            docs/hosting-build-validation.json
+            docs/assets/dashboard-desktop.png
+            docs/assets/dashboard-mobile.png
+            docs/assets/diagnostics-mobile.png
+            docs/assets/oil-pressure-mobile.png
+            docs/assets/rejected-sample-desktop.png
+            docs/assets/workspace-desktop.png
+            test-results/
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
+          # Only the explicitly listed JSON reports under .local are included.
+          include-hidden-files: true
