@@ -49,7 +49,7 @@ jobs:
           EXPECTED_COMMIT: ${{ github.event.workflow_run.head_sha }}
         run: node scripts/verify-build-verification.mjs .local/verified-pages --expected-commit "$EXPECTED_COMMIT"
       - name: Read the existing Pages configuration
-        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Skip a completed CI revision that is no longer main
         id: current
         env:
