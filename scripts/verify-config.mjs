@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { parseDocument } from "yaml";
+import { testReportPaths } from "./prepare-test-reports.mjs";
 
 export function validateWorkflow(source, filename) {
   const document = parseDocument(source, { uniqueKeys: true });
@@ -175,15 +176,32 @@ export function verifyWorkflowDirectory(root = process.cwd()) {
   const production = uploads.find((step) =>
     step.with.name.startsWith("cobalt-production-builds-"),
   );
+  const reportPrivacy = ci.jobs.verify.steps.find(
+    (step) => step.id === "test-report-privacy",
+  );
+  const uploadedJSONReports = String(tests?.with?.path || "")
+    .split(/\r?\n/)
+    .map((path) => path.trim())
+    .filter((path) => path.endsWith(".json"))
+    .sort();
   if (
-    tests?.if !== "always()" ||
+    tests?.if !==
+      "always() && steps.test-report-privacy.outcome == 'success'" ||
+    reportPrivacy?.if !== "always()" ||
+    reportPrivacy.run !== "node scripts/prepare-test-reports.mjs" ||
+    ci.jobs.verify.steps.indexOf(reportPrivacy) >=
+      ci.jobs.verify.steps.indexOf(tests) ||
+    ci.jobs.verify.steps.indexOf(reportPrivacy) >=
+      ci.jobs.verify.steps.indexOf(production) ||
+    JSON.stringify(uploadedJSONReports) !==
+      JSON.stringify([...testReportPaths].sort()) ||
     tests.with["retention-days"] !== 7 ||
     production?.with["retention-days"] !== 14 ||
     production.if ||
     production.with.overwrite
   )
     throw new Error(
-      "Test evidence must survive failures; production artifacts require success and attempt-specific retention.",
+      "Test evidence requires private-safe preparation on failure paths; production artifacts require success and attempt-specific retention.",
     );
   const prepare = pages.jobs.prepare;
   for (const gate of [

@@ -1,0 +1,550 @@
+{
+  "date": "Fall 2026",
+  "scope": "Actual successful pull-request CI execution and downloaded artifact inspection. This record does not create a release or initiate deployment.",
+  "repository": "CloudWizardBoricua/cobalt-instrument-studio",
+  "pullRequest": {
+    "number": 1,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/1",
+    "state": "closed",
+    "merged": true,
+    "baseSha": "421ea725f9be740f86d7b61e445e37e18a1f4d0b",
+    "headSha": "27cfdd078a1e961061a047e83593d4f87b361230"
+  },
+  "run": {
+    "id": 38341235636,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341235636",
+    "headSha": "27cfdd078a1e961061a047e83593d4f87b361230",
+    "event": "pull_request",
+    "attempt": 1,
+    "result": "success"
+  },
+  "testMerge": {
+    "sha": "c8a58613e67e1c64a276496ff64d4c0a6d8cc8db",
+    "parents": [
+      "421ea725f9be740f86d7b61e445e37e18a1f4d0b",
+      "27cfdd078a1e961061a047e83593d4f87b361230"
+    ],
+    "independentlyVerified": true,
+    "source": "GitHub PR API before merge, reverified immutable commit parents",
+    "treeSha": "b4ffd345283900031411adc1c07ec953b90fd311",
+    "actualMergeSha": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+    "actualMergeTreeEqualsTestedTree": true
+  },
+  "jobs": [
+    {
+      "name": "CI verification",
+      "result": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "result": "success"
+        },
+        {
+          "name": "Check out the exact source revision",
+          "result": "success"
+        },
+        {
+          "name": "Set up Node.js 24",
+          "result": "success"
+        },
+        {
+          "name": "Install dependencies from the committed lockfile",
+          "result": "success"
+        },
+        {
+          "name": "Validate workflow contracts and immutable action references",
+          "result": "success"
+        },
+        {
+          "name": "Check TypeScript",
+          "result": "success"
+        },
+        {
+          "name": "Run unit and release-contract tests with a JSON report",
+          "result": "success"
+        },
+        {
+          "name": "Check privacy and independent-project content",
+          "result": "success"
+        },
+        {
+          "name": "Build the Netlify root path",
+          "result": "success"
+        },
+        {
+          "name": "Build the GitHub Pages project path",
+          "result": "success"
+        },
+        {
+          "name": "Install Chromium and required browser libraries",
+          "result": "success"
+        },
+        {
+          "name": "Test browser workflows and capture screenshots and failure traces",
+          "result": "success"
+        },
+        {
+          "name": "Verify both production paths and exact report downloads",
+          "result": "success"
+        },
+        {
+          "name": "Check generated content before retaining build artifacts",
+          "result": "success"
+        },
+        {
+          "name": "Bind verified build contents to the source commit",
+          "result": "success"
+        },
+        {
+          "name": "Upload verified production builds and release inputs",
+          "result": "success"
+        },
+        {
+          "name": "Preserve test reports, screenshots, and failure traces",
+          "result": "success"
+        },
+        {
+          "name": "Post Set up Node.js 24",
+          "result": "success"
+        },
+        {
+          "name": "Post Check out the exact source revision",
+          "result": "success"
+        },
+        {
+          "name": "Complete job",
+          "result": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11786956557,
+      "name": "cobalt-production-builds-1",
+      "folder": "production",
+      "zipBytes": 1490272,
+      "sha256": "532731f39713a0b32953704640ef6d6eafbf09892b3b33f26d4f91c53264a08a",
+      "githubDigestMatched": true,
+      "retentionDays": 14,
+      "observedLifetimeSeconds": 1209600,
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341235636/artifacts/11786956557",
+      "downloadAvailable": true
+    },
+    {
+      "id": 11786951525,
+      "name": "cobalt-test-results-1",
+      "folder": "tests",
+      "zipBytes": 948361,
+      "sha256": "14df970c518062c78a3eb8c7adb6ab1639d86e5e96def95f8e5b7cb44c97ed80",
+      "githubDigestMatched": true,
+      "retentionDays": 7,
+      "observedLifetimeSeconds": 604799,
+      "downloadAvailable": false,
+      "cleanupEvidence": "workflow-governance-validation.json"
+    }
+  ],
+  "production": {
+    "fileCount": 19,
+    "hashesVerified": 18,
+    "sourceCommit": "c8a58613e67e1c64a276496ff64d4c0a6d8cc8db",
+    "executionContext": "github-actions",
+    "requiredChecks": [
+      "typecheck",
+      "unit",
+      "privacy",
+      "browser",
+      "static-hosting"
+    ],
+    "inventory": [
+      {
+        "name": "dist/assets/charts-DsTfUnqE.js",
+        "bytes": 373798,
+        "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800"
+      },
+      {
+        "name": "dist/assets/index-70nx4WS4.css",
+        "bytes": 33165,
+        "sha256": "bb937d01ed467ff6ec61cf7061dbfb2fa9e135cd1d338026f4c251a4ac265847"
+      },
+      {
+        "name": "dist/assets/index-dMgNQ6oV.js",
+        "bytes": 274211,
+        "sha256": "96a35b03c7c7bc85af948ce43ea31e6598645a879d628709f8693df6d5afe711"
+      },
+      {
+        "name": "dist/favicon.svg",
+        "bytes": 328,
+        "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1"
+      },
+      {
+        "name": "dist/index.html",
+        "bytes": 1111,
+        "sha256": "05178032cbc473b268efacc64da68a6c4844a628a422a6a20f53fe0b6abd620f"
+      },
+      {
+        "name": "dist/reports/Cobalt_Engineering_Report.docx",
+        "bytes": 315893,
+        "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
+      },
+      {
+        "name": "dist/reports/Cobalt_Engineering_Report.pdf",
+        "bytes": 283326,
+        "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
+      },
+      {
+        "name": "dist-pages/assets/charts-DsTfUnqE.js",
+        "bytes": 373798,
+        "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800"
+      },
+      {
+        "name": "dist-pages/assets/index-70nx4WS4.css",
+        "bytes": 33165,
+        "sha256": "bb937d01ed467ff6ec61cf7061dbfb2fa9e135cd1d338026f4c251a4ac265847"
+      },
+      {
+        "name": "dist-pages/assets/index-CuhS3b05.js",
+        "bytes": 274286,
+        "sha256": "7a9ef715df9fcbe5fae7cda72a2a0d61a263abda6743cf9c3c6344c5bef03967"
+      },
+      {
+        "name": "dist-pages/favicon.svg",
+        "bytes": 328,
+        "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1"
+      },
+      {
+        "name": "dist-pages/index.html",
+        "bytes": 1211,
+        "sha256": "dda39a2c070f01238a2da39154ae5edf26af89f72222a99ac5bbeeb42278eaeb"
+      },
+      {
+        "name": "dist-pages/reports/Cobalt_Engineering_Report.docx",
+        "bytes": 315893,
+        "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
+      },
+      {
+        "name": "dist-pages/reports/Cobalt_Engineering_Report.pdf",
+        "bytes": 283326,
+        "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
+      },
+      {
+        "name": "package.json",
+        "bytes": 1188,
+        "sha256": "552de4a639b2210b8c93f06454b8f7f123d4710aea99b559254e681d87b02d50"
+      },
+      {
+        "name": "CHANGELOG.md",
+        "bytes": 3388,
+        "sha256": "b04b1b15d5187ceb787388dea123f2f953cd134e0d2520fcf3e2271241c008d8"
+      },
+      {
+        "name": "docs/RELEASE_NOTES.md",
+        "bytes": 952,
+        "sha256": "6403d9b0c0ed2eb2c01fcdef1ba218bcc1a1021de3a32ba0b67e2acd9fb6f678"
+      },
+      {
+        "name": "docs/report-source.json",
+        "bytes": 23803,
+        "sha256": "d8fdd51b01d80235dafdec05051b6b045083c3e5fa6dea8d8d774b6247efc399"
+      }
+    ],
+    "reportCopies": [
+      {
+        "name": "Cobalt_Engineering_Report.pdf",
+        "bytes": 283326,
+        "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41",
+        "bothHostingBuildsEqual": true
+      },
+      {
+        "name": "Cobalt_Engineering_Report.docx",
+        "bytes": 315893,
+        "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a",
+        "bothHostingBuildsEqual": true
+      }
+    ],
+    "noUnexpectedFiles": true
+  },
+  "tests": {
+    "unit": {
+      "total": 92,
+      "passed": 92,
+      "failed": 0,
+      "pending": 0
+    },
+    "browser": {
+      "total": 12,
+      "passed": 12,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "errors": 0,
+      "browserProvenance": "Chromium installed and selected by the Ubuntu GitHub Actions workflow; CI channel is unset.",
+      "retainedMeasurementLabel": "Microsoft Edge Chromium",
+      "labelLimitation": "The retained real-time measurement JSON contains a static local Edge label. That label does not establish CI browser identity."
+    },
+    "accessibility": {
+      "viewThemeWidthCombinations": 18,
+      "widths": [
+        1440,
+        390,
+        320
+      ],
+      "themes": [
+        "day",
+        "night"
+      ],
+      "views": [
+        "Dashboard",
+        "Diagnostics",
+        "Settings"
+      ],
+      "allWidthFocusReducedMotionChecksPassed": true
+    },
+    "hosting": {
+      "bases": [
+        {
+          "name": "root",
+          "browser": "pass",
+          "checks": [
+            "six instruments",
+            "overheat critical",
+            "communication timeout and recovery",
+            "invalid delivery retention and recovery",
+            "oil pressure escalation and recovery",
+            "device property application",
+            "adjacent developer source link",
+            "bounded 240 samples",
+            "mobile width",
+            "refresh",
+            "base-aware reports",
+            "no external runtime requests"
+          ],
+          "downloads": [
+            {
+              "extension": "pdf",
+              "status": 200,
+              "bytes": 283326,
+              "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
+            },
+            {
+              "extension": "docx",
+              "status": 200,
+              "bytes": 315893,
+              "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
+            }
+          ]
+        },
+        {
+          "name": "project",
+          "browser": "pass",
+          "checks": [
+            "six instruments",
+            "overheat critical",
+            "communication timeout and recovery",
+            "invalid delivery retention and recovery",
+            "oil pressure escalation and recovery",
+            "device property application",
+            "adjacent developer source link",
+            "bounded 240 samples",
+            "mobile width",
+            "refresh",
+            "base-aware reports",
+            "no external runtime requests"
+          ],
+          "downloads": [
+            {
+              "extension": "pdf",
+              "status": 200,
+              "bytes": 283326,
+              "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41"
+            },
+            {
+              "extension": "docx",
+              "status": 200,
+              "bytes": 315893,
+              "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a"
+            }
+          ]
+        }
+      ],
+      "bothPassed": true
+    },
+    "screenshots": [
+      {
+        "path": "docs/assets/dashboard-desktop.png",
+        "bytes": 172697,
+        "sha256": "84d5a554466b236e85523cf8dd4c9803524d9d23a21a90564829a06537655a77",
+        "width": 1440,
+        "height": 1100
+      },
+      {
+        "path": "docs/assets/dashboard-mobile.png",
+        "bytes": 226751,
+        "sha256": "f99b11fed0c822240b725a52d53d0b28b048c94dcc8e0770420701489000da2a",
+        "width": 390,
+        "height": 3523
+      },
+      {
+        "path": "docs/assets/diagnostics-mobile.png",
+        "bytes": 172590,
+        "sha256": "e9226851833f6364e76e0f96f2e11c3400db0bea64dc0cde37e7516c439b23f8",
+        "width": 390,
+        "height": 2741
+      },
+      {
+        "path": "docs/assets/oil-pressure-mobile.png",
+        "bytes": 190382,
+        "sha256": "e645b6017d6b580832c370d0c29b12f5be9ed46f8506a358f34f223168d77088",
+        "width": 390,
+        "height": 2903
+      },
+      {
+        "path": "docs/assets/rejected-sample-desktop.png",
+        "bytes": 21588,
+        "sha256": "f7ecaae20d8729f7a555231efa0667f737b2e816fab21c5d8b27976e0b5fb367",
+        "width": 1156,
+        "height": 225
+      },
+      {
+        "path": "docs/assets/workspace-desktop.png",
+        "bytes": 105626,
+        "sha256": "977328fcdbdf5aa93f581c90d9f8e237a801ec085dc77e6213b78e9fb0944f7e",
+        "width": 1156,
+        "height": 651
+      }
+    ],
+    "fileInventory": [
+      ".local/accessibility-measurements.json",
+      ".local/browser-measurements.json",
+      ".local/e2e-results.json",
+      ".local/unit-results.json",
+      "docs/assets/dashboard-desktop.png",
+      "docs/assets/dashboard-mobile.png",
+      "docs/assets/diagnostics-mobile.png",
+      "docs/assets/oil-pressure-mobile.png",
+      "docs/assets/rejected-sample-desktop.png",
+      "docs/assets/workspace-desktop.png",
+      "docs/hosting-build-validation.json",
+      "test-results/.last-run.json"
+    ],
+    "failureTraces": 0,
+    "failureTracePolicy": "Retain on failure; none were generated because all browser cases passed."
+  },
+  "contentInspection": {
+    "textFilesChecked": 21,
+    "credentialAndPrivatePathPatterns": "no matches",
+    "contactAddressInspection": {
+      "result": "finding",
+      "file": ".local/e2e-results.json",
+      "fields": [
+        {
+          "field": "config.metadata.gitCommit.author.email",
+          "githubGeneratedAddress": false
+        },
+        {
+          "field": "config.metadata.gitCommit.committer.email",
+          "githubGeneratedAddress": true
+        },
+        {
+          "field": "config.projects.0.metadata.gitCommit.author.email",
+          "githubGeneratedAddress": false
+        },
+        {
+          "field": "config.projects.0.metadata.gitCommit.committer.email",
+          "githubGeneratedAddress": true
+        },
+        {
+          "field": "config.filteredProjects.0.metadata.gitCommit.author.email",
+          "githubGeneratedAddress": false
+        },
+        {
+          "field": "config.filteredProjects.0.metadata.gitCommit.committer.email",
+          "githubGeneratedAddress": true
+        }
+      ],
+      "emailValuesSuppressed": true,
+      "description": "Playwright automatically retained Git author/committer contact metadata. Author fields are not GitHub generated addresses. Disable commit/diff capture and sanitize retained test reports before further evidence publication."
+    },
+    "unexpectedFiles": "none",
+    "productionSourceMaps": "none",
+    "dependencyDirectories": "none"
+  },
+  "publicationObservation": {
+    "pullRequestNowMerged": true,
+    "actualMergeCommit": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+    "testedTreeMatchesActualMerge": true,
+    "remoteState": {
+      "main": {
+        "sha": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+        "changedSinceOriginalBaseline": true
+      },
+      "tag": {
+        "name": "v0.1.0",
+        "objectSha": "2872e40d6c982c4f6c1f38d9398aa79a2fb25c61",
+        "unchanged": true
+      },
+      "release": {
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0",
+        "assets": [
+          {
+            "name": "Cobalt_Engineering_Report.docx",
+            "bytes": 220998,
+            "digest": "sha256:de15ca8319103bf800bc1d8feddca9eb4959157583bf46c9fb46f4fddce680cb"
+          },
+          {
+            "name": "Cobalt_Engineering_Report.pdf",
+            "bytes": 191174,
+            "digest": "sha256:7f6068ae10a7ca94c1621a629d573900585bb86f0c3a916a1a9c06f2ae5db285"
+          }
+        ],
+        "unchangedHistoricalAssets": true
+      },
+      "netlify": {
+        "primaryUrl": "https://cobalt-instrument-studio.netlify.app/",
+        "observedProductionDeploys": [
+          {
+            "id": "6acda4604f6f76a89261cafb",
+            "state": "ready",
+            "branch": "main",
+            "commitSha": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+            "isPublished": true,
+            "dashboardUrl": "https://app.netlify.com/sites/cobalt-instrument-studio/deploys/6acda4604f6f76a89261cafb"
+          },
+          {
+            "id": "6acd8c5cd6fa3bd467203c8f",
+            "state": "ready",
+            "branch": "main",
+            "commitSha": "421ea725f9be740f86d7b61e445e37e18a1f4d0b",
+            "isPublished": true,
+            "dashboardUrl": "https://app.netlify.com/sites/cobalt-instrument-studio/deploys/6acd8c5cd6fa3bd467203c8f"
+          },
+          {
+            "id": "6acd8990bc7d444df3b7a790",
+            "state": "ready",
+            "branch": "main",
+            "commitSha": "dc60127b8b0735e0354f6dfa148ece0f28869c75",
+            "isPublished": true,
+            "dashboardUrl": "https://app.netlify.com/sites/cobalt-instrument-studio/deploys/6acd8990bc7d444df3b7a790"
+          },
+          {
+            "id": "6acd87b9e75ab727942d2232",
+            "state": "ready",
+            "branch": "main",
+            "commitSha": "3e6a0b4e4728d6abe8aed7ded4db0233dfa80f03",
+            "isPublished": true,
+            "dashboardUrl": "https://app.netlify.com/sites/cobalt-instrument-studio/deploys/6acd87b9e75ab727942d2232"
+          },
+          {
+            "id": "6acd865382a3b8dac565e7f9",
+            "state": "ready",
+            "branch": "main",
+            "commitSha": "3b556c6d509b39301549af2e0ee2ade69d4495c5",
+            "isPublished": true,
+            "dashboardUrl": "https://app.netlify.com/sites/cobalt-instrument-studio/deploys/6acd865382a3b8dac565e7f9"
+          }
+        ]
+      }
+    }
+  },
+  "retentionCheckpoint": "Artifact contents and retention were inspected before privacy cleanup; the test artifact is no longer downloadable. Original test counts, file hashes, and findings describe that inspection checkpoint."
+}

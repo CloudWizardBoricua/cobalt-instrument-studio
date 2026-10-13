@@ -1,0 +1,52 @@
+{
+  "date": "Fall 2026",
+  "repository": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio",
+  "main": {
+    "sha": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+    "protected": true,
+    "requiredCheck": [
+      {
+        "context": "CI verification",
+        "app_id": 15368
+      }
+    ],
+    "upToDateBranchRequired": true,
+    "adminEnforcement": true,
+    "pullRequestRequired": true,
+    "requiredReviewerApprovals": 0,
+    "forcePushAllowed": false,
+    "deletionAllowed": false,
+    "conversationResolutionRequired": true
+  },
+  "temporaryReportCleanup": {
+    "authorization": "User explicitly approved removing these two affected temporary test-report artifacts.",
+    "reason": "Automatic Playwright Git contact metadata capture. Contact values are omitted from this evidence.",
+    "verifiedDeleted": [
+      {
+        "runId": 38341235636,
+        "artifactId": 11786951525,
+        "retainedProductionArtifacts": [
+          {
+            "id": 11786956557,
+            "name": "cobalt-production-builds-1",
+            "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341235636/artifacts/11786956557"
+          }
+        ]
+      },
+      {
+        "runId": 38341542078,
+        "artifactId": 11787111731,
+        "retainedProductionArtifacts": [
+          {
+            "id": 11787600159,
+            "name": "cobalt-production-builds-1",
+            "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341542078/artifacts/11787600159"
+          }
+        ]
+      }
+    ],
+    "localCopies": "Preserved under ignored .local directories; no private contact metadata added to authored project evidence.",
+    "limitation": "This removes the selected temporary artifacts; it does not change Git history or claim that all existing public commit metadata was removed.",
+    "captureCorrection": "Prepared locally; must pass CI after a separately approved follow-up publication."
+  }
+}

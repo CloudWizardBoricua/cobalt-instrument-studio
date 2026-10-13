@@ -1,27 +1,27 @@
 {
   "title": "Cobalt Instrument Studio",
-  "subtitle": "Engineering Report on Local Hardening",
+  "subtitle": "Engineering Report on Simulation and Verification",
   "authorCredit": "Developed by Daren Diaz",
   "authorRepository": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "date": "Fall 2026",
   "pages": [
     {
-      "title": "Purpose and local revision",
+      "title": "Purpose and verified checkpoints",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Cobalt Instrument Studio is an original static React and TypeScript instrumentation simulator. One seeded model drives accepted telemetry, instruments, trends, and diagnostics. This local hardening revision adds a versioned acceptance boundary, two fault replays, and a display configuration workspace while preserving the existing engine and visual identity."
+          "text": "Cobalt Instrument Studio is an original static React and TypeScript simulator. One seeded model drives accepted readings, trends, and diagnostics. Versioned telemetry validation protects six instruments across five guided scenarios. Version 0.2.0 adds Gauges, Engine, Trends, Faults, and ACK device pages with a graphite bezel, metallic rings, cobalt blue accents, and large white readouts."
         },
         {
           "kind": "paragraph",
-          "text": "Six instruments, four modes, and five guided replays make process faults and rejected delivery inspectable. Device bindings and display properties change presentation only. Local validation results are reported separately from the historical public version. This revision is unreleased; no push, deployment, release, or external service modification is part of the sprint."
+          "text": "The earlier core revision was merged through PR 1 at main 453ea4, with 92 unit and 12 Linux Chromium browser tests and verified production sites. The current local version 0.2.0 functionality and privacy correction have separate evidence. Publication through reviewed PRs, main CI, updated hosting, and a new annotated tag is approved after final validation. The initial v0.1.0 Release is preserved."
         },
         {
           "kind": "image",
           "path": "docs/assets/dashboard-desktop.png",
           "height": 3.0,
-          "caption": "Actual local dashboard capture. All instrument values are simulated; the screenshot shows the implemented browser interface.",
+          "caption": "Actual local dashboard capture. Instrument readings and the device preview consume simulated accepted data.",
           "cropHeight": 1050
         },
         {
@@ -72,7 +72,7 @@
             ],
             [
               "Device workspace",
-              "Six signal bindings, labels, display ranges, preview",
+              "Six signal bindings, display properties, five preview pages",
               "Presentation can change independently of process rules"
             ],
             [
@@ -234,23 +234,35 @@
       ]
     },
     {
-      "title": "Device workspace and usable state",
+      "title": "Device pages and usable state",
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "A collapsible workspace in all three existing views combines an original six-slot display preview, six-signal browser, and selected-slot property editor. Preview and signal values consume the same accepted sample as the main instruments. Editing binding, label, or range changes display configuration only; engine commands, accepted telemetry, and diagnostic thresholds are unchanged."
+          "text": "The workspace combines five device pages, a six-signal browser, and a selected-slot property editor. A graphite bezel, metallic gauge rings, cobalt blue accents, and large white readouts make the preview resemble an instrument panel. Accepted readings, bounded history, and central diagnostics supply every page. Display bindings, labels, and ranges affect presentation without changing engine commands or alarm thresholds."
         },
         {
           "kind": "image",
-          "path": "docs/assets/workspace-desktop.png",
-          "height": 3.85,
-          "caption": "Actual local device workspace showing accepted signals and display-only configuration."
+          "path": "docs/assets/device-cockpit-engine.png",
+          "height": 2.6,
+          "caption": "Actual local Engine page capture. Blue cockpit styling presents accepted simulated readings inside the device preview."
         },
         {
           "kind": "table",
           "columns": ["Property or behavior", "Implemented limit"],
           "widths": [2.0, 4.7],
           "rows": [
+            [
+              "Pages and softkeys",
+              "Gauges, Engine, Trends, Faults, and ACK; page controls and device softkeys share navigation state."
+            ],
+            [
+              "Standby lifecycle",
+              "Initial/reset readouts show zero in either unit system; Start or guided Run reveals accepted values, and Pause holds them."
+            ],
+            [
+              "Trends and acknowledgment",
+              "Trends use accepted bounded history. ACK invokes central alert acknowledgment and preserves active conditions and escalation rules."
+            ],
             [
               "Binding and display range",
               "One existing signal per slot; finite ordered range within that signal display domain; canonical psi/degrees F editor units."
@@ -271,7 +283,7 @@
         },
         {
           "kind": "paragraph",
-          "text": "Browser checks covered three views at 1440, 390, and 320 pixel widths in day and night themes. Keyboard selection, editing, Apply and Reset passed. Selected control text contrast measured 5.62 to 1 at night and 5.27 to 1 in day mode after correction; the tested palette pairs exceeded 4.5 to 1. Focus, reduced motion, textual sample states, and stable live announcements were checked. These checks do not replace a formal accessibility or assistive technology audit."
+          "text": "Standby zeros are display placeholders and do not enter telemetry, diagnostics, or accepted history. Current local checks covered 30 device-page/theme/width combinations and the existing 18 application accessibility combinations, including standby/start/pause/reset, softkeys, metric display, stale readings, central ACK and typography, with no JavaScript errors. A formal assistive-technology audit remains future work."
         }
       ]
     },
@@ -280,7 +292,7 @@
       "blocks": [
         {
           "kind": "paragraph",
-          "text": "Starting baseline: 32 unit tests and 7 browser tests passed before feature changes, plus typecheck and both production-base builds. Final local revision: {{unitPassed}} unit tests and {{browserPassed}} browser tests passed. Remote CI/deployments were not run for this sprint; prior remote results are historical evidence."
+          "text": "Starting baseline: 32 unit and 7 browser tests passed. Core hardening recorded 58 unit and 12 browser tests; the earlier DevOps PR passed 92 unit and 12 Linux Chromium browser tests. Current local version 0.2.0 evidence records {{unitPassed}} passing unit tests and {{browserPassed}} passing browser tests. Each checkpoint has separate evidence; local counts do not establish new remote execution."
         },
         {
           "kind": "table",
@@ -314,7 +326,7 @@
             ],
             [
               "Browser workflows",
-              "Controls, five scenarios, workspace, preferences, keyboard/focus, reduced motion, desktop/mobile three-view fit.",
+              "Standby/start/pause/reset, five scenarios, device pages/softkeys, central ACK, preferences, keyboard/focus, reduced motion and mobile fit.",
               "Pass"
             ],
             [
@@ -329,7 +341,7 @@
             ],
             [
               "Privacy and dates",
-              "Approved developer/repository credit, restricted-identity scan, blank report metadata, Fall 2026 edition.",
+              "Developer/repository credit, blank report metadata, Fall 2026 edition; disabled Git capture and sanitized retained test reports.",
               "Pass"
             ]
           ]
@@ -340,11 +352,11 @@
         },
         {
           "kind": "paragraph",
-          "text": "Root production JavaScript totaled {{jsBytes}} bytes ({{jsGzipBytes}} bytes gzip); CSS totaled {{cssBytes}} bytes. Browser tests took {{browserDuration}} s and unit test bodies {{unitDuration}} s. One real-time desktop smoke observed 3 simulated seconds after {{wallMs}} ms including interaction overhead; this is one workflow measurement, not scheduling accuracy."
+          "text": "Root production JavaScript totaled {{jsBytes}} bytes ({{jsGzipBytes}} bytes gzip); CSS totaled {{cssBytes}} bytes. Browser tests took {{browserDuration}} s; summed test-file durations were {{unitDuration}} s. One real-time desktop smoke observed 3 simulated seconds after {{wallMs}} ms including interaction overhead; this is one workflow measurement, not scheduling accuracy."
         },
         {
           "kind": "paragraph",
-          "text": "Exact counts, model transitions, bundle bytes, and build/download checks are retained in local validation artifacts. No heap/frame-rate benchmark, browser soak, Safari/Firefox, physical iPhone/cellular, hardware timing, production safety result, or uptime measurement is claimed."
+          "text": "Exact counts and measurements are retained in local validation evidence. Public checks at main 453ea4 verified both origins and report hashes. Temporary test artifacts exposed unnecessary Git contact metadata; approved deletion was verified and a local capture/sanitization correction was added. No hardware, Safari/Firefox, physical cellular, long-soak, frame-rate, or uptime result is claimed."
         }
       ]
     },
@@ -386,7 +398,7 @@
             ],
             [
               "Device workspace",
-              "Session-only six-slot preview and display properties",
+              "Session-only five-page preview, six gauge slots and display properties",
               "Validated portable layout, supported target runtime, arbitrary widgets and accessible layout editing"
             ],
             [
@@ -411,15 +423,15 @@
       ]
     },
     {
-      "title": "Reviewed work and next publication sprint",
+      "title": "Verified workflow and publication boundaries",
       "blocks": [
         {
           "kind": "heading",
-          "text": "Implemented locally"
+          "text": "Published core and local follow up"
         },
         {
           "kind": "paragraph",
-          "text": "The completed local scope adds versioned acceptance, deduplicated rejection/recovery evidence, oil pressure loss and invalid sample replays, display-only device workspace, usability hardening, tests, screenshots, updated shared-source reports, and adjacent GitHub attribution. Existing engine, three views, simulation disclaimer, scenarios, preferences, CSV, and both hosting base paths are preserved."
+          "text": "PR 1 published telemetry validation, five guided scenarios, device configuration, accessibility changes, and inspectable CI. Version 0.2.0 adds five device pages with blue cockpit styling and corrected test-evidence handling. The central engine, accepted-sample boundary, three application views, simulation disclaimer, display-only properties, preferences, and two static hosting bases are preserved."
         },
         {
           "kind": "heading",
@@ -443,15 +455,15 @@
         },
         {
           "kind": "paragraph",
-          "text": "Package version remains 0.1.0; this report describes an unreleased local hardening revision. The prior v0.1.0 tagged release and public Netlify/Pages checks are historical snapshots, not results for this revision. No remote service was changed, and no new CI run, deployment, or release is claimed."
+          "text": "Version 0.2.0 publication is approved after final QA and passing CI. The earlier main 453ea4 passed PR/main CI and both providers were verified. Main protection requires PRs, strict CI from GitHub Actions, administrator enforcement and resolved conversations; reviewer approvals are zero. Two affected temporary test artifacts were removed after approval. New UI/privacy publication and release results are recorded only after actual execution."
         },
         {
           "kind": "paragraph",
-          "text": "Source: https://github.com/CloudWizardBoricua/cobalt-instrument-studio. Existing primary: https://cobalt-instrument-studio.netlify.app/. Existing backup: https://cloudwizardboricua.github.io/cobalt-instrument-studio/. The updated local code, tests, evidence, screenshots, contract, roadmap, and PDF/DOCX form the reviewable change set for a separately authorized publication sprint."
+          "text": "The annotated v0.1.0 tag and its initial two report assets are unchanged. Version 0.2.0 aligns package, changelog, notes, and report metadata. The tag workflow verifies that agreement and reruns CI before publishing one Release with engineering PDF/DOCX, a tested static archive, manifest, and SHA-256 checksums. Its actual new-version execution and downloads remain to be verified."
         },
         {
           "kind": "paragraph",
-          "text": "Before publication, review the final local results, choose any version/release change deliberately, rerun CI after authorization, verify both hosted bases and report bytes, and complete physical mobile inspection. Existing static hosting needs no development computer, subject to provider availability and plan limits."
+          "text": "Source: https://github.com/CloudWizardBoricua/cobalt-instrument-studio. Primary: https://cobalt-instrument-studio.netlify.app/. Backup: https://cloudwizardboricua.github.io/cobalt-instrument-studio/. README links actual PR 1, PR CI 38341235636, main CI 38341542078, Pages 38341678181, and the initial Release. The workflow evidence files separately record artifact inspection, production behavior, protection, and cleanup."
         }
       ]
     }

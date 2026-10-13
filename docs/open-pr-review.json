@@ -1,0 +1,758 @@
+{
+  "date": "Fall 2026",
+  "scope": "Read-only review of all open dependency pull requests before the independent sprint publication. No dependency request was merged, closed, updated, or included in the sprint.",
+  "repository": "CloudWizardBoricua/cobalt-instrument-studio",
+  "mainCommit": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+  "summary": {
+    "openRequests": 9,
+    "ciSuccess": 7,
+    "ciFailure": 2,
+    "safeQueue": 2,
+    "laterReview": 5,
+    "conflicts": 2,
+    "blocksCurrentSprintRelease": 0
+  },
+  "mainProtection": {
+    "enabled": true,
+    "strictCI": true,
+    "requiredCheck": [
+      {
+        "name": "CI verification",
+        "appId": 15368
+      }
+    ],
+    "enforceAdmins": true,
+    "requiredApprovingReviews": 0,
+    "allowForcePushes": false,
+    "allowDeletions": false,
+    "conversationResolution": true
+  },
+  "releaseDecision": "Proceed with the current committed dependency graph and existing verified immutable action references. The failing optional updates do not block a separate passing sprint PR. Revalidate queued updates against the new main before any later adoption.",
+  "pullRequests": [
+    {
+      "number": 2,
+      "title": "Bump actions/upload-pages-artifact from 4.0.0 to 5.0.0",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/2",
+      "headSha": "6fa1e70c3c84e513cefd888ba9dab85d8d7cf8e7",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "CLEAN",
+      "files": [
+        {
+          "path": ".github/workflows/deploy-pages.yml",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "success",
+        "runId": 38341612420,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341612420",
+        "failedSteps": [],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "success"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "success"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "success"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "success"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "success"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "success"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "success"
+          }
+        ]
+      },
+      "action": {
+        "repository": "actions/upload-pages-artifact",
+        "tag": "v5.0.0",
+        "sha": "fc324d3547104276b827a68afc52ff2a11cc49c9",
+        "officialTagCommitMatches": true,
+        "runtime": "composite",
+        "source": "https://github.com/actions/upload-pages-artifact/tree/fc324d3547104276b827a68afc52ff2a11cc49c9"
+      },
+      "permissionsOrGateChanges": "none; only action SHA/version-comment replacements",
+      "decision": "needs-later-review",
+      "reason": "Full immutable action reference is official and CI passed. This Pages upload action runs only on a successful main producer, so the PR CI did not exercise its changed deployment path. Retain the current tested Pages action for this release.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 3,
+      "title": "Bump actions/configure-pages from 5.0.0 to 6.0.0",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/3",
+      "headSha": "4021d7502641cb4f33a176d8474b68d536467f3c",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "CLEAN",
+      "files": [
+        {
+          "path": ".github/workflows/deploy-pages.yml",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "success",
+        "runId": 38341619529,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341619529",
+        "failedSteps": [],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "success"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "success"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "success"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "success"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "success"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "success"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "success"
+          }
+        ]
+      },
+      "action": {
+        "repository": "actions/configure-pages",
+        "tag": "v6.0.0",
+        "sha": "45bfe0192ca1faeb007ade9deae92b16b8254a0d",
+        "officialTagCommitMatches": true,
+        "runtime": "node24",
+        "source": "https://github.com/actions/configure-pages/tree/45bfe0192ca1faeb007ade9deae92b16b8254a0d"
+      },
+      "permissionsOrGateChanges": "none; only action SHA/version-comment replacements",
+      "decision": "needs-later-review",
+      "reason": "Full immutable action reference is official and CI passed. The changed Pages configuration step was not executed by pull-request CI. Review its major-version behavior in a separate deployment maintenance change.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 4,
+      "title": "Bump actions/deploy-pages from 4.0.5 to 5.0.1",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/4",
+      "headSha": "3b1d3caf0590165adde07cf067cdb832eb28787e",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "CLEAN",
+      "files": [
+        {
+          "path": ".github/workflows/deploy-pages.yml",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "success",
+        "runId": 38341622773,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341622773",
+        "failedSteps": [],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "success"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "success"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "success"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "success"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "success"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "success"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "success"
+          }
+        ]
+      },
+      "action": {
+        "repository": "actions/deploy-pages",
+        "tag": "v5.0.1",
+        "sha": "368f82528645a54fb793d4d04e342629a3f51346",
+        "officialTagCommitMatches": true,
+        "runtime": "node24",
+        "source": "https://github.com/actions/deploy-pages/tree/368f82528645a54fb793d4d04e342629a3f51346"
+      },
+      "permissionsOrGateChanges": "none; only action SHA/version-comment replacements",
+      "decision": "needs-later-review",
+      "reason": "Full immutable action reference is official and CI passed. The replacement deployment action has not performed a deployment from this PR; retain the working production path for the current release.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 5,
+      "title": "Bump actions/checkout from 6.1.0 to 7.0.1",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/5",
+      "headSha": "84c23a8fd5a34bf995182d73b00a8e9ba5acc1e4",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "CLEAN",
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "path": ".github/workflows/deploy-pages.yml",
+          "additions": 1,
+          "deletions": 1
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "additions": 2,
+          "deletions": 2
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "success",
+        "runId": 38341625587,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341625587",
+        "failedSteps": [],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "success"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "success"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "success"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "success"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "success"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "success"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "success"
+          }
+        ]
+      },
+      "action": {
+        "repository": "actions/checkout",
+        "tag": "v7.0.1",
+        "sha": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "officialTagCommitMatches": true,
+        "runtime": "node24",
+        "source": "https://github.com/actions/checkout/tree/3d3c42e5aac5ba805825da76410c181273ba90b1"
+      },
+      "permissionsOrGateChanges": "none; only action SHA/version-comment replacements",
+      "decision": "safe-queue",
+      "reason": "The official checkout commit is pinned everywhere, credential persistence remains disabled, and the replacement checkout executed successfully in CI. Queue a separate maintenance merge after the sprint release.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 6,
+      "title": "Bump typescript from 5.9.3 to 7.0.2",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/6",
+      "headSha": "6552d93aa6345d9ad35e3c5881ebaf5317bf1c78",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "CLEAN",
+      "files": [
+        {
+          "path": "package-lock.json",
+          "additions": 368,
+          "deletions": 7
+        },
+        {
+          "path": "package.json",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "success",
+        "runId": 38341662593,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341662593",
+        "failedSteps": [],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "success"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "success"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "success"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "success"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "success"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "success"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "success"
+          }
+        ]
+      },
+      "decision": "needs-later-review",
+      "reason": "Linux CI passed, but TypeScript changes from 5.9.3 to 7.0.2 and adds 20 optional compiler platform packages. Verify Windows installation/compiler behavior before adopting this independent tooling upgrade.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 7,
+      "title": "Bump lucide-react from 0.468.0 to 1.54.0",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/7",
+      "headSha": "595880b72c0ff38369b5554ade0bce10d17adbd6",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "CLEAN",
+      "files": [
+        {
+          "path": "package-lock.json",
+          "additions": 11,
+          "deletions": 5
+        },
+        {
+          "path": "package.json",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "success",
+        "runId": 38341665700,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341665700",
+        "failedSteps": [],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "success"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "success"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "success"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "success"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "success"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "success"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "success"
+          }
+        ]
+      },
+      "decision": "safe-queue",
+      "reason": "The diff changes the icon dependency and lockfile only. Official peer metadata supports React 19, and imports, production builds, browser checks and screenshots passed CI. Queue a separate icon-render review after the sprint release.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 8,
+      "title": "Bump @types/node from 24.19.2 to 26.6.5",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/8",
+      "headSha": "1d32fd3783329c217231e7320868a685bf88f823",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "CLEAN",
+      "files": [
+        {
+          "path": "package-lock.json",
+          "additions": 8,
+          "deletions": 8
+        },
+        {
+          "path": "package.json",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "success",
+        "runId": 38341669543,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341669543",
+        "failedSteps": [],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "success"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "success"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "success"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "success"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "success"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "success"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "success"
+          }
+        ]
+      },
+      "decision": "needs-later-review",
+      "reason": "CI passed, but the proposed Node 26 declaration major differs from the deliberate Node 24 workflow runtime. Keep the current aligned declaration major unless the runtime target is intentionally reviewed.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 9,
+      "title": "Bump @vitejs/plugin-react from 5.2.0 to 6.1.2",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/9",
+      "headSha": "23bd56143a38a6f823e8d788df5b6df6c8675f11",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "BLOCKED",
+      "files": [
+        {
+          "path": "package-lock.json",
+          "additions": 23,
+          "deletions": 597
+        },
+        {
+          "path": "package.json",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "failure",
+        "runId": 38341681569,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341681569",
+        "failedSteps": ["Install dependencies from the committed lockfile"],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "failure"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "skipped"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "skipped"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "skipped"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "skipped"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "skipped"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "skipped"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "skipped"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "skipped"
+          }
+        ]
+      },
+      "decision": "conflict",
+      "reason": "npm ci failed with ERESOLVE: plugin-react 6.1.2 requires Vite ^8.0.0 while the root package retains Vite 7.3.7. A coordinated build-tool migration is required; do not merge this isolated bump.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    },
+    {
+      "number": 10,
+      "title": "Bump vite from 7.3.7 to 8.3.4",
+      "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/10",
+      "headSha": "55e663adcca400b16b7c07d226e6debc041f9cc9",
+      "base": "main",
+      "mergeable": "MERGEABLE",
+      "mergeState": "BLOCKED",
+      "files": [
+        {
+          "path": "package-lock.json",
+          "additions": 910,
+          "deletions": 150
+        },
+        {
+          "path": "package.json",
+          "additions": 1,
+          "deletions": 1
+        }
+      ],
+      "ci": {
+        "name": "CI verification",
+        "result": "failure",
+        "runId": 38341757889,
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341757889",
+        "failedSteps": ["Check TypeScript"],
+        "requiredValidationSteps": [
+          {
+            "name": "Install dependencies from the committed lockfile",
+            "result": "success"
+          },
+          {
+            "name": "Validate workflow contracts and immutable action references",
+            "result": "success"
+          },
+          {
+            "name": "Check TypeScript",
+            "result": "failure"
+          },
+          {
+            "name": "Run unit and release-contract tests with a JSON report",
+            "result": "skipped"
+          },
+          {
+            "name": "Check privacy and independent-project content",
+            "result": "skipped"
+          },
+          {
+            "name": "Build the Netlify root path",
+            "result": "skipped"
+          },
+          {
+            "name": "Build the GitHub Pages project path",
+            "result": "skipped"
+          },
+          {
+            "name": "Test browser workflows and capture screenshots and failure traces",
+            "result": "skipped"
+          },
+          {
+            "name": "Verify both production paths and exact report downloads",
+            "result": "skipped"
+          }
+        ]
+      },
+      "decision": "conflict",
+      "reason": "Typecheck failed with TS2769 in vite.config.ts: root Vite 8/Rolldown plugin types conflict with Vitest 3 nested Vite 7/Rollup types. Review Vite, its React plugin, and the test tooling together before adoption.",
+      "blocksCurrentSprintRelease": false,
+      "actionTaken": "reviewed read-only; left open and unchanged"
+    }
+  ],
+  "officialPackageSources": [
+    {
+      "name": "@vitejs/plugin-react",
+      "version": "6.1.2",
+      "url": "https://registry.npmjs.org/@vitejs/plugin-react/6.1.2",
+      "peerDependencies": {
+        "vite": "^8.0.0",
+        "oxc-transform-react": "^0.152.0",
+        "@rolldown/plugin-babel": "^0.1.7 || ^0.2.0",
+        "babel-plugin-react-compiler": "^1.0.0"
+      },
+      "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+      },
+      "optionalPlatformPackages": 0
+    },
+    {
+      "name": "vite",
+      "version": "8.3.4",
+      "url": "https://registry.npmjs.org/vite/8.3.4",
+      "peerDependencies": {
+        "tsx": "^4.8.1",
+        "jiti": ">=1.21.0",
+        "less": "^4.0.0",
+        "sass": "^1.70.0",
+        "yaml": "^2.4.2",
+        "stylus": ">=0.54.8",
+        "terser": "^5.16.0",
+        "esbuild": "^0.27.0 || ^0.28.0",
+        "sugarss": "^5.0.0",
+        "@types/node": "^20.19.0 || >=22.12.0",
+        "sass-embedded": "^1.70.0",
+        "@vitejs/devtools": "^0.7.1"
+      },
+      "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+      },
+      "optionalPlatformPackages": 1
+    },
+    {
+      "name": "typescript",
+      "version": "7.0.2",
+      "url": "https://registry.npmjs.org/typescript/7.0.2",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=16.20.0"
+      },
+      "optionalPlatformPackages": 20
+    },
+    {
+      "name": "lucide-react",
+      "version": "1.54.0",
+      "url": "https://registry.npmjs.org/lucide-react/1.54.0",
+      "peerDependencies": {
+        "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "*"
+      },
+      "engines": {},
+      "optionalPlatformPackages": 0
+    },
+    {
+      "name": "@types/node",
+      "version": "26.6.5",
+      "url": "https://registry.npmjs.org/@types/node/26.6.5",
+      "peerDependencies": {},
+      "engines": {},
+      "optionalPlatformPackages": 0
+    }
+  ]
+}

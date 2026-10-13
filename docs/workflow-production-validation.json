@@ -1,0 +1,188 @@
+{
+  "date": "Fall 2026",
+  "repository": "CloudWizardBoricua/cobalt-instrument-studio",
+  "mainCommit": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+  "status": "passed",
+  "observation": "Read-only inspection after the remote PR merge and automatic provider deployments. This verification did not merge, deploy, create tags, or publish a Release.",
+  "ci": {
+    "id": 38341542078,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341542078",
+    "event": "push",
+    "headSha": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+    "status": "completed",
+    "conclusion": "success",
+    "attempt": 1
+  },
+  "pages": {
+    "id": 38341678181,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38341678181",
+    "event": "workflow_run",
+    "headSha": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+    "status": "completed",
+    "conclusion": "success",
+    "attempt": 1
+  },
+  "netlify": {
+    "id": "6acda4604f6f76a89261cafb",
+    "state": "ready",
+    "context": "production",
+    "branch": "main",
+    "commitSha": "453ea4a126fab0a44f4345871b401a5c11fbce86",
+    "primaryUrl": "https://cobalt-instrument-studio.netlify.app/",
+    "providerUrl": "https://app.netlify.com/sites/cobalt-instrument-studio/deploys/6acda4604f6f76a89261cafb",
+    "publishedDeployId": "6acda4604f6f76a89261cafb"
+  },
+  "sites": [
+    {
+      "key": "primary",
+      "url": "https://cobalt-instrument-studio.netlify.app/",
+      "status": "passed",
+      "index": {
+        "status": 200,
+        "bytes": 1621,
+        "sha256": "c19028f05d2e6a9beac4440ff5aa03bf5b9d8204660680edd36c426b8ff60c40"
+      },
+      "assets": [
+        {
+          "url": "https://cobalt-instrument-studio.netlify.app/favicon.svg",
+          "kind": "favicon",
+          "status": 200,
+          "bytes": 328,
+          "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1"
+        },
+        {
+          "url": "https://cobalt-instrument-studio.netlify.app/assets/index-dMgNQ6oV.js",
+          "kind": "javascript",
+          "status": 200,
+          "bytes": 274211,
+          "sha256": "96a35b03c7c7bc85af948ce43ea31e6598645a879d628709f8693df6d5afe711"
+        },
+        {
+          "url": "https://cobalt-instrument-studio.netlify.app/assets/charts-DsTfUnqE.js",
+          "kind": "javascript",
+          "status": 200,
+          "bytes": 373798,
+          "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800"
+        },
+        {
+          "url": "https://cobalt-instrument-studio.netlify.app/assets/index-70nx4WS4.css",
+          "kind": "stylesheet",
+          "status": 200,
+          "bytes": 33165,
+          "sha256": "bb937d01ed467ff6ec61cf7061dbfb2fa9e135cd1d338026f4c251a4ac265847"
+        },
+        {
+          "url": "https://cobalt-instrument-studio.netlify.app/.netlify/scripts/hud?variant=public",
+          "kind": "javascript",
+          "status": 200,
+          "bytes": 34481,
+          "sha256": "6fc3bfa655a80a5c979906f2ce708147e6b063703617fe0b7ef3706b813fea00"
+        }
+      ],
+      "reports": [
+        {
+          "url": "https://cobalt-instrument-studio.netlify.app/reports/Cobalt_Engineering_Report.pdf",
+          "extension": "pdf",
+          "status": 200,
+          "bytes": 283326,
+          "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41",
+          "committedReportMatches": true
+        },
+        {
+          "url": "https://cobalt-instrument-studio.netlify.app/reports/Cobalt_Engineering_Report.docx",
+          "extension": "docx",
+          "status": 200,
+          "bytes": 315893,
+          "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a",
+          "committedReportMatches": true
+        }
+      ],
+      "sourceAttributionAndSimulationDisclaimer": "present in delivered application JavaScript"
+    },
+    {
+      "key": "backup",
+      "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/",
+      "status": "passed",
+      "index": {
+        "status": 200,
+        "bytes": 1211,
+        "sha256": "dda39a2c070f01238a2da39154ae5edf26af89f72222a99ac5bbeeb42278eaeb"
+      },
+      "assets": [
+        {
+          "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/favicon.svg",
+          "kind": "favicon",
+          "status": 200,
+          "bytes": 328,
+          "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1"
+        },
+        {
+          "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/assets/index-CuhS3b05.js",
+          "kind": "javascript",
+          "status": 200,
+          "bytes": 274286,
+          "sha256": "7a9ef715df9fcbe5fae7cda72a2a0d61a263abda6743cf9c3c6344c5bef03967"
+        },
+        {
+          "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/assets/charts-DsTfUnqE.js",
+          "kind": "javascript",
+          "status": 200,
+          "bytes": 373798,
+          "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800"
+        },
+        {
+          "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/assets/index-70nx4WS4.css",
+          "kind": "stylesheet",
+          "status": 200,
+          "bytes": 33165,
+          "sha256": "bb937d01ed467ff6ec61cf7061dbfb2fa9e135cd1d338026f4c251a4ac265847"
+        }
+      ],
+      "reports": [
+        {
+          "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/reports/Cobalt_Engineering_Report.pdf",
+          "extension": "pdf",
+          "status": 200,
+          "bytes": 283326,
+          "sha256": "84cb430991dd1c1222ef3f7f1789cd0a998808d1e630c6d0aceb58da7347ae41",
+          "committedReportMatches": true
+        },
+        {
+          "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/reports/Cobalt_Engineering_Report.docx",
+          "extension": "docx",
+          "status": 200,
+          "bytes": 315893,
+          "sha256": "8dd6f48034563cc35d06bc548aa64a904270db14b287f64194a83a0e2c4ec46a",
+          "committedReportMatches": true
+        }
+      ],
+      "sourceAttributionAndSimulationDisclaimer": "present in delivered application JavaScript"
+    }
+  ],
+  "historicalRelease": {
+    "tag": "v0.1.0",
+    "annotatedTagObject": "2872e40d6c982c4f6c1f38d9398aa79a2fb25c61",
+    "commit": "3b556c6d509b39301549af2e0ee2ade69d4495c5",
+    "releaseId": 411136923,
+    "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0",
+    "assets": [
+      {
+        "name": "Cobalt_Engineering_Report.docx",
+        "bytes": 220998,
+        "sha256": "de15ca8319103bf800bc1d8feddca9eb4959157583bf46c9fb46f4fddce680cb",
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.1.0/Cobalt_Engineering_Report.docx"
+      },
+      {
+        "name": "Cobalt_Engineering_Report.pdf",
+        "bytes": 191174,
+        "sha256": "7f6068ae10a7ca94c1621a629d573900585bb86f0c3a916a1a9c06f2ae5db285",
+        "url": "https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.1.0/Cobalt_Engineering_Report.pdf"
+      }
+    ],
+    "unchanged": true
+  },
+  "limitations": [
+    "HTTP-only asset and report verification; interactions, responsive layout, browser errors and accessibility are verified separately.",
+    "Published sites contain the merged current project; the existing v0.1.0 Release remains the historical snapshot with two reports and no new archive/checksum attachments."
+  ]
+}

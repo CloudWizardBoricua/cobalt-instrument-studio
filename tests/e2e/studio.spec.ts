@@ -402,7 +402,8 @@ test("device workspace supports keyboard selection, property submission, and res
 
 test("desktop controls update real telemetry, pause, and reset", async ({
   page,
-}) => {
+  browser,
+}, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
@@ -439,7 +440,10 @@ test("desktop controls update real telemetry, pause, and reset", async ({
         realtimeSimulationSecondsObserved: 3,
         wallMillisecondsToObserve: elapsedMs,
         javascriptErrors: errors,
-        browser: "Microsoft Edge Chromium",
+        browser: browser.browserType().name(),
+        browserVersion: browser.version(),
+        browserChannel: testInfo.project.use.channel || null,
+        browserPlatform: process.platform,
         desktop: { width: 1440, height: 1100 },
       },
       null,

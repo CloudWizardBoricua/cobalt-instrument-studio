@@ -4,9 +4,9 @@ _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardB
 
 Fall 2026
 
-The completed work below belongs to the local, unreleased hardening revision. Future items are specific engineering proposals, not implemented equipment capabilities. Complexity is relative: Small = focused work, Medium = multiple components, Large = substantial integration or validation.
+The earlier main `453ea4a126fab0a44f4345871b401a5c11fbce86` has verified CI and production results. Version 0.2.0 implements five device pages, standby and evidence corrections locally, with 100 passing unit/17 browser tests, 30 device combinations, and full visual/metadata/link QA of nine pages in each report. Both hosting builds and matching downloads passed. Actual new publication remains pending. Future items are engineering proposals, not implemented equipment capabilities. Complexity is relative: Small = focused work, Medium = multiple components, Large = substantial integration or validation.
 
-## Implemented in the local revision
+## Implemented at the verified main checkpoint
 
 | Improvement                       | Implemented boundary                                                                         | Engineering value                                                           |
 | --------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
@@ -16,6 +16,22 @@ The completed work below belongs to the local, unreleased hardening revision. Fu
 | Invalid sample replay             | Controlled malformed, duplicate, and out-of-order delivery attempts                          | Exercises data quality independently of physical process behavior           |
 | Device workspace                  | Six-slot accepted-data preview, signal browser, atomic display-property editor               | Demonstrates original display configuration without affecting engine/alerts |
 | Accessibility/usability hardening | Keyboard focus, descriptions, non-color state cues, transition announcements, reduced motion | Improves the checked browser workflows; formal audit remains future work    |
+| Inspectable CI and Pages deployment | Successful PR/main CI and deployment from the exact tested main artifact; versioned release packaging prepared | Makes tested source/build outcomes inspectable without duplicating workflows |
+| Main repository protection         | Required PR and strict GitHub Actions CI check, administrator enforcement, resolved conversations, blocked force pushes/deletions | Preserves verified checks before future main changes |
+
+## Implemented locally for version 0.2.0
+
+| Improvement | Implemented scope | Verification boundary |
+| --- | --- | --- |
+| Five device-preview pages | Gauges, Engine, Trends, Faults, and ACK; graphite bezel, metallic rings, cobalt blue accents, shared softkeys and accepted data | Final 17-browser run and 30 page/theme/width combinations passed; remote execution pending |
+| Test-evidence privacy correction | Disabled automatic Git capture; sanitized retained reports and gated upload on preparation success, including failures | Regression tests passed in final 100-unit run; fresh CI artifact inspection pending |
+| Display standby lifecycle | Initial/reset zero readouts in both units, Start/Run reveal accepted samples, Pause holds display | Lifecycle checks passed; zero placeholders never enter model/diagnostic/history state |
+
+## Verified local standby behavior
+
+Standby gauge readouts start at zero in either unit system. Start or guided Run displays the central accepted readings, Pause holds them, and Reset returns presentation to zero. Standby zeros are display placeholders; they do not enter telemetry, diagnostics, or history. Dedicated lifecycle checks passed in final local version 0.2.0 validation.
+
+Updated screenshots, local QA, both report renderings and all-page inspections are complete. Actual new CI/deployment/release checks must finish before version 0.2.0 publication is reported as complete.
 
 ## Prioritized future improvements
 
@@ -41,4 +57,4 @@ The completed work below belongs to the local, unreleased hardening revision. Fu
 | P2       | Production observability and service objectives | Define measurable availability, delivery quality, incident recovery, and provider monitoring                            | Large      |
 | P2       | Calibrated simulation models                    | Replace explanatory kinetics with characterized equipment relationships and documented error bounds                     | Large      |
 
-There are **19 specific future improvements**. Priority reflects dependencies, not a timeline or certification promise. Publication of the reviewed local revision requires separate authorization.
+There are **19 specific future improvements** beyond the local version 0.2.0 scope. Priority reflects dependencies, not a timeline or certification promise. Version 0.2.0 publication is approved after validation; actual execution remains to be verified. [Verified DevOps and production evidence](DEVOPS_HANDOFF.md)

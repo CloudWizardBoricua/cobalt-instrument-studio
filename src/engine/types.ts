@@ -106,6 +106,7 @@ export interface Diagnostics {
 }
 export interface StudioState {
   running: boolean;
+  hasStarted: boolean;
   simulation: Simulation;
   diagnostics: Diagnostics;
   history: Telemetry[];

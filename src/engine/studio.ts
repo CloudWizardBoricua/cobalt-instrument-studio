@@ -37,6 +37,7 @@ export function createStudio(
   const simulation = createSimulation(scenario);
   return {
     running: scenario !== "manual",
+    hasStarted: scenario !== "manual",
     simulation,
     settings: validateSettings(settings),
     history: [simulation.received],
@@ -78,6 +79,7 @@ export function studioReducer(state: StudioState, action: Action): StudioState {
         : {
             ...state,
             running: true,
+            hasStarted: true,
             diagnostics: addEvent(
               state.diagnostics,
               state.simulation.time,

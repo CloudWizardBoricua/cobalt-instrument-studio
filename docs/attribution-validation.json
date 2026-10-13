@@ -1,0 +1,249 @@
+{
+  "date": "Fall 2026",
+  "method": "Fresh isolated Edge browser contexts; exact developer and concept text plus repository destination checked in every view at desktop and two mobile widths.",
+  "results": [
+    {
+      "site": "local",
+      "view": "Dashboard",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Diagnostics",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Settings",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Dashboard",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Diagnostics",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Settings",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Dashboard",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Diagnostics",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "local",
+      "view": "Settings",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Dashboard",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Diagnostics",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Settings",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Dashboard",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Diagnostics",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Settings",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Dashboard",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Diagnostics",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "primary",
+      "view": "Settings",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Dashboard",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Diagnostics",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Settings",
+      "viewportWidth": 1440,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Dashboard",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Diagnostics",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Settings",
+      "viewportWidth": 390,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Dashboard",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Diagnostics",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    },
+    {
+      "site": "backup",
+      "view": "Settings",
+      "viewportWidth": 320,
+      "developer": "Developed by Daren Diaz",
+      "sourceLink": "GitHub",
+      "concept": "Design concept",
+      "result": "passed"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "version": "0.2.0",
+  "edition": "Fall 2026",
+  "scope": "Final local checkpoint before PR publication; remote verification is recorded separately.",
+  "unit": {
+    "passed": 100,
+    "failed": 0,
+    "durationMs": 3849.93115234375
+  },
+  "browserTests": {
+    "passed": 17,
+    "failed": 0,
+    "durationMs": 37817.23,
+    "scenarioClock": "Virtual clock for guided paths; separate wall-clock start/pause smoke check."
+  },
+  "browserRuntime": {
+    "engine": "chromium",
+    "version": "155.0.4283.45",
+    "channel": "msedge",
+    "platform": "win32"
+  },
+  "deviceCombinations": 30,
+  "deviceJavaScriptErrors": [],
+  "standbyLifecycle": "Initial/reset displayed values stay at literal zero in both unit systems. Start/Run reveal accepted readings; pause holds them. Seeded model, accepted samples, diagnostics, and history remain unchanged.",
+  "workflowContracts": "passed",
+  "actionlint": "Three workflows passed core checks; optional ShellCheck/Pyflakes unavailable.",
+  "privacyContent": {
+    "passed": true,
+    "files": 101
+  },
+  "hostingChecks": [
+    {
+      "base": "root",
+      "checkGroups": 12,
+      "browser": "pass",
+      "javascriptErrors": [],
+      "downloads": [
+        {
+          "extension": "pdf",
+          "status": 200,
+          "bytes": 459765,
+          "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
+        },
+        {
+          "extension": "docx",
+          "status": 200,
+          "bytes": 554147,
+          "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
+        }
+      ]
+    },
+    {
+      "base": "project",
+      "checkGroups": 12,
+      "browser": "pass",
+      "javascriptErrors": [],
+      "downloads": [
+        {
+          "extension": "pdf",
+          "status": 200,
+          "bytes": 459765,
+          "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
+        },
+        {
+          "extension": "docx",
+          "status": 200,
+          "bytes": 554147,
+          "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
+        }
+      ]
+    }
+  ],
+  "reports": [
+    {
+      "path": "docs/Cobalt_Engineering_Report.pdf",
+      "format": "pdf",
+      "pages": 9,
+      "visualInspection": "Every rendered page inspected; no clipping, overlapping captions, broken tables, missing glyphs, or blank pages.",
+      "preciseMetadataDates": "absent",
+      "metadataAuthor": "blank",
+      "visibleEdition": "Fall 2026",
+      "visibleVersion": "0.2.0",
+      "visibleDeveloper": "Developed by Daren Diaz",
+      "repositoryLink": "present",
+      "bytes": 459765,
+      "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
+    },
+    {
+      "path": "docs/Cobalt_Engineering_Report.docx",
+      "format": "docx",
+      "pages": 9,
+      "visualInspection": "Every rendered page inspected; no clipping, overlapping captions, broken tables, missing glyphs, or blank pages.",
+      "preciseMetadataDates": "absent",
+      "metadataAuthor": "blank",
+      "visibleEdition": "Fall 2026",
+      "visibleVersion": "0.2.0",
+      "visibleDeveloper": "Developed by Daren Diaz",
+      "repositoryLink": "present",
+      "bytes": 554147,
+      "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/assets/device-cockpit-engine.png",
+      "bytes": 318114,
+      "sha256": "a66ec253abeb4f3939a3d22baf6140d90e751a07c1533a2ac1195cfa7216a4de"
+    },
+    {
+      "path": "docs/assets/device-cockpit-gauges.png",
+      "bytes": 369153,
+      "sha256": "4a528e23e60dc3a75c1104b15c2609800989c7b161d54c27b4328a19f140a438"
+    },
+    {
+      "path": "docs/assets/device-cockpit-trends.png",
+      "bytes": 326103,
+      "sha256": "929a9cf5f3743419d501373a7caea0da178ac793843721a6d3d222da22cdf89d"
+    },
+    {
+      "path": "docs/assets/device-cockpit-faults.png",
+      "bytes": 212001,
+      "sha256": "55a2b83e167e542144f9acba5e3902601e82533e4ae17fd1f21afd6f18cc2009"
+    },
+    {
+      "path": "docs/assets/device-cockpit-ack.png",
+      "bytes": 208990,
+      "sha256": "ca9021dce2506a4f003c71bb6b69786985b9f65818a54cd6731bca2adbfca3f6"
+    },
+    {
+      "path": "docs/assets/device-cockpit-mobile.png",
+      "bytes": 237340,
+      "sha256": "3c6328cf16c639f63e70c337ef7b5f822b08729313c137d32b0d7fed4d9649dc"
+    }
+  ],
+  "designQA": "design-qa.md passed"
+}
