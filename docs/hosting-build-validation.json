@@ -1,0 +1,86 @@
+{
+  "date": "Fall 2026",
+  "verification": "Local static production builds only. External hosts have not been published or tested.",
+  "results": [
+    {
+      "name": "root",
+      "buildCommand": "npm run build",
+      "buildWallMs": 13049,
+      "browser": "pass",
+      "downloads": [
+        {
+          "extension": "pdf",
+          "status": 200,
+          "bytes": 191115,
+          "sha256": "c8193fe3730e7d78d567caf6e01ac6aee8951b3c8a077c10557090d9b0cef2a3"
+        },
+        {
+          "extension": "docx",
+          "status": 200,
+          "bytes": 220936,
+          "sha256": "adf051723e81f7bc6d6ba11e92d912003e1425dfa03673fa054a3f3ed04ee459"
+        }
+      ],
+      "checks": [
+        "six instruments",
+        "overheat critical",
+        "communication timeout and recovery",
+        "bounded 240 samples",
+        "mobile width",
+        "refresh",
+        "base-aware reports",
+        "no external runtime requests"
+      ],
+      "javascriptErrors": []
+    },
+    {
+      "name": "project",
+      "buildCommand": "npm run build:pages",
+      "buildWallMs": 13184,
+      "browser": "pass",
+      "downloads": [
+        {
+          "extension": "pdf",
+          "status": 200,
+          "bytes": 191115,
+          "sha256": "c8193fe3730e7d78d567caf6e01ac6aee8951b3c8a077c10557090d9b0cef2a3"
+        },
+        {
+          "extension": "docx",
+          "status": 200,
+          "bytes": 220936,
+          "sha256": "adf051723e81f7bc6d6ba11e92d912003e1425dfa03673fa054a3f3ed04ee459"
+        }
+      ],
+      "checks": [
+        "six instruments",
+        "overheat critical",
+        "communication timeout and recovery",
+        "bounded 240 samples",
+        "mobile width",
+        "refresh",
+        "base-aware reports",
+        "no external runtime requests"
+      ],
+      "javascriptErrors": []
+    }
+  ],
+  "bundles": [
+    {
+      "file": "charts-DsTfUnqE.js",
+      "bytes": 373798,
+      "gzipBytes": 110244
+    },
+    {
+      "file": "index-CuZPLnu2.js",
+      "bytes": 251962,
+      "gzipBytes": 78677
+    },
+    {
+      "file": "index-D7cNQiWl.css",
+      "bytes": 23748,
+      "gzipBytes": 5157
+    }
+  ],
+  "reportRefresh": "Final reports resynchronized; direct HTTP downloads rechecked on both local build paths. Previously recorded application browser checks and build timings retained."
+}

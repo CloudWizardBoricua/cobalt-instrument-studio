@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-pages/
+test-results/
+playwright-report/
+.local/
+.netlify/
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/

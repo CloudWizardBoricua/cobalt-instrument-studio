@@ -1,0 +1,50 @@
+name: Publish versioned release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: node scripts/verify-release.mjs
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run verify:privacy
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+  release:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Publish one release for an existing reviewed tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release already exists; leaving it unchanged."
+            exit 0
+          fi
+          gh release create "$RELEASE_TAG" --verify-tag --title "Cobalt Instrument Studio $RELEASE_TAG" --notes-file docs/RELEASE_NOTES.md docs/Cobalt_Engineering_Report.pdf docs/Cobalt_Engineering_Report.docx

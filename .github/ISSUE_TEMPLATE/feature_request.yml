@@ -1,0 +1,19 @@
+name: Feature request
+description: Propose a focused improvement with an engineering use case.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or operating scenario
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior and engineering benefit
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria and production limitations

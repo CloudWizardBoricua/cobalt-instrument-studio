@@ -1,0 +1,26 @@
+name: Bug report
+description: Report a reproducible simulator or interface problem.
+title: "Bug "
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include the scenario, simulation time, mode, seed, and relevant thresholds.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and observed behavior
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and viewport
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Remove private data from screenshots and include only simulated telemetry.
