@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "24"
   VITE_BASE_PATH = "/"
+  VITE_SOURCE_URL = "https://github.com/CloudWizardBoricua/cobalt-instrument-studio"
 
 [[headers]]
   for = "/*"
