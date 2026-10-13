@@ -4,9 +4,9 @@ _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardB
 
 Fall 2026
 
-The earlier main `453ea4a126fab0a44f4345871b401a5c11fbce86` has verified CI and production results. Version 0.2.0 implements five device pages, standby and evidence corrections locally, with 100 passing unit/17 browser tests, 30 device combinations, and full visual/metadata/link QA of nine pages in each report. Both hosting builds and matching downloads passed. Actual new publication remains pending. Future items are engineering proposals, not implemented equipment capabilities. Complexity is relative: Small = focused work, Medium = multiple components, Large = substantial integration or validation.
+Version 0.2.0 is deployed at verified main `5e7615a98478ae14301da4377c9e6a2255cd2139` through [PR #11](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/11). Final PR/main CI passed 100 unit and 17 Linux Chromium browser tests, and both public sites passed 17 browser tests with 30 device and 18 application layout combinations per origin. Each report passed full visual/metadata/link QA of nine pages; hosting downloads match the reviewed bytes. The [tag workflow](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/runs/38346481631) succeeded and the [published v0.2.0 Release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.2.0) passed five-asset/archive inspection. Future items are engineering proposals, not implemented equipment capabilities. Complexity is relative: Small = focused work, Medium = multiple components, Large = substantial integration or validation.
 
-## Implemented at the verified main checkpoint
+## Implemented at the earlier main checkpoint
 
 | Improvement                       | Implemented boundary                                                                         | Engineering value                                                           |
 | --------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
@@ -19,19 +19,20 @@ The earlier main `453ea4a126fab0a44f4345871b401a5c11fbce86` has verified CI and 
 | Inspectable CI and Pages deployment | Successful PR/main CI and deployment from the exact tested main artifact; versioned release packaging prepared | Makes tested source/build outcomes inspectable without duplicating workflows |
 | Main repository protection         | Required PR and strict GitHub Actions CI check, administrator enforcement, resolved conversations, blocked force pushes/deletions | Preserves verified checks before future main changes |
 
-## Implemented locally for version 0.2.0
+## Implemented and verified for version 0.2.0
 
 | Improvement | Implemented scope | Verification boundary |
 | --- | --- | --- |
-| Five device-preview pages | Gauges, Engine, Trends, Faults, and ACK; graphite bezel, metallic rings, cobalt blue accents, shared softkeys and accepted data | Final 17-browser run and 30 page/theme/width combinations passed; remote execution pending |
-| Test-evidence privacy correction | Disabled automatic Git capture; sanitized retained reports and gated upload on preparation success, including failures | Regression tests passed in final 100-unit run; fresh CI artifact inspection pending |
+| Five device-preview pages | Gauges, Engine, Trends, Faults, and ACK; graphite bezel, metallic rings, cobalt blue accents, shared softkeys and accepted data | Local and Linux CI 17-browser suites passed; both public origins passed 17 tests and 30 device combinations |
+| Test-evidence privacy correction | Disabled automatic Git capture; sanitized retained reports and gated upload on preparation success, including failures | Regression tests passed in the 100-unit suite; downloaded final PR/main reports passed privacy inspection |
 | Display standby lifecycle | Initial/reset zero readouts in both units, Start/Run reveal accepted samples, Pause holds display | Lifecycle checks passed; zero placeholders never enter model/diagnostic/history state |
+| Verified semantic Release | Annotated v0.2.0, shared CI, tested root/project archive, engineering reports, manifest and SHA-256 checksums | Actual tag workflow passed; five downloaded assets and all 14 archive files verified |
 
-## Verified local standby behavior
+## Verified standby behavior
 
-Standby gauge readouts start at zero in either unit system. Start or guided Run displays the central accepted readings, Pause holds them, and Reset returns presentation to zero. Standby zeros are display placeholders; they do not enter telemetry, diagnostics, or history. Dedicated lifecycle checks passed in final local version 0.2.0 validation.
+Standby gauge readouts start at zero in either unit system. Start or guided Run displays the central accepted readings, Pause holds them, and Reset returns presentation to zero. Standby zeros are display placeholders; they do not enter telemetry, diagnostics, or history. Dedicated lifecycle checks passed locally, in Linux CI, and on both public version 0.2.0 sites.
 
-Updated screenshots, local QA, both report renderings and all-page inspections are complete. Actual new CI/deployment/release checks must finish before version 0.2.0 publication is reported as complete.
+Updated screenshots, local QA, both report renderings and all-page inspections are complete. [Current CI, production and Release receipts](DEVOPS_HANDOFF.md) establish published execution independently of the frozen local report checkpoint. [Release inspection evidence](v020-release-validation.json) verifies the five assets; [download links](../README.md#reports-and-publication-evidence) provide reports, tested static builds, manifest and checksums.
 
 ## Prioritized future improvements
 
@@ -57,4 +58,4 @@ Updated screenshots, local QA, both report renderings and all-page inspections a
 | P2       | Production observability and service objectives | Define measurable availability, delivery quality, incident recovery, and provider monitoring                            | Large      |
 | P2       | Calibrated simulation models                    | Replace explanatory kinetics with characterized equipment relationships and documented error bounds                     | Large      |
 
-There are **19 specific future improvements** beyond the local version 0.2.0 scope. Priority reflects dependencies, not a timeline or certification promise. Version 0.2.0 publication is approved after validation; actual execution remains to be verified. [Verified DevOps and production evidence](DEVOPS_HANDOFF.md)
+There are **19 specific future improvements** beyond the implemented version 0.2.0 scope. Priority reflects dependencies, not a timeline or certification promise. Actual CI, both hosting deployments and the tagged Release are verified. [Verified DevOps and production evidence](DEVOPS_HANDOFF.md)
