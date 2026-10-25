@@ -178,9 +178,9 @@ The planning review inspected `b92b1f736aa2bab91438ba687fa7b31d64748bf1`, matchi
 
 The [roadmap findings](docs/ROADMAP.md#repository-review-findings) record source evidence and remediation priorities. This planning snapshot is separate from historical release results and will age as dependencies and source change.
 
-### Documentation update checks
+### Local documentation update checks
 
-This documentation revision passed TypeScript, workflow and privacy/content checks plus all 10 privacy/content regression tests. All 45 local links/anchors across the three edited documents were checked, including existing inbound README links. All three Mermaid diagrams were rendered and visually inspected at README width. The full unit suite, application builds, application E2E tests and remote deployments were not rerun for this documentation-only change; the known baseline findings above remain open.
+Local validation of this documentation revision passed TypeScript, workflow and privacy/content checks plus all 10 privacy/content regression tests. All 45 local links/anchors across the three edited documents were checked, including existing inbound README links. All three Mermaid diagrams were rendered and visually inspected at README width. The full unit suite, application builds and application E2E tests were not rerun locally for this documentation-only change; remote deployments were not reverified. GitHub CI results are recorded separately on the pull request. The known baseline findings above remain open.
 
 ### Published version and verification
 
