@@ -1,0 +1,320 @@
+{
+  "edition": "Fall 2026",
+  "baselineRevision": "cb2297e750e5bc2acdd02b089874997ca3078667",
+  "branch": "docs/demo-repository-polish",
+  "publicationPerformed": false,
+  "environment": {
+    "os": "Windows",
+    "node": "24.19.0",
+    "npm": "11.17.0",
+    "vite": "7.3.7",
+    "vitest": "3.2.7",
+    "browser": "Installed Microsoft Edge"
+  },
+  "baseline": {
+    "unitSandbox": {
+      "passed": 98,
+      "failed": 2
+    },
+    "isolatedReportSuiteOutsideSandbox": {
+      "passed": 3,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 17,
+      "failed": 0,
+      "wallSeconds": 45.9
+    },
+    "typecheck": "pass",
+    "workflow": "pass",
+    "privacy": "pass",
+    "builds": [
+      "root: pass",
+      "project: pass"
+    ],
+    "staticGroupsPerBase": 12
+  },
+  "final": {
+    "unitOutsideSandbox": {
+      "passed": 100,
+      "failed": 0,
+      "files": 8
+    },
+    "browser": {
+      "passed": 17,
+      "failed": 0,
+      "wallSeconds": 46.3
+    },
+    "typecheck": "pass",
+    "workflow": "pass",
+    "privacyTextFiles": 135,
+    "sourceRelativeImports": 87,
+    "sourceCaseNegativeControl": "wrong-case import rejected",
+    "builds": [
+      "root: pass",
+      "project: pass"
+    ],
+    "static": [
+      {
+        "name": "root",
+        "browser": "pass",
+        "checkGroups": 12,
+        "javascriptErrors": [],
+        "downloads": [
+          {
+            "extension": "pdf",
+            "status": 200,
+            "bytes": 459765,
+            "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
+          },
+          {
+            "extension": "docx",
+            "status": 200,
+            "bytes": 554147,
+            "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
+          }
+        ]
+      },
+      {
+        "name": "project",
+        "browser": "pass",
+        "checkGroups": 12,
+        "javascriptErrors": [],
+        "downloads": [
+          {
+            "extension": "pdf",
+            "status": 200,
+            "bytes": 459765,
+            "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9"
+          },
+          {
+            "extension": "docx",
+            "status": 200,
+            "bytes": 554147,
+            "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79"
+          }
+        ]
+      }
+    ],
+    "localMarkdownFileLinksChecked": 321,
+    "maintainedDirectoryReadmesIncludingRoot": 15
+  },
+  "sourceComparison": {
+    "base": "cb2297e750e5bc2acdd02b089874997ca3078667",
+    "checked": 50,
+    "unexpected": [],
+    "allowed": [
+      "tests/deployment-workflows.test.ts: fixture newline normalization"
+    ]
+  },
+  "configurationPreservation": {
+    "pythonAstIgnoringDocstringsEqual": true,
+    "netlifyParsedEqual": true,
+    "packageOnlyAddsPathCommand": true,
+    "typescriptOnlyAddsCasingFlag": true,
+    "lockfileGitNormalizedExact": true,
+    "htmlOnlyCommentsWhitespace": true,
+    "historicalBinaryExactJsonGitNormalizedExact": true,
+    "historicalFilesChecked": 38,
+    "yamlParsedValuesEqual": true
+  },
+  "buildComparison": [
+    {
+      "file": "dist/favicon.svg",
+      "same": true
+    },
+    {
+      "file": "dist/index.html",
+      "same": false
+    },
+    {
+      "file": "dist/assets/charts-DsTfUnqE.js",
+      "same": true
+    },
+    {
+      "file": "dist/assets/index-BgWcZsPB.js",
+      "same": true
+    },
+    {
+      "file": "dist/assets/index-D_Trkkb7.css",
+      "same": true
+    },
+    {
+      "file": "dist/reports/Cobalt_Engineering_Report.docx",
+      "same": true
+    },
+    {
+      "file": "dist/reports/Cobalt_Engineering_Report.pdf",
+      "same": true
+    },
+    {
+      "file": "dist-pages/favicon.svg",
+      "same": true
+    },
+    {
+      "file": "dist-pages/index.html",
+      "same": false
+    },
+    {
+      "file": "dist-pages/assets/charts-DsTfUnqE.js",
+      "same": true
+    },
+    {
+      "file": "dist-pages/assets/index-DxbjT-Pu.js",
+      "same": true
+    },
+    {
+      "file": "dist-pages/assets/index-D_Trkkb7.css",
+      "same": true
+    },
+    {
+      "file": "dist-pages/reports/Cobalt_Engineering_Report.docx",
+      "same": true
+    },
+    {
+      "file": "dist-pages/reports/Cobalt_Engineering_Report.pdf",
+      "same": true
+    }
+  ],
+  "existingPublicSites": [
+    {
+      "name": "Netlify",
+      "url": "https://cobalt-instrument-studio.netlify.app/",
+      "status": 200,
+      "title": "Cobalt Instrument Studio",
+      "assets": [
+        {
+          "path": "favicon.svg",
+          "status": 200,
+          "bytes": 328,
+          "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1",
+          "localExists": true,
+          "exactLocalMatch": false,
+          "lfNormalizedLocalMatch": true
+        },
+        {
+          "path": "assets/index-DtPqt8xe.js",
+          "status": 200,
+          "bytes": 286011,
+          "sha256": "9729dafe0d3807269187d2e27b9b4073be940967504860f09cfadb29be38ba4d",
+          "localExists": true,
+          "exactLocalMatch": true,
+          "lfNormalizedLocalMatch": true
+        },
+        {
+          "path": "assets/charts-DsTfUnqE.js",
+          "status": 200,
+          "bytes": 373798,
+          "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800",
+          "localExists": true,
+          "exactLocalMatch": true,
+          "lfNormalizedLocalMatch": true
+        },
+        {
+          "path": "assets/index-D_Trkkb7.css",
+          "status": 200,
+          "bytes": 54938,
+          "sha256": "f2bf5ec73ccefe507d18279b341ce04adbe07e549e10181395ebaff85c497674",
+          "localExists": true,
+          "exactLocalMatch": true,
+          "lfNormalizedLocalMatch": true
+        }
+      ],
+      "reports": [
+        {
+          "filename": "Cobalt_Engineering_Report.pdf",
+          "status": 200,
+          "bytes": 459765,
+          "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9",
+          "exactReviewedMatch": true
+        },
+        {
+          "filename": "Cobalt_Engineering_Report.docx",
+          "status": 200,
+          "bytes": 554147,
+          "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79",
+          "exactReviewedMatch": true
+        }
+      ]
+    },
+    {
+      "name": "Pages",
+      "url": "https://cloudwizardboricua.github.io/cobalt-instrument-studio/",
+      "status": 200,
+      "title": "Cobalt Instrument Studio",
+      "assets": [
+        {
+          "path": "favicon.svg",
+          "status": 200,
+          "bytes": 328,
+          "sha256": "7618d2d60696da6f8bb2f65ea1ba60f97fc6e3f9f4457c3a796a520d984855a1",
+          "localExists": true,
+          "exactLocalMatch": false,
+          "lfNormalizedLocalMatch": true
+        },
+        {
+          "path": "assets/index-_GEcaP6x.js",
+          "status": 200,
+          "bytes": 286086,
+          "sha256": "b91d90794de4ec75e8f6f83507dfc5b2b4fc501fd1f55b29f9868d66e6d19919",
+          "localExists": true,
+          "exactLocalMatch": true,
+          "lfNormalizedLocalMatch": true
+        },
+        {
+          "path": "assets/charts-DsTfUnqE.js",
+          "status": 200,
+          "bytes": 373798,
+          "sha256": "88ec4ef39db3a5b6f6961cd5f2864d93d0b973589a68358adaf07e3acb7f4800",
+          "localExists": true,
+          "exactLocalMatch": true,
+          "lfNormalizedLocalMatch": true
+        },
+        {
+          "path": "assets/index-D_Trkkb7.css",
+          "status": 200,
+          "bytes": 54938,
+          "sha256": "f2bf5ec73ccefe507d18279b341ce04adbe07e549e10181395ebaff85c497674",
+          "localExists": true,
+          "exactLocalMatch": true,
+          "lfNormalizedLocalMatch": true
+        }
+      ],
+      "reports": [
+        {
+          "filename": "Cobalt_Engineering_Report.pdf",
+          "status": 200,
+          "bytes": 459765,
+          "sha256": "c4ff1a7eb279292c365aea2acc579fa92313841933ddbe2af775e2dcf780e8e9",
+          "exactReviewedMatch": true
+        },
+        {
+          "filename": "Cobalt_Engineering_Report.docx",
+          "status": 200,
+          "bytes": 554147,
+          "sha256": "07d24a9b80d4f88bfc3ec3351599e5ed74bc2ad340b17b54933b575a3cc4be79",
+          "exactReviewedMatch": true
+        }
+      ]
+    }
+  ],
+  "strictPublicHttpChecker": "nonzero: Windows CRLF favicon differs from hosted LF; normalized content matches. Independent reads verify every referenced application asset and report; runtime JS matches public production environment builds.",
+  "security": {
+    "baselineScanId": "f9c259f0-2621-47ff-94dd-cfe37e0eedb5",
+    "reportableSourceFindings": 0,
+    "finalDiffScan": false,
+    "advisoryPackageEntries": {
+      "developmentCritical": 2,
+      "developmentModerate": 1,
+      "productionTotal": 0
+    },
+    "dependenciesChanged": false
+  },
+  "limits": [
+    "Local branch has not been pushed or deployed.",
+    "Netlify provider source SHA and current branch protection not verified.",
+    "Linux final-branch CI not run.",
+    "Runtime asset equality is not provider commit identity.",
+    "No hardware or industrial safety validation."
+  ]
+}

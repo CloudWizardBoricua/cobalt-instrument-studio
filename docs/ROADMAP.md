@@ -27,6 +27,8 @@ Source anchors: [workflow fixture](../tests/deployment-workflows.test.ts), [junc
 
 The existing [v0.2.0 local evidence](validation-evidence.json), [main CI evidence](v020-main-ci-validation.json), [release receipts](v020-release-validation.json), and [engineering reports](../README.md#reports-and-publication-evidence) remain frozen historical checkpoints. The planning review did not re-run the browser suite, hardware tests, or deployment verification. Historical counts and screenshots must not be presented as evidence for the proposed HMI.
 
+Later repository polishing corrected the newline-sensitive fixture, documented the junction requirement and passed all 100 unit and 17 browser tests locally. Dependency updates, ordinary-output separation and fresh Linux validation of that branch remain outstanding; Phase 0 is not fully complete. See [current sprint validation](DEMO_VALIDATION.md).
+
 ## Integration requirements
 
 Agree versioned interfaces and shared acceptance fixtures before connecting frontend and backend implementations. Bind validation evidence to the tested revision and record failures and limitations explicitly. Each phase requires integrated evidence against its acceptance criteria; a passing component test does not substitute for the end-to-end gate.
