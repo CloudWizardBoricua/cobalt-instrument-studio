@@ -1,5 +1,7 @@
 # Hosting and DevOps verification
 
+For the October 27, 2026 repository-polishing sprint, read the [fresh repository/PR audit](REPOSITORY_AUDIT.md) and [current local validation](DEMO_VALIDATION.md). The release and provider receipts below describe their recorded historical checkpoints. They do not establish deployment of the local cleanup branch or the current Netlify source revision.
+
 _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)
 
 Fall 2026
