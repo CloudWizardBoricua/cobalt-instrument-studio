@@ -1,3 +1,5 @@
+# Propose dependency updates for review; a green PR does not authorize a deployment or merge.
+# Coordinated framework upgrades and Pages-action execution require their own validation.
 version: 2
 updates:
   - package-ecosystem: npm

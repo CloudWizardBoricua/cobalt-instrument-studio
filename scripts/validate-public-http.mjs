@@ -1,8 +1,16 @@
+/**
+ * Inspect explicitly supplied public Netlify, Pages and repository HTTPS endpoints.
+ * Bound anonymous GETs validate same-host redirects, linked assets and direct report
+ * downloads, comparing delivered bytes to local build/report artifacts.
+ * This overwrites the named HTTP evidence record. It does not check provider source
+ * revisions, render the UI, exercise HMI behavior or authorize publication.
+ */
 import { readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// Resolve local comparisons relative to this script; do not depend on the caller shell directory.
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const TIMEOUT_MS = 20_000;
 const MAX_BYTES = 12 * 1024 * 1024;
@@ -14,6 +22,7 @@ function fail(message) {
   throw new Error(message);
 }
 
+/** Accept only explicit stable provider URLs and the matching public repository/Pages owner. */
 function parseArguments(argv) {
   const inputs = {};
   for (let index = 0; index < argv.length; index += 2) {
@@ -80,10 +89,12 @@ function parseArguments(argv) {
   return urls;
 }
 
+// Byte identity complements an HTTP 200; a success page alone can be the wrong deployment.
 function hash(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
+// Parse the limited script/link attributes needed for built-asset inspection.
 function decodeAttribute(value) {
   return value
     .replace(/&amp;/gi, "&")
@@ -128,6 +139,7 @@ function linkedAssets(html) {
   );
 }
 
+/** Keep application assets on the expected origin and hosting base. */
 function publicAssetUrl(reference, site) {
   const url = new URL(reference, site);
   if (
@@ -144,6 +156,7 @@ function publicAssetUrl(reference, site) {
   return url;
 }
 
+/** Fetch bounded anonymous bytes, validating each redirect and expected content type. */
 async function get(url, expectedType, basePath) {
   const abort = new AbortController();
   const timeout = setTimeout(() => abort.abort(), TIMEOUT_MS);
@@ -228,6 +241,7 @@ async function get(url, expectedType, basePath) {
   }
 }
 
+// Missing local comparison inputs are an inability to verify drift, never a successful result.
 async function localBytes(path, label) {
   try {
     return await readFile(resolve(projectRoot, path));
@@ -238,6 +252,7 @@ async function localBytes(path, label) {
   }
 }
 
+/** Compare a host entry, built assets and report downloads; record provider-injected UI separately. */
 async function inspectSite(name, site, output, repository, reports) {
   const result = {
     name,
@@ -365,6 +380,7 @@ async function inspectSite(name, site, output, repository, reports) {
   return result;
 }
 
+/** Follow the README link actually exposed by the repository page instead of guessing a branch. */
 async function inspectRepository(repository) {
   const result = { url: repository.href, status: "fail" };
   try {
@@ -412,6 +428,7 @@ async function inspectRepository(repository) {
   return result;
 }
 
+// CLI validates all inputs before network work, then writes explicit pass/failure evidence.
 let urls;
 try {
   urls = parseArguments(process.argv.slice(2));

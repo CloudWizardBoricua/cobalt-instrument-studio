@@ -1,3 +1,10 @@
+/**
+ * Package the exact verified static builds into a reviewable release bundle.
+ * Version checks, source/hash inventories, equal report copies and archive round-trip
+ * precede manifest/checksum creation. Publication is handled by a separate script.
+ * tar must be available; a local package is inspection evidence, not proof of hosted
+ * deployment or CI execution. No simulator control or hardware transport runs here.
+ */
 import {
   copyFileSync,
   existsSync,
@@ -28,6 +35,7 @@ export function packageRelease({
   tag,
   expectedCommit,
 }) {
+  // Keep output outside the trusted input tree and bind it to a full source commit.
   const root = resolve(artifactRoot);
   const output = resolve(outputDirectory);
   if (output === root || output.startsWith(`${root}${sep}`))
@@ -42,6 +50,7 @@ export function packageRelease({
     expectedCommit,
     requireCI: false,
   });
+  // Inventory both bases: packaging must never substitute an unrelated fresh build.
   const files = ["dist", "dist-pages"].flatMap((directory) => {
     if (!existsSync(join(root, directory, "index.html")))
       throw new Error(`Tested ${directory} entry point is missing.`);
@@ -53,6 +62,7 @@ export function packageRelease({
       throw new Error(`Tested ${directory} assets are missing.`);
     return result;
   });
+  // PDF/DOCX copies must match between hosts and pass basic completeness/signature checks.
   for (const name of reportNames) {
     const primary = readFileSync(join(root, "dist/reports", name));
     const backup = readFileSync(join(root, "dist-pages/reports", name));
@@ -71,6 +81,7 @@ export function packageRelease({
     )
       throw new Error("The engineering DOCX signature is invalid.");
   }
+  // Hash before writing the empty output directory so subsequent drift remains detectable.
   const inventory = files.map((name) => {
     const data = readFileSync(join(root, name));
     return { name, bytes: data.length, sha256: sha256(data) };
@@ -132,6 +143,7 @@ export function packageRelease({
       );
     rmSync(restored, { recursive: true, force: true });
   }
+  // The manifest describes build files; checksums additionally cover the uploaded manifest.
   const attachedNames = [...reportNames, archiveName];
   const attachments = attachedNames.map((name) => {
     const data = readFileSync(join(output, name));
@@ -165,6 +177,7 @@ export function packageRelease({
   return { ...manifest, attachments, notes, outputDirectory: output };
 }
 
+/** Validate exact attachment names and bytes before any remote upload is permitted. */
 export function verifyReleasePackage(directory) {
   const root = resolve(directory);
   const manifest = JSON.parse(
@@ -221,6 +234,7 @@ export function verifyReleasePackage(directory) {
   return { manifest, assets: checksums };
 }
 
+// Local packaging adapter: creates inspectable files and does not call the publisher.
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href
