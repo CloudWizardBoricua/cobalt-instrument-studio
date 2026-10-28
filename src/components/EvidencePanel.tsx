@@ -1,8 +1,17 @@
+/**
+ * Explain and export the simulator evidence visible during a demo.
+ * CSV serializers consume bounded accepted history/events from the central studio state;
+ * downloads stay in the browser and explicitly identify simulated data. PDF/DOCX are frozen
+ * engineering reports copied by the build, not generated from the current browser session.
+ * BASE_URL keeps report links valid at both hosting bases. VITE_SOURCE_URL is a public build
+ * setting and is shown only for the allowlisted GitHub project URL; never put secrets there.
+ */
 import { Download, FileText, BookOpen, ArrowUpRight, Cpu } from "lucide-react";
-import { EVENT_CAPACITY, HISTORY_CAPACITY, UPDATE_MS } from "../engine/model";
-import { exportEvents, exportTelemetry } from "../engine/studio";
+import { EVENT_CAPACITY, HISTORY_CAPACITY, UPDATE_MS } from "../engine/instruments";
+import { exportEvents, exportTelemetry } from "../engine/studio-state";
 import type { StudioState } from "../engine/types";
 
+// Use a short-lived object URL; revoke after the browser has had time to begin downloading.
 export function downloadCsv(name: string, data: string) {
   const url = URL.createObjectURL(
     new Blob([data], { type: "text/csv;charset=utf-8" }),
@@ -13,6 +22,7 @@ export function downloadCsv(name: string, data: string) {
   anchor.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+// Summarize model timing/capacity/seed and age; age pauses with simulation time.
 export function EvidencePanel({ state }: { state: StudioState }) {
   const age = state.simulation.time - state.simulation.receivedAt;
   const sourceUrl = import.meta.env.VITE_SOURCE_URL;
@@ -81,6 +91,7 @@ export function EvidencePanel({ state }: { state: StudioState }) {
           </button>
         </div>
       </div>
+{/* Retain report filenames and base-aware URLs: they are existing public download contracts. */}
       <div className="report-links">
         <span>
           <BookOpen size={15} />

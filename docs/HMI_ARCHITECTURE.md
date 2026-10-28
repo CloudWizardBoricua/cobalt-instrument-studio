@@ -45,7 +45,7 @@ Use one deployable service initially; separate internal modules and interfaces r
 
 ## Frontend and source separation
 
-The current [studio reducer](../src/engine/studio.ts) owns simulation time, received samples, diagnostics, and history. Preserve this deterministic demonstration behavior behind a simulator source. Introduce a separate live source that receives server-owned state and submits authorized application operations.
+The current [studio reducer](../src/engine/studio-state.ts) owns simulation time, received samples, diagnostics, and history. Preserve this deterministic demonstration behavior behind a simulator source. Introduce a separate live source that receives server-owned state and submits authorized application operations.
 
 - Select simulator or live mode explicitly at startup and display the active source/device identity persistently. A failed live connection must never activate generated data.
 - Keep presentation components independent of the simulator's `running`, `mode`, and target controls. Simulator Start/Pause/Reset and fault injection remain demonstration tools.

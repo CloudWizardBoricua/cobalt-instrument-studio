@@ -1,6 +1,16 @@
+/**
+ * Walk the complete browser simulator as a presenter or visitor would use it.
+ * Playwright controls virtual time for deterministic fault/ACK/recovery paths, with a
+ * separate wall-clock smoke for visible ticks and pause. Each test gets isolated state.
+ * Screenshot paths under docs/assets are intentional existing evidence outputs and
+ * overwrite tracked captures; review those changes before retaining them.
+ * Layout/focus/contrast checks cover selected browser behavior, not full accessibility
+ * certification, hardware integration or production control safeguards.
+ */
 import { expect, test } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
 
+// Retained readings remain visible while rejected deliveries age into a communication alert.
 test("invalid delivery preserves all accepted readings, ages them, and recovers", async ({
   page,
 }) => {
@@ -91,6 +101,7 @@ test("invalid delivery preserves all accepted readings, ages them, and recovers"
   );
 });
 
+// Acknowledgment records operator review; it does not clear the simulated oil-pressure condition.
 test("oil pressure loss escalates after acknowledgment and clears on recovery", async ({
   page,
 }) => {
@@ -137,6 +148,7 @@ test("oil pressure loss escalates after acknowledgment and clears on recovery", 
   await expect(page.getByTestId("rejected-count")).toHaveText("0");
 });
 
+// Device properties are display configuration and must not mutate telemetry or diagnostics.
 test("device properties apply atomically, retain across views, and preserve the engine", async ({
   page,
 }) => {
@@ -203,6 +215,7 @@ test("device properties apply atomically, retain across views, and preserve the 
   await expect(page.getByTestId("device-slot-1")).toContainText("Engine speed");
 });
 
+// Measure selected computed colors/focus/layout; this is a bounded accessibility regression check.
 test("all views support keyboard focus, day/night contrast, mobile, and stable announcements", async ({
   page,
 }) => {
@@ -361,6 +374,7 @@ test("all views support keyboard focus, day/night contrast, mobile, and stable a
   );
 });
 
+// Exercise the same workspace controls using keys, including collapse and atomic property submission.
 test("device workspace supports keyboard selection, property submission, and reset", async ({
   page,
 }) => {
@@ -417,7 +431,8 @@ test("device workspace supports keyboard selection, property submission, and res
   );
 });
 
-test("desktop controls update real telemetry, pause, and reset", async ({
+// Real wall time verifies visible simulated ticks independently of Playwright virtual-clock scenarios.
+test("desktop controls update simulated telemetry, pause, and reset", async ({
   page,
   browser,
 }, testInfo) => {
@@ -470,6 +485,7 @@ test("desktop controls update real telemetry, pause, and reset", async ({
   expect(errors).toEqual([]);
 });
 
+// Scenario selection prepares a run; Run/Replay explicitly reset its seeded sequence.
 test("normal ramp runs all instruments and changes selected trend series", async ({
   page,
 }) => {
@@ -524,6 +540,7 @@ test("normal ramp runs all instruments and changes selected trend series", async
   await expect(page.getByTestId("simulation-time")).toHaveText("00:00");
 });
 
+// Thermal warning/critical escalation must require acknowledgment again after the severity changes.
 test("overheat warning escalates, acknowledgment records review, reset resolves", async ({
   page,
 }) => {
@@ -563,6 +580,7 @@ test("overheat warning escalates, acknowledgment records review, reset resolves"
   await expect(page.getByText("All monitored conditions normal")).toBeVisible();
 });
 
+// Missing delivery holds last accepted values, ages them, then resumes with a visual trend gap.
 test("communication loss freezes values, marks stale, and restores automatically", async ({
   page,
 }) => {
@@ -602,6 +620,7 @@ test("communication loss freezes values, marks stale, and restores automatically
   expect((curve?.match(/M/g) || []).length).toBeGreaterThanOrEqual(2);
 });
 
+// Preferences survive reload; invalid thresholds must not replace the saved canonical configuration.
 test("settings validate thresholds and persist appearance, units, and visibility", async ({
   page,
 }) => {
@@ -645,6 +664,7 @@ test("settings validate thresholds and persist appearance, units, and visibility
   ).toHaveValue("225");
 });
 
+// Inspect the downloaded bytes rather than assuming the export button created valid labeled CSV.
 test("CSV exports download with explicit simulation labeling", async ({
   page,
 }) => {
@@ -663,6 +683,7 @@ test("CSV exports download with explicit simulation labeling", async ({
   );
 });
 
+// Produce authentic browser captures at desktop/mobile sizes and check for horizontal overflow.
 test("desktop and mobile remain usable and produce authentic screenshots", async ({
   page,
 }) => {

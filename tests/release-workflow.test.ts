@@ -1,3 +1,11 @@
+/**
+ * Exercise versioned release packaging and publication using disposable build fixtures.
+ * Minimal PDF/DOCX signatures and static assets test inventory/byte contracts, not
+ * document layout. tar must be available for archive creation and extraction.
+ * GitHub is always replaced by an injected in-memory HTTP transport; no real token,
+ * release, tag or deployment is used. Checks protect demo provenance and recovery
+ * from interrupted publication, not the safety of an industrial control installation.
+ */
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import {
   mkdirSync,
@@ -10,6 +18,7 @@ import { execFileSync } from "node:child_process";
 import { join, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
+// Deliberately artificial identity values are shared by all isolated release fixtures.
 const sourceCommit = "1".repeat(40);
 const tag = "v1.2.3";
 const repository = "example/cobalt";
@@ -23,6 +32,7 @@ let verifyBuildVerification: any;
 let publishRelease: any;
 let sha256: any;
 
+// Load the production packaging/verifier/publisher modules without their CLI entry points.
 beforeAll(async () => {
   const load = (name: string) =>
     import(
@@ -37,6 +47,7 @@ beforeAll(async () => {
   mkdirSync(temporaryBase, { recursive: true });
 });
 
+// Resolve each cleanup target beneath the explicit .local fixture root before removal.
 afterEach(() => {
   for (const directory of fixturePaths.splice(0)) {
     if (!resolve(directory).startsWith(`${temporaryBase}${sep}`))
@@ -45,6 +56,7 @@ afterEach(() => {
   }
 });
 
+// Build the smallest realistic two-base artifact, including version evidence and report bytes.
 function fixture(context = "github-actions") {
   const directory = mkdtempSync(join(temporaryBase, "release-test-"));
   fixturePaths.push(directory);
@@ -99,6 +111,7 @@ function fixture(context = "github-actions") {
   return { artifactRoot, outputDirectory, tag, expectedCommit: sourceCommit };
 }
 
+// Inject transport explicitly; tests must never fall through to live GitHub fetch.
 function publicationOptions(
   value: ReturnType<typeof fixture>,
   fetchImpl: typeof fetch,
@@ -115,6 +128,7 @@ function publicationOptions(
   };
 }
 
+// Reject drift before packaging and prove an archive round-trip preserves the tested inputs.
 describe("release and deployment artifact validation", () => {
   it("requires exact stable tag, changelog, notes and report version agreement", () => {
     const value = fixture();
@@ -288,6 +302,7 @@ describe("release and deployment artifact validation", () => {
   });
 });
 
+// Model reruns, existing drafts, API errors and corrupt uploads before allowing mock publication.
 describe("release publication with mocked GitHub transport only", () => {
   it("leaves an existing public release and all assets unchanged", async () => {
     const value = fixture();

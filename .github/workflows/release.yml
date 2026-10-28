@@ -1,3 +1,6 @@
+# Existing annotated-tag release pipeline: verify source/version, reuse CI, package, then publish.
+# Keep reports, immutable artifact identity and exact attachment names stable.
+# Local test transports do not publish; the contents-write job is the actual remote boundary.
 name: Publish versioned release
 on:
   push:

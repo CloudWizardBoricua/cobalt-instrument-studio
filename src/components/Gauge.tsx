@@ -1,11 +1,20 @@
+/**
+ * Reusable dashboard SVG instrument for one accepted simulated metric.
+ * Catalog metadata supplies scales, units and color; diagnostic severity and quality arrive
+ * from App. Display-unit conversion never mutates canonical telemetry or threshold settings.
+ * Standby zero is a presentation placeholder, not a sample. Clamp only needle geometry while
+ * retaining the numeric value; explicit stale/rejected/paused text supplements color cues.
+ * This is a browser visualization, not a calibrated physical gauge or equipment interlock.
+ */
 import {
   displayUnit,
   displayValue,
   formatValue,
   metricInfo,
-} from "../engine/model";
+} from "../engine/instruments";
 import type { Metric, Severity, Settings } from "../engine/types";
 
+// Shared polar geometry builds the dial arc, tick marks and needle in SVG coordinates.
 function point(angle: number, radius: number) {
   return {
     x: 110 + Math.cos((angle * Math.PI) / 180) * radius,
@@ -17,6 +26,7 @@ function arc(start: number, end: number, radius: number) {
     b = point(end, radius);
   return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${end - start > 180 ? 1 : 0} 1 ${b.x} ${b.y}`;
 }
+// Props separate process severity from sample freshness and presentation lifecycle.
 export function Gauge({
   metric,
   value,
@@ -37,6 +47,7 @@ export function Gauge({
   standby?: boolean;
 }) {
   const info = metricInfo[metric];
+// Standby hides the accepted startup sample; running geometry clamps to the display scale.
   const fraction = standby ? 0 : Math.max(
     0,
     Math.min(1, (value - info.min) / (info.max - info.min)),
@@ -50,6 +61,7 @@ export function Gauge({
         ? "var(--warning)"
         : info.color;
   const reading = standby ? "0" : formatValue(metric, value, settings.units);
+// Accessible text includes numeric units and quality; the decorative SVG is hidden from AT.
   const label = `${info.label}: ${reading} ${displayUnit(metric, settings.units)}. ${standby ? "Standby; start the simulation to receive readings" : `${severity} condition`}. ${stale ? "Stale sample. " : ""}${rejected ? "Rejected delivery; last valid value retained. " : ""}${paused && !standby ? "Simulation paused. " : ""}Simulated data.`;
   return (
     <article

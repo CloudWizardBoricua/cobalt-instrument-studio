@@ -1,3 +1,4 @@
+# Guide reproducible simulator bug reports; avoid posting equipment/customer data or secrets.
 name: Bug report
 description: Report a reproducible simulator or interface problem.
 title: "Bug "

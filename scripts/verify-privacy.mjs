@@ -1,7 +1,15 @@
+/**
+ * Check authored text for recognized private data and required honest demo content.
+ * Walk maintained text while excluding tooling/cache directories, then independently
+ * verify simulation disclosure, developer/repository attribution and report edition.
+ * This does not inspect binary document metadata/screenshots or prove UI visibility;
+ * browser and document review supply that separate evidence.
+ */
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
+// Tooling outputs/caches are excluded; maintained text and static bundles remain inspectable.
 const ignored = new Set([
   "node_modules",
   ".git",
@@ -27,6 +35,7 @@ const textTypes = new Set([
   ".txt",
   ".py",
 ]);
+// Recognized sensitive-text forms supplement the independent project-content requirements.
 const checks = [
   [
     "credential token",
@@ -35,6 +44,7 @@ const checks = [
   ["personal email", /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i],
   ["Windows user path", /[A-Z]:[\\/]Users[\\/][^\\/\s]+/i],
 ];
+// Approved public identity and seasonal edition must agree across app, README and report source.
 const authorCredit = "Developed by Daren Diaz";
 const sourceUrl =
   "https://github.com/CloudWizardBoricua/cobalt-instrument-studio";
@@ -63,7 +73,7 @@ export function projectContentFindings({
     /export\s+const\s+DISCLAIMER\s*=\s*(["'])SIMULATED - NOT LIVE EQUIPMENT\1/.test(
       normalized(model),
     ),
-    "src/engine/model.ts",
+    "src/engine/instruments.ts",
     "the canonical simulated-data disclaimer is required",
   );
   expect(
@@ -125,6 +135,7 @@ export function projectContentFindings({
   return findings;
 }
 
+/** Inspect maintained text, then check required disclosures independently of rendering. */
 export async function verifyPrivacy(root = process.cwd(), forbiddenTerms = []) {
   let files = 0;
   const findings = [];
@@ -147,10 +158,11 @@ export async function verifyPrivacy(root = process.cwd(), forbiddenTerms = []) {
     }
   }
   await inspect(root);
+  // Keep these source paths synchronized with authored-file renames and content regression tests.
   const [app, model, readme, report, packageJson] = await Promise.all(
     [
       "src/App.tsx",
-      "src/engine/model.ts",
+      "src/engine/instruments.ts",
       "README.md",
       "docs/report-source.json",
       "package.json",
@@ -173,6 +185,7 @@ export async function verifyPrivacy(root = process.cwd(), forbiddenTerms = []) {
   };
 }
 
+// CLI reports findings without rewriting authored files or exposing matched private values.
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href

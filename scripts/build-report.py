@@ -1,4 +1,16 @@
-"""Generate both engineering report formats from one source and verified evidence."""
+"""Generate the approved engineering DOCX and PDF from shared source/evidence.
+
+This editorial tool combines report-source.json, the frozen local validation
+checkpoint and approved screenshots into two parallel nine-page layouts. It also
+regenerates the architecture asset, removes private/exact-date metadata, and writes
+files under docs plus scratch files under .local/report-layout. It is deliberately
+not part of ordinary Vite builds: those copy the already reviewed report bytes.
+
+Requires Pillow, pypdf, python-docx, ReportLab and pdftoppm (or COBALT_PDFTOPPM).
+Regeneration requires full visual review of both formats before publication. The
+report describes a browser HMI simulation, not live acquisition, certified controls
+or measured hardware response; evidence tokens must retain their stated limits.
+"""
 import json
 import os
 import re
@@ -23,6 +35,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, 
 from reportlab.graphics.shapes import Drawing, Rect, String, Line, Polygon
 from reportlab.graphics import renderPDF, renderSVG
 
+# Resolve all editorial inputs/outputs relative to the repository, independent of shell cwd.
 ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
 source = json.loads(Path('docs/report-source.json').read_text(encoding='utf-8'))
@@ -33,6 +46,7 @@ scenario = {s['id']: s for s in evidence['scenarios']}
 normal = scenario['normal-ramp']['finalTelemetry']
 js = [b for b in evidence['bundles'] if b['file'].endswith('.js')]
 css = [b for b in evidence['bundles'] if b['file'].endswith('.css')]
+# Fill measurements from the selected checkpoint; never invent fresh counts or timings.
 tokens = {
     'unitPassed': evidence['unit']['passed'], 'browserPassed': evidence['browserTests']['passed'],
     'normalRPM': f"{normal['rpm']:.1f}", 'normalLoad': f"{normal['engineLoad']:.1f}",
@@ -44,9 +58,11 @@ tokens = {
     'unitDuration': f"{evidence['unit']['durationMs'] / 1000:.2f}",
 }
 def fill(text):
+    """Replace report tokens with recorded measurements; unknown tokens surface as errors."""
     return re.sub(r'\{\{(\w+)\}\}', lambda m: str(tokens[m.group(1)]), text)
 
 def architecture():
+    """Draw the simulated command-to-display data flow as SVG and report-ready raster."""
     drawing = Drawing(660, 190)
     def node(x, y, width, label, detail):
         drawing.add(Rect(x, y, width, 43, rx=5, ry=5, fillColor=colors.HexColor('#F0F5FC'), strokeColor=colors.HexColor('#9DB5D2'), strokeWidth=0.8))
@@ -73,8 +89,10 @@ def architecture():
     subprocess.run([executable, '-png', '-singlefile', '-scale-to', '1800', str(scratch / 'architecture.pdf'), str(scratch / 'architecture')], check=True, capture_output=True)
     return scratch / 'architecture.png'
 
+# Generate the shared illustration once so Word/PDF explain the same data relationships.
 architecture_path = architecture()
 def image_file(block):
+    """Resolve approved images and optional report crops without changing the original capture."""
     if block['kind'] == 'architecture': return architecture_path
     path = Path(block['path'])
     if block.get('cropHeight'):
@@ -84,12 +102,14 @@ def image_file(block):
             cropped.save(path)
     return path
 def dimensions(block, path):
+    """Fit images proportionally inside the report page bounds to avoid clipping."""
     with Image.open(path) as img: width, height = img.size
     max_w = 6.7
     max_h = block.get('height', 2.05)
     scale = min(max_w / width, max_h / height)
     return width * scale, height * scale
 
+# Word layout: page geometry, readable typography and cleared inherited decorative borders.
 doc = Document()
 section = doc.sections[0]
 section.page_width, section.page_height = Inches(8.5), Inches(11)
@@ -121,6 +141,7 @@ for style in doc.styles:
     if paragraph_properties is not None:
         for border in list(paragraph_properties.findall(qn('w:pBdr'))):
             paragraph_properties.remove(border)
+# Keep approved visible attribution in the body while stripping incidental personal metadata.
 doc.core_properties.author = ''
 # Omit precise metadata dates; the report's visible edition is Fall 2026.
 for date_tag in ['dcterms:created', 'dcterms:modified', 'cp:lastPrinted']:
@@ -132,11 +153,13 @@ doc.core_properties.title = f"{source['title']} Engineering Report"
 doc.core_properties.subject = 'Simulated instrumentation architecture and validation'
 doc.core_properties.comments = ''
 doc.core_properties.keywords = 'simulation, instrumentation, diagnostics'
+# Stable version/page footer supports navigation during a printed or exported report demo.
 footer = section.footer.paragraphs[0]
 footer.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 footer.add_run(f"Cobalt Instrument Studio {source['version']}  |  ").font.size = Pt(8)
 field = OxmlElement('w:fldSimple'); field.set(qn('w:instr'), 'PAGE'); footer._p.append(field)
 
+# PDF styles mirror the Word hierarchy while remaining independent layout definitions.
 pdf_body = ParagraphStyle('body', fontName='Helvetica', fontSize=10.7, leading=14.1, textColor=colors.black, spaceAfter=9)
 pdf_title = ParagraphStyle('title', parent=pdf_body, fontName='Helvetica-Bold', fontSize=25, leading=30, spaceAfter=10)
 pdf_subtitle = ParagraphStyle('subtitle', parent=pdf_body, fontSize=14, leading=19, spaceAfter=10)
@@ -146,9 +169,11 @@ pdf_caption = ParagraphStyle('caption', parent=pdf_body, fontName='Helvetica-Obl
 pdf_cell = ParagraphStyle('cell', parent=pdf_body, fontSize=9.2, leading=12, spaceAfter=0)
 pdf_headcell = ParagraphStyle('headcell', parent=pdf_cell, fontName='Helvetica-Bold', textColor=colors.white)
 pdf_story = []
+# Escape authored text before handing it to ReportLab markup parsing.
 def para(text): return Paragraph(escape(fill(text)), pdf_body)
 
 def add_repository_link(paragraph, url):
+    """Attach the approved public repository hyperlink using Word relationship metadata."""
     paragraph.add_run(' | ').font.size = Pt(10)
     link = OxmlElement('w:hyperlink')
     link.set(qn('r:id'), paragraph.part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True))
@@ -162,6 +187,7 @@ def add_repository_link(paragraph, url):
     link.append(run); paragraph._p.append(link)
 
 def add_table(block):
+    """Emit matching semantic tables in both formats, repeating headers across pages."""
     rows = [block['columns']] + block['rows']
     table = doc.add_table(rows=1, cols=len(rows[0]))
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -205,6 +231,7 @@ def add_table(block):
     pdf_table.setStyle(TableStyle(commands))
     pdf_story.extend([pdf_table, Spacer(1, 10)])
 
+# Render one shared ordered content model into Word paragraphs and the PDF story.
 for index, page in enumerate(source['pages']):
     if index:
         pdf_story.append(PageBreak())
@@ -240,10 +267,12 @@ for index, page in enumerate(source['pages']):
             doc.add_paragraph(block['caption'], style='Caption')
             pdf_story.extend([PdfImage(str(path), width=width * 72, height=height * 72, hAlign='CENTER'), Spacer(1, 6), Paragraph(escape(block['caption']), pdf_caption)])
 
+# These stable filenames are consumed by build synchronization, downloads and release assets.
 docx_path = Path('docs/Cobalt_Engineering_Report.docx')
 pdf_path = Path('docs/Cobalt_Engineering_Report.pdf')
 doc.save(docx_path)
 def footer_pdf(canvas, document):
+    """Add version/page text without leaking formatting state into the page body."""
     canvas.saveState(); canvas.setFont('Helvetica', 8); canvas.setFillColor(colors.HexColor('#50617A'))
     canvas.drawRightString(7.7 * 72, 0.33 * 72, f"Cobalt Instrument Studio {source['version']}  |  {document.page}")
     canvas.restoreState()

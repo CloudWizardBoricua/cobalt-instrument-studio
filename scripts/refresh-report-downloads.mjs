@@ -1,12 +1,21 @@
+/**
+ * Resynchronize final reports while retaining prior local application measurements.
+ * Require an existing passing hosting record, copy PDF/DOCX to public and both
+ * output trees, then serve/download their exact paths and verify byte equality.
+ * This updates docs/hosting-build-validation.json without rerunning the application
+ * suite. Retained older timings are identified explicitly, not presented as new.
+ */
 // Refresh report assets after editorial changes without repeating app tests.
 import { createServer } from "node:http";
 import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createHash } from "node:crypto";
 
+// Older passing browser checks are a prerequisite, not newly executed by this refresh.
 const record = JSON.parse(
   await readFile("docs/hosting-build-validation.json", "utf8"),
 );
+// Keep both public bases and binary report names stable while refreshing their bytes.
 for (const [name, output, base] of [
   ["root", "dist", "/"],
   ["project", "dist-pages", "/cobalt-instrument-studio/"],
@@ -30,6 +39,7 @@ for (const [name, output, base] of [
       expected: bytes,
     });
   }
+  // Serve only the explicitly selected report map, with no general filesystem fallback.
   const server = createServer(async (request, response) => {
     const pathname = new URL(request.url, "http://127.0.0.1").pathname;
     const file = files.get(pathname);
@@ -70,6 +80,7 @@ for (const [name, output, base] of [
     await new Promise((done) => server.close(done));
   }
 }
+// Label the narrow refresh accurately so earlier application timings retain their meaning.
 record.date = "Fall 2026";
 record.reportRefresh =
   "Final reports resynchronized; direct HTTP downloads rechecked on both local build paths. Previously recorded application browser checks and build timings retained.";

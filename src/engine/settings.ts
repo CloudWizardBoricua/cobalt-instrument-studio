@@ -1,5 +1,21 @@
+/**
+ * Default display/alarm preferences and the browser-settings validation boundary.
+ * App reads these preferences at startup and persists validated settings when
+ * they change; studio-state.ts revalidates settings before using them in state.
+ * Each field falls back independently so corrupt storage does not spoil a demo.
+ *
+ * Thresholds illustrate HMI alarm configuration in canonical psi and degrees
+ * Fahrenheit. They are demonstration choices, not calibrated equipment limits.
+ * Browser storage provides neither operator authorization nor an approved,
+ * durable configuration history; production changes would need those controls.
+ */
 import { METRICS, type Settings, type Threshold } from "./types";
+
+// Keep this key stable across deployments: changing it would reset returning
+// visitors' saved preferences rather than merely reorganizing the repository.
 export const SETTINGS_KEY = "cobalt-studio-settings-v1";
+// Each process channel chooses an above/below direction, a critical boundary,
+// and a smaller recovery margin. Fresh accepted samples drive their debounce.
 export const defaultSettings: Settings = {
   theme: "night",
   units: "imperial",
@@ -42,6 +58,8 @@ export const defaultSettings: Settings = {
     },
   },
 };
+// Editor limits constrain this demonstration's configurable thresholds. These
+// differ intentionally from drawing scales and telemetry acceptance bounds.
 const bounds = {
   rpm: [600, 3600],
   oilPressure: [0, 100],
@@ -50,6 +68,11 @@ const bounds = {
   fuelLevel: [0, 100],
   engineLoad: [0, 100],
 } as const;
+/**
+ * Require finite, ordered thresholds with a fixed per-signal direction and a
+ * positive recovery margin smaller than the warning/critical gap. Returning a
+ * message instead of mutating the rule lets the editor keep invalid drafts.
+ */
 export function validateThreshold(
   metric: (typeof METRICS)[number],
   rule: Threshold,
@@ -79,6 +102,11 @@ export function validateThreshold(
     return "Hysteresis must be positive and smaller than the threshold gap.";
   return null;
 }
+/**
+ * Start with an owned default object, then copy only independently valid fields.
+ * Parsed JSON is not trusted just because it came from same-origin storage.
+ * This is configuration validation, not authentication of a settings author.
+ */
 export function validateSettings(value: unknown): Settings {
   const output: Settings = structuredClone(defaultSettings);
   if (!value || typeof value !== "object") return output;
@@ -107,10 +135,13 @@ export function validateSettings(value: unknown): Settings {
   }
   return output;
 }
+// A small storage port keeps the engine independent of window and allows tests
+// to model blocked storage or malformed JSON without launching a browser.
 export interface StorageLike {
   getItem(key: string): string | null;
   setItem(key: string, value: string): void;
 }
+/** Recover with fresh defaults if storage access or JSON parsing fails. */
 export function readSettings(storage: StorageLike): Settings {
   try {
     return validateSettings(
@@ -120,6 +151,8 @@ export function readSettings(storage: StorageLike): Settings {
     return structuredClone(defaultSettings);
   }
 }
+// Return persistence status to App so the HMI can say session-only when storage
+// is blocked. Success means the browser accepted the write, not durable storage.
 export function writeSettings(
   storage: StorageLike,
   settings: Settings,

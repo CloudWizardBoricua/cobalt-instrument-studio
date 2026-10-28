@@ -1,3 +1,9 @@
+/**
+ * Protect the presentation-only six-slot device layout and its validation boundary.
+ * Fixtures bind canonical telemetry channels to labels and drawing ranges; edits must
+ * commit atomically and leave both the input layout and physical simulation untouched.
+ * Gauge clipping is a display concern, not a change to alarm thresholds or sensor data.
+ */
 import { describe, expect, it } from "vitest";
 import {
   applyDeviceProperties,
@@ -9,16 +15,18 @@ import {
   validateDeviceProperties,
   type DeviceLayout,
   type DeviceProperties,
-} from "../src/engine/device";
-import { displayValue } from "../src/engine/model";
+} from "../src/engine/device-layout";
+import { displayValue } from "../src/engine/instruments";
 import { METRICS } from "../src/engine/types";
 
+// Canonical psi range: display-unit conversion occurs after this presentation model.
 const oilScale: DeviceProperties = {
   metric: "oilPressure",
   label: "Lubrication",
   min: 10,
   max: 80,
 };
+// Invalid edits must leave all six slots intact; valid edits affect only their target slot.
 describe("presentation-only device layout", () => {
   it("starts with six unique slots bound to every accepted channel", () => {
     const layout = createDefaultDeviceLayout();

@@ -1,3 +1,10 @@
+/**
+ * Sanitize the explicitly retained CI JSON reports before artifact upload.
+ * Redact recognized private strings/keys, preserve useful failures/attachments and
+ * wrap interrupted JSON as inspectable sanitized text. Resolved paths must remain
+ * ordinary files inside the project; other files and binary artifacts are untouched.
+ * This bounded recognizer supplements review; it is not a universal secret scanner.
+ */
 import { lstatSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { isAbsolute, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -12,6 +19,7 @@ export const testReportPaths = [
   "docs/hosting-build-validation.json",
 ];
 
+// Deliberately bounded patterns cover known diagnostic/credential formats, not all secrets.
 const privateTextPatterns = [
   /(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[A-Z0-9]{16})/g,
   /-----BEGIN (?:(?:RSA |EC |OPENSSH )?)PRIVATE KEY-----[\s\S]*?(?:-----END (?:(?:RSA |EC |OPENSSH )?)PRIVATE KEY-----|$)/g,
@@ -37,6 +45,7 @@ const omittedKeys = new Set([
   "awssecretaccesskey",
 ]);
 
+/** Decode escaped characters only when needed to expose known private text for redaction. */
 export function redactPrivateText(text) {
   const original = String(text);
   // Interrupted JSON can leave escaped private text inside the retained output string.
@@ -54,6 +63,7 @@ export function redactPrivateText(text) {
   );
 }
 
+/** Recursively preserve report structure while omitting recognized sensitive keys. */
 export function sanitizeReport(
   value,
   stats = { removedFields: 0, redactedStrings: 0 },
@@ -77,6 +87,7 @@ export function sanitizeReport(
   );
 }
 
+/** Process allowlisted reports only; reject symlinks and resolved paths escaping the project. */
 export function prepareTestReports(root = process.cwd()) {
   const projectRoot = realpathSync(root);
   const result = {
@@ -135,6 +146,7 @@ export function prepareTestReports(root = process.cwd()) {
   return result;
 }
 
+// CI invokes this even after failure, before it may upload the selected JSON reports.
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href

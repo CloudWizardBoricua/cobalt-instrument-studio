@@ -2,6 +2,19 @@
 
 # Cobalt Instrument Studio
 
+## Start here for the demo
+
+Use the [presenter walkthrough](docs/DEMO_WALKTHROUGH.md) for a six-minute application and source tour. An **HMI (human-machine interface)** helps an operator understand equipment conditions; this project demonstrates that presentation using generated data. The application behavior and both public hosting URLs are preserved by the repository cleanup.
+
+| Need | Start here |
+| --- | --- |
+| Present the application and explain the code | [Demo walkthrough](docs/DEMO_WALKTHROUGH.md) |
+| Understand the desktop/GitHub state and unmerged work | [Repository audit and PR recommendations](docs/REPOSITORY_AUDIT.md) |
+| Review naming, before/after structure and rename map | [Polishing plan](docs/DEMO_POLISH_PLAN.md) |
+| See baseline/final results and deployment limits | [Sprint validation](docs/DEMO_VALIDATION.md) |
+| Understand why tests remain | [Test relevance](docs/TEST_RELEVANCE.md) |
+| Review demo clarity and security evidence | [Usability review](docs/DEMO_USABILITY.md) · [Security review](docs/SECURITY_REVIEW.md) |
+
 _Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)
 
 [![Continuous integration](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml)
@@ -58,6 +71,7 @@ Run checks from a separate terminal:
 ```sh
 npm run verify:workflows
 npm run typecheck
+npm run verify:paths
 npm run test:ci
 npm run verify:privacy
 ```
@@ -75,9 +89,50 @@ node scripts/prepare-test-reports.mjs
 
 On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`. Local browser tests use installed Microsoft Edge by default; `PW_BROWSER_CHANNEL=chrome` selects installed Chrome. On Linux, install Chromium with `npx playwright install --with-deps chromium` and set `CI=true` for browser checks.
 
-**Generated evidence:** the current E2E suite writes screenshots into tracked `docs/assets`, and static verification writes tracked evidence. Run those checks in an isolated checkout or review the generated diff. The [baseline roadmap](docs/ROADMAP.md#phase-0--establish-a-dependable-baseline) includes separating test outputs from approved captures and fixing the known Windows newline-sensitive test fixture.
+**Generated evidence:** E2E writes screenshots into tracked `docs/assets`, and static verification writes tracked evidence. Review those diffs and preserve approved historical captures unless intentionally replacing them. This sprint fixes the Windows newline-sensitive test fixture; separating generated output paths remains future work. See [current results](docs/DEMO_VALIDATION.md) and the [roadmap](docs/ROADMAP.md#phase-0--establish-a-dependable-baseline).
 
 `npm run build` creates root assets in `dist`; `npm run build:pages` creates project-relative assets in `dist-pages` for `/cobalt-instrument-studio/`. Both include report downloads. Navigation uses local state and one HTML entry point. These commands build the static demo; the proposed installed HMI does not yet have build or installation commands.
+
+## Repository navigation
+
+Every maintained directory has its own README with a diagram, annotated tree and demo context. Dependencies, generated builds, caches and Git internals are excluded.
+
+```text
+cobalt-instrument-studio/
+├── README.md                 # Main run instructions and navigation
+├── CHANGELOG.md              # Released version history
+├── index.html                # Conventional Vite HTML entry
+├── package.json              # Dependency ranges and command entry points
+├── package-lock.json         # Reproducible resolved dependency versions
+├── vite.config.ts            # Hosting base and Vitest configuration
+├── playwright.config.ts      # Local/CI browser configuration
+├── tsconfig.json             # Strict TypeScript and consistent filename casing
+├── netlify.toml              # Existing Netlify build/output/security headers
+├── .gitattributes            # Existing text-line-ending policy
+├── .gitignore                # Dependencies, generated outputs and local secrets excluded
+├── .github/                  # CI, Pages, releases, issue/PR templates and Dependabot
+├── src/                      # React application, pure engine and styles
+├── tests/                    # Eight unit suites and two browser suites
+├── scripts/                  # Build, evidence, privacy, verification and release helpers
+├── public/                   # Stable favicon and frozen report download copies
+└── docs/                     # Engineering guides, audit, demo tour and historical evidence
+```
+
+| Directory | Purpose and next step |
+| --- | --- |
+| [src](src/README.md) | React mount and application ownership. |
+| [src/engine](src/engine/README.md) | Seeded process, accepted telemetry, diagnostics, settings and layouts. |
+| [src/components](src/components/README.md) | Views, instruments and display editing; no hardware acquisition. |
+| [src/styles](src/styles/README.md) | Existing theme/cascade, responsive and reduced-motion rules. |
+| [tests](tests/README.md), [tests/e2e](tests/e2e/README.md) | Feature contracts and assembled browser flows. |
+| [scripts](scripts/README.md) | Keep command paths stable; distinguish verification from publication. |
+| [.github](.github/README.md), [workflows](.github/workflows/README.md), [issue templates](.github/ISSUE_TEMPLATE/README.md) | Automation and contribution entry points. |
+| [public](public/README.md), [reports](public/reports/README.md) | Copied static files and existing public download names. |
+| [docs](docs/README.md), [assets](docs/assets/README.md) | Current sprint deliverables and frozen prior evidence. |
+
+Conventions: PascalCase React components; descriptive lowercase hyphenated domain/test/style/script files; conventional tool/config filenames retained. JSON configuration uses its required syntax, so field purposes are documented here and in directory guides instead of adding invalid comments. `src/engine/instruments.ts` holds catalog/display metadata; `studio-state.ts` owns session transitions; `device-layout.ts` is presentation configuration. See the [complete rename mapping](docs/DEMO_POLISH_PLAN.md#naming-convention-and-proposed-moves).
+
+`npm run verify:paths` checks exact spelling of relative source imports and case collisions independently of Windows path resolution. `forceConsistentCasingInFileNames` also remains enabled in TypeScript. The existing CI contract is preserved; a future CI policy change can add the new navigation check explicitly.
 
 ## Architecture
 
@@ -164,6 +219,8 @@ The current pipeline serves the **static simulator**. [CI](.github/workflows/ci.
 See [deployment documentation](docs/DEPLOYMENT.md) for the existing process and [DevOps handoff](docs/DEVOPS_HANDOFF.md) for historical execution and repository-protection receipts. Those receipts establish their recorded checkpoints; this documentation review did not reverify provider deployments or branch-protection settings. The installed HMI will need a separate service packaging, update and recovery path.
 
 ## Validation evidence
+
+**Latest repository-polishing results:** see [DEMO_VALIDATION.md](docs/DEMO_VALIDATION.md). The checkpoints below are retained historical evidence, with their original source revisions and limitations. They do not describe the final polishing branch.
 
 ### Repository review baseline
 

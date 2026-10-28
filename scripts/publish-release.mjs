@@ -1,3 +1,10 @@
+/**
+ * Publish one source-bound versioned release after the tag workflow verifies it.
+ * Validate the local package, remote annotated tag and run URL, create a draft,
+ * upload/read back each asset, then publish once. Existing public releases stay
+ * unchanged and existing drafts stop for review. The CLI requires GitHub Actions;
+ * unit tests inject mock HTTP. This file has real remote-write capability.
+ */
 import { readFileSync, appendFileSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -22,6 +29,7 @@ export async function publishRelease({
     throw new Error(
       "An explicit GitHub repository and workflow token are required.",
     );
+  // Verify reviewed local bytes and identity before making any GitHub request.
   const { manifest, assets } = verifyReleasePackage(directory);
   const verified = verifyRelease({ root: artifactRoot, tag });
   if (
@@ -47,6 +55,7 @@ export async function publishRelease({
     "X-GitHub-Api-Version": "2026-03-10",
   };
   const endpoint = `/repos/${repository}`;
+  // Only explicit 404 handling represents absence; authorization/server errors stop publication.
   const request = async (method, path, body, allowNotFound = false) => {
     const response = await fetchImpl(`${apiOrigin}${path}`, {
       method,
@@ -89,6 +98,7 @@ export async function publishRelease({
     );
     return { status: "existing-unchanged", url: existing.html_url };
   }
+  // The already-created remote tag must be annotated and point to the tested commit.
   const tagRef = await request(
     "GET",
     `${endpoint}/git/ref/tags/${encodeURIComponent(tag)}`,
@@ -134,6 +144,7 @@ export async function publishRelease({
     throw new Error(
       "GitHub returned an unexpected asset upload URL; publication stopped.",
     );
+  // Verify every uploaded body by downloading it again before the draft can become public.
   for (const asset of assets) {
     const data = readFileSync(join(directory, asset.name));
     const upload = new URL(uploadBase);
@@ -172,6 +183,7 @@ export async function publishRelease({
         `Uploaded asset download checksum mismatch: ${asset.name}; release remains a draft.`,
       );
   }
+  // Check the complete remote inventory, then publish and verify the resulting release again.
   const attached = await request(
     "GET",
     `${endpoint}/releases/${draft.id}/assets`,
@@ -221,6 +233,7 @@ export async function publishRelease({
   return { status: "published-verified", url: current.html_url, assets };
 }
 
+// Live-write entry point: the verified tag workflow supplies the token and source identity.
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href

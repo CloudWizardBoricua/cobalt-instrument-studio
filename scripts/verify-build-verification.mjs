@@ -1,8 +1,16 @@
+/**
+ * Verify an artifact against its recorded source and complete SHA-256 inventory.
+ * Pages defaults to requiring GitHub CI context plus every named check; local
+ * packaging can explicitly relax only the CI-context requirement.
+ * This is a consistency contract within the trusted workflow/artifact boundary,
+ * not an independent attestation that the named checks were actually executed.
+ */
 import { readFileSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { buildInventory, requiredChecks } from "./build-inventory.mjs";
 
+/** Require expected source/context/check labels, then recompute every inventoried file hash. */
 export function verifyBuildVerification({
   root,
   expectedCommit,
@@ -30,6 +38,7 @@ export function verifyBuildVerification({
   return metadata;
 }
 
+// Pages supplies the upstream CI SHA explicitly instead of trusting downloaded metadata alone.
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href

@@ -1,3 +1,13 @@
+/**
+ * Application shell and presenter navigation for the browser-only HMI simulator.
+ * One studio reducer feeds every view, gauge, chart, validation summary and device preview.
+ * Components dispatch intents; only the central engine pipeline changes accepted telemetry,
+ * history and diagnostics. View/series/help selection is presentation state, not equipment state.
+ * The timer advances fixed simulation steps, not wall-clock watchdog time. Pause suspends
+ * freshness evaluation too. A production HMI needs independent acquisition and alarm services;
+ * this demo has no hardware transport, durable alarm log, authentication or safety control.
+ * Settings alone may persist locally; guarded storage access permits session-only operation.
+ */
 import { useEffect, useReducer, useState } from "react";
 import { version as appVersion } from "../package.json";
 import {
@@ -25,16 +35,17 @@ import { SettingsPanel } from "./components/SettingsPanel";
 import { DeviceWorkspace } from "./components/DeviceWorkspace";
 import { TelemetryValidationPanel } from "./components/TelemetryValidationPanel";
 import { activeAlerts } from "./engine/diagnostics";
-import { DISCLAIMER, formatTime, metricInfo } from "./engine/model";
+import { DISCLAIMER, formatTime, metricInfo } from "./engine/instruments";
 import {
   defaultSettings,
   readSettings,
   writeSettings,
 } from "./engine/settings";
-import { createStudio, studioReducer } from "./engine/studio";
+import { createStudio, studioReducer } from "./engine/studio-state";
 import { METRICS, type Metric } from "./engine/types";
 
 type View = "Dashboard" | "Diagnostics" | "Settings";
+// Initialize validated browser preferences; inaccessible localStorage falls back to defaults.
 function initialStudio() {
   try {
     return createStudio(readSettings(window.localStorage));
@@ -42,6 +53,7 @@ function initialStudio() {
     return createStudio(structuredClone(defaultSettings));
   }
 }
+// Own the session once so dashboard, Diagnostics and device ACK cannot diverge.
 export function App() {
   const [state, dispatch] = useReducer(studioReducer, undefined, initialStudio);
   const [view, setView] = useState<View>("Dashboard");
@@ -53,6 +65,7 @@ export function App() {
   const alerts = activeAlerts(state.diagnostics);
   const stale = s.time - s.receivedAt >= state.settings.timeoutSeconds;
   const rejected = s.delivery.status === "rejected";
+// Compose textual status alongside color cues; these summaries describe simulated data quality.
   const announcement = [
     standby
       ? "Displays in standby. Start simulation to receive readings."
@@ -79,11 +92,13 @@ export function App() {
     : alerts.length
       ? "warning"
       : "normal";
+// Install exactly one interval while running; cleanup prevents duplicate ticks on remount/pause.
   useEffect(() => {
     if (!state.running) return;
     const timer = setInterval(() => dispatch({ type: "tick" }), 500);
     return () => clearInterval(timer);
   }, [state.running]);
+// Apply theme and persist only validated preferences; storage failure remains visible in Settings.
   useEffect(() => {
     document.documentElement.dataset.theme = state.settings.theme;
     try {
@@ -111,6 +126,7 @@ export function App() {
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
+{/* Navigation changes local view state. It creates no URL routes or server rewrite requirements. */}
       <aside className="sidebar">
         <div className="brand">
           <span className="brand-mark">
@@ -186,6 +202,7 @@ export function App() {
         </div>
       </aside>
       <div className="main-shell">
+{/* Shared Start/Pause/Reset controls remain available on every application view. */}
         <header className="topbar">
           <div className="breadcrumb">
             <span>Studio</span>
@@ -309,6 +326,7 @@ export function App() {
               </button>
             </section>
           )}
+{/* Quality and accepted-sample age remain visible independently of the selected view. */}
           <TelemetryValidationPanel
             simulation={s}
             stale={stale}
@@ -356,6 +374,7 @@ export function App() {
               </div>
             </div>
           )}
+{/* Dashboard instruments and history consume accepted samples only, never attempted delivery. */}
           {view === "Dashboard" && (
             <>
               <div className="dashboard-layout">
@@ -463,6 +482,7 @@ export function App() {
               <EventHistory state={state} compact />
             </>
           )}
+{/* Acknowledgment records review through the reducer; it does not clear an ongoing condition. */}
           {view === "Diagnostics" && (
             <>
               <div className="diagnostics-layout">
@@ -482,6 +502,7 @@ export function App() {
               persisted={persisted}
             />
           )}
+{/* Keep this workspace mounted across view changes so its session-only display draft survives navigation. */}
           <DeviceWorkspace
             telemetry={s.received}
             history={state.history}
@@ -511,6 +532,7 @@ export function App() {
     </div>
   );
 }
+// Use an icon plus surrounding text for the dashboard alert summary; severity styling is supplemental.
 function TriangleSummary({ severity }: { severity: string }) {
   return <ShieldCheck className={severity} size={19} />;
 }

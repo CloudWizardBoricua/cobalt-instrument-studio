@@ -1,4 +1,16 @@
-import { EVENT_CAPACITY, metricInfo } from "./model";
+/**
+ * Derive process alerts, communication quality, and bounded event evidence from
+ * accepted simulation state. studio-state.ts calls this after each running tick;
+ * settings.ts supplies validated thresholds and instruments.ts supplies labels.
+ * UI components display this shared diagnostic state rather than evaluating
+ * their own independent alarms.
+ *
+ * HMI concepts demonstrated here are hysteresis, sample debounce, stale-data
+ * detection, escalation, acknowledgment, and recovery. They are browser-local
+ * advisory behavior. There is no hardware interlock, safety-rated shutdown,
+ * operator authentication, persistent event journal, or alarm-system validation.
+ */
+import { EVENT_CAPACITY, metricInfo } from "./instruments";
 import {
   METRICS,
   type Alert,
@@ -10,6 +22,8 @@ import {
   type Threshold,
 } from "./types";
 
+// One alert per signal plus a communication alert. Processing markers prevent
+// duplicate sample/notice handling; IDs increase within the current session.
 export function createDiagnostics(): Diagnostics {
   return {
     alerts: Object.fromEntries(
@@ -32,6 +46,7 @@ export function createDiagnostics(): Diagnostics {
     lastDeliveryAttemptAt: null,
   };
 }
+/** Append immutable session evidence and discard the oldest entries at capacity. */
 export function addEvent(
   diagnostics: Diagnostics,
   time: number,
@@ -48,6 +63,12 @@ export function addEvent(
     ].slice(-EVENT_CAPACITY),
   };
 }
+/**
+ * Use inclusive trigger boundaries and a separate recovery margin to avoid
+ * chatter near a threshold. Current severity matters: a critical condition
+ * remains critical at its recovery boundary until it moves beyond that margin.
+ * This classifies one value; updateDiagnostics applies sample debounce.
+ */
 export function classify(
   value: number,
   rule: Threshold,
@@ -70,12 +91,20 @@ export function classify(
     return "warning";
   return "normal";
 }
+/**
+ * Consume delivery notices, compute sample age, then evaluate shared alerts.
+ * Process debounce advances only for a distinct fresh accepted timestamp.
+ * Communication loss follows age immediately, so a frozen or rejected reading
+ * cannot appear healthy merely because its retained process value is normal.
+ */
 export function updateDiagnostics(
   previous: Diagnostics,
   simulation: Simulation,
   settings: Settings,
 ): Diagnostics {
   let d: Diagnostics = { ...previous, alerts: { ...previous.alerts } };
+  // A notice describes delivery quality, not necessarily a process fault.
+  // Its attempt marker keeps duplicate calls from repeating the same evidence.
   if (simulation.delivery.lastAttemptAt !== previous.lastDeliveryAttemptAt) {
     for (const notice of simulation.delivery.notices) {
       d = addEvent(
@@ -95,6 +124,8 @@ export function updateDiagnostics(
     simulation.received.time > previous.lastProcessedSampleTimestamp;
   for (const key of [...METRICS, "communication"] as const) {
     const old = previous.alerts[key];
+    // Hold existing process conditions on stale/duplicate data. Clearing them
+    // would imply evidence of recovery that the HMI has not actually received.
     if (key !== "communication" && (stale || !newSample)) continue;
     const value = key === "communication" ? age : simulation.received[key];
     const desired: Severity =
@@ -109,10 +140,14 @@ export function updateDiagnostics(
       candidateSamples:
         old.candidate === desired ? old.candidateSamples + 1 : 1,
     };
+    // Debounce counts received samples, not render cycles or wall-clock time.
+    // Communication uses one evaluation when the configured age limit is met.
     const debounce = key === "communication" ? 1 : settings.debounceSamples;
     if (desired !== old.severity && alert.candidateSamples >= debounce) {
       alert.severity = desired;
       alert.since = simulation.time;
+      // Every severity transition requires a new review, including escalation
+      // after acknowledgment. Returning to normal records recovery separately.
       alert.acknowledged = false;
       const name =
         key === "communication" ? "Communication" : metricInfo[key].label;
@@ -145,6 +180,11 @@ export function updateDiagnostics(
   d.lastProcessedSampleTimestamp = simulation.received.time;
   return d;
 }
+/**
+ * Record one review of an active condition without changing its severity.
+ * Repeated acknowledgments and normal channels are no-ops. A real deployment
+ * would need operator identity and durable audit requirements outside this demo.
+ */
 export function acknowledge(
   d: Diagnostics,
   key: Alert["key"],
@@ -162,6 +202,7 @@ export function acknowledge(
     "acknowledgment",
   );
 }
+// Acknowledged alerts remain active until accepted data supports recovery.
 export function activeAlerts(d: Diagnostics) {
   return Object.values(d.alerts).filter((a) => a.severity !== "normal");
 }

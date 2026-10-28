@@ -1,3 +1,6 @@
+# Netlify static-demo contract: retain the root base, build command and publish directory.
+# Netlify rebuilds main independently of GitHub's CI-to-Pages artifact gate.
+# VITE_* values are public build configuration; no equipment gateway or secrets live here.
 [build]
   command = "npm run build"
   publish = "dist"

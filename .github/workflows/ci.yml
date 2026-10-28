@@ -1,3 +1,6 @@
+# Verify the exact source and retain allowlisted test/build artifacts for the static simulator.
+# CI is reusable by releases; successful same-repository main push runs authorize Pages.
+# Unit/browser checks demonstrate simulation behavior, never real-equipment qualification.
 name: Continuous integration
 on:
   pull_request:

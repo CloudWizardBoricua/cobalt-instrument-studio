@@ -1,3 +1,4 @@
+# Capture proposed simulator improvements separately from future hardware/safety claims.
 name: Feature request
 description: Propose a focused improvement with an engineering use case.
 body:

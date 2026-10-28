@@ -1,5 +1,7 @@
 # Cobalt device display visual verification
 
+Historical v0.2.0 visual review retained from its original checkpoint. See [current demo usability](DEMO_USABILITY.md) and [sprint validation](DEMO_VALIDATION.md) for fresh observations.
+
 Developed by Daren Diaz · [GitHub](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)
 
 Fall 2026 · Version 0.2.0
@@ -14,7 +16,7 @@ Fall 2026 · Version 0.2.0
 
 The user supplied a physical display reference and explicitly requested blue styling, the existing simulator, and working device pages. The reference is retained privately as `.local/reference-device-display.png`. It and the final Engine screenshot were opened together in one comparison input. This is an adaptation of its metallic dial, strong central number, segmented indicators, and dark enclosure; it is not a pixel clone of the photographed product. Brand text, speed units, exact enclosure proportions, and red accents are intentionally replaced by Cobalt's identity, actual simulated RPM, responsive browser controls, and blue/cyan styling.
 
-Actual captures are [Engine](docs/assets/device-cockpit-engine.png), [Gauges](docs/assets/device-cockpit-gauges.png), [Trends](docs/assets/device-cockpit-trends.png), [Faults](docs/assets/device-cockpit-faults.png), [ACK](docs/assets/device-cockpit-ack.png), and [mobile standby](docs/assets/device-cockpit-mobile.png). Desktop captures use a 1440 × 1100 CSS viewport; mobile uses 390 × 1000, with device scale 1. Element captures exclude browser chrome. The product photograph and browser device have different natural aspect ratios; frame composition is compared with that intentional responsive difference stated.
+Actual captures are [Engine](assets/device-cockpit-engine.png), [Gauges](assets/device-cockpit-gauges.png), [Trends](assets/device-cockpit-trends.png), [Faults](assets/device-cockpit-faults.png), [ACK](assets/device-cockpit-ack.png), and [mobile standby](assets/device-cockpit-mobile.png). Desktop captures use a 1440 × 1100 CSS viewport; mobile uses 390 × 1000, with device scale 1. Element captures exclude browser chrome. The product photograph and browser device have different natural aspect ratios; frame composition is compared with that intentional responsive difference stated.
 
 **Required fidelity surfaces**
 

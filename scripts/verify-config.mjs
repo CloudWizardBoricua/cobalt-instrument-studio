@@ -1,9 +1,17 @@
+/**
+ * Validate the three maintained GitHub workflow contracts as structured YAML.
+ * Individual checks restrict permissions, immutable action refs and retention;
+ * cross-workflow checks bind CI, report preparation, Pages freshness and release
+ * artifacts. Exact paths/commands protect the existing publication pipeline.
+ * Local parsing does not inspect live branch protection or provider configuration.
+ */
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { parseDocument } from "yaml";
 import { testReportPaths } from "./prepare-test-reports.mjs";
 
+/** Validate one YAML document and each job/action boundary before cross-file checks. */
 export function validateWorkflow(source, filename) {
   const document = parseDocument(source, { uniqueKeys: true });
   if (document.errors.length)
@@ -21,6 +29,7 @@ export function validateWorkflow(source, filename) {
     fail("Workflow token must default to contents: read only.");
   if (workflow.on.pull_request_target)
     fail("Privileged pull-request execution is outside this project workflow.");
+  // Only the dedicated deployment/publication jobs may receive their narrowly required writes.
   for (const [jobId, job] of Object.entries(workflow.jobs)) {
     if (!job.name) fail(`Job ${jobId} must have a reviewer-readable name.`);
     for (const [scope, permission] of Object.entries(job.permissions || {})) {
@@ -87,6 +96,7 @@ export function validateWorkflow(source, filename) {
           fail(
             "Artifact paths must exclude whole workspace, dependency, and credential directories.",
           );
+        // Exact hidden-path exceptions cover reviewed release assets, never whole tooling folders.
         const releaseFiles = new Set([
           ".local/release-package/Cobalt_Engineering_Report.pdf",
           ".local/release-package/Cobalt_Engineering_Report.docx",
@@ -116,6 +126,7 @@ export function validateWorkflow(source, filename) {
   return workflow;
 }
 
+/** Bind CI producers, safe report uploads and Pages/release consumers across fixed paths. */
 export function verifyWorkflowDirectory(root = process.cwd()) {
   const directory = resolve(root, ".github/workflows");
   const names = readdirSync(directory)
@@ -167,6 +178,7 @@ export function verifyWorkflowDirectory(root = process.cwd()) {
     if (!runs.includes(required))
       throw new Error(`CI is missing required validation: ${required}`);
   }
+  // Report privacy preparation must run on failure and finish before either upload path.
   const uploads = ci.jobs.verify.steps.filter((step) =>
     step.uses?.startsWith("actions/upload-artifact@"),
   );
@@ -203,6 +215,7 @@ export function verifyWorkflowDirectory(root = process.cwd()) {
     throw new Error(
       "Test evidence requires private-safe preparation on failure paths; production artifacts require success and attempt-specific retention.",
     );
+  // Pages consumes only a successful same-repository main push and the exact attempt artifact.
   const prepare = pages.jobs.prepare;
   for (const gate of [
     "conclusion == 'success'",
@@ -236,6 +249,7 @@ export function verifyWorkflowDirectory(root = process.cwd()) {
     throw new Error(
       "Pages must bind exact upstream artifacts and prevent stale deployments.",
     );
+  // Releases reuse the same CI contract and download its immutable successful artifact ID.
   if (
     release.jobs.verify.uses !== "./.github/workflows/ci.yml" ||
     release.jobs.verify.needs !== "preflight"
@@ -266,6 +280,7 @@ export function verifyWorkflowDirectory(root = process.cwd()) {
     "${{ needs.verify.outputs.production-artifact-id }}"
   )
     throw new Error("Release must download the exact verified artifact ID.");
+  // Weekly source/config updates stay reviewable through the same required validation path.
   const dependabot = parseDocument(
     readFileSync(resolve(root, ".github/dependabot.yml"), "utf8"),
   ).toJS();
@@ -289,6 +304,7 @@ export function verifyWorkflowDirectory(root = process.cwd()) {
   };
 }
 
+// Local read-only CLI; a pass does not establish live repository/provider settings.
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href

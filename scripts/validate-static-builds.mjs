@@ -1,3 +1,11 @@
+/**
+ * Exercise both local production outputs at their real hosting base paths.
+ * Build unless --skip-build is explicit, serve each tree locally and use Playwright
+ * to inspect guided faults, last-accepted values, device edits, reports and layout.
+ * Edge is the local default; CI uses installed Chromium. Results overwrite the
+ * existing hosting-build record and establish local behavior, not hosted deployment
+ * success, real network acquisition or an industrial safety assessment.
+ */
 import { createServer } from "node:http";
 import { readFile, writeFile, mkdir, stat, readdir } from "node:fs/promises";
 import { resolve, extname, sep, dirname } from "node:path";
@@ -7,6 +15,7 @@ import { performance } from "node:perf_hooks";
 import { chromium, expect } from "@playwright/test";
 import { gzipSync } from "node:zlib";
 
+// Separate build execution from verification of an already-built output tree.
 const results = [];
 const skipBuild = process.argv.includes("--skip-build");
 for (const [name, command] of [
@@ -38,11 +47,13 @@ for (const [name, command] of [
     downloads: [],
   });
 }
+// Browser selection matches the local/CI convention used by the development E2E suite.
 const browser = await chromium.launch({
   channel: process.env.CI
     ? undefined
     : process.env.PW_BROWSER_CHANNEL || "msedge",
 });
+// The local server mirrors static asset content types without adding client-side routes.
 const mime = {
   ".html": "text/html",
   ".js": "application/javascript",
@@ -58,6 +69,7 @@ try {
     [0, "dist", "/"],
     [1, "dist-pages", "/cobalt-instrument-studio/"],
   ]) {
+    // Restrict decoded requests to this output root and base; no generic SPA fallback is needed.
     const root = resolve(output);
     const server = createServer(async (request, response) => {
       try {
@@ -91,6 +103,7 @@ try {
       viewport: { width: 1440, height: 1000 },
       reducedMotion: "reduce",
     });
+    // Track runtime failures, HTTP errors and unexpected external acquisition requests.
     const page = await context.newPage();
     const errors = [],
       badResponses = [],
@@ -117,6 +130,7 @@ try {
       await page.goto(origin + base);
       if ((await page.locator('[data-testid^="gauge-"]').count()) !== 6)
         throw new Error("Six instruments did not render.");
+      // Direct report downloads must use the correct base and match approved source bytes.
       for (const extension of ["pdf", "docx"]) {
         const file = `Cobalt_Engineering_Report.${extension}`;
         const path = `${base}reports/${file}`;
@@ -142,6 +156,7 @@ try {
           sha256: createHash("sha256").update(bytes).digest("hex"),
         });
       }
+      // Guided fault paths exercise central alarms and last-accepted-sample behavior in built code.
       await page
         .getByLabel("Scenario", { exact: true })
         .selectOption("overheat");
@@ -218,6 +233,7 @@ try {
         "aria-label",
         /normal condition/,
       );
+      // Presentation edits must still work in the built preview, without requiring a server API.
       const workspace = page.getByTestId("device-workspace");
       await expect(workspace).toHaveAttribute("open", "");
       await page
@@ -249,6 +265,7 @@ try {
         ) !== "240/240"
       )
         throw new Error("Production history cap failed.");
+      // Narrow-screen refresh also catches incorrect absolute assets under the Pages project base.
       await page.setViewportSize({ width: 390, height: 844 });
       await expect
         .poll(() => page.evaluate(() => document.documentElement.scrollWidth))
@@ -284,6 +301,7 @@ try {
 } finally {
   await browser.close();
 }
+// Persist current local results and compressed byte sizes; this overwrites the known record.
 const bundles = [];
 for (const name of await readdir("dist/assets")) {
   const bytes = await readFile(`dist/assets/${name}`);

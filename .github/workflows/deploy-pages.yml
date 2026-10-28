@@ -1,3 +1,6 @@
+# Publish only a verified successful main CI artifact, preserving the project-site base.
+# Exact upstream run/attempt selection plus source/hash checks provide publication authority.
+# Keep names, paths and scoped permissions aligned with scripts/verify-config.mjs.
 name: Publish GitHub Pages
 on:
   workflow_run:

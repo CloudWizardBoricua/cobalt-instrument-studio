@@ -1,8 +1,17 @@
+/**
+ * Preferences and demonstration diagnostic-rule editor.
+ * ThresholdEditor keeps string drafts until explicit validation/save; SettingsPanel dispatches
+ * complete settings through the reducer and reports whether browser persistence succeeded.
+ * Metric display conversion does not change canonical psi/degree-F thresholds. Hysteresis
+ * and debounce illustrate alarm chatter control; these are unqualified simulator rules.
+ * Production engineering changes would need authorization, versioning and durable auditing,
+ * none of which this local preferences form implements.
+ */
 import { useEffect, useState } from "react";
 import { Check, Save, RotateCcw, Sun, Moon } from "lucide-react";
-import { metricInfo } from "../engine/model";
+import { metricInfo } from "../engine/instruments";
 import { defaultSettings, validateThreshold } from "../engine/settings";
-import type { Action } from "../engine/studio";
+import type { Action } from "../engine/studio-state";
 import {
   METRICS,
   type Metric,
@@ -10,6 +19,7 @@ import {
   type Threshold,
 } from "../engine/types";
 
+// Each metric owns a draft and feedback; external reset resynchronizes the draft via effect.
 function ThresholdEditor({
   metric,
   settings,
@@ -33,6 +43,7 @@ function ThresholdEditor({
       hysteresis: String(rule.hysteresis),
     });
   }, [rule.warning, rule.critical, rule.hysteresis]);
+// Reject blank/non-finite/invalid ordering before replacing this metric rule atomically.
   function save() {
     const parsed: Threshold = {
       direction: rule.direction,
@@ -97,6 +108,7 @@ function ThresholdEditor({
     </div>
   );
 }
+// Merge a local preference patch into current settings; the reducer validates the full object.
 export function SettingsPanel({
   settings,
   dispatch,
@@ -190,6 +202,7 @@ export function SettingsPanel({
           Restore default settings
         </button>
       </section>
+{/* Canonical thresholds are separate from unit appearance and display-only workspace scales. */}
       <section className="panel thresholds-panel">
         <div className="section-title">
           <h2>Diagnostic thresholds</h2>

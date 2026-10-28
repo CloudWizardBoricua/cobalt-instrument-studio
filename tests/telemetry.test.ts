@@ -1,3 +1,10 @@
+/**
+ * Verify the simulated acquisition boundary before readings reach diagnostics/views.
+ * Owned-envelope fixtures exercise version, numeric bounds and timestamp acceptance;
+ * deterministic reducer runs then prove rejection, age, evidence and recovery behavior.
+ * Rejected deliveries retain the last accepted sample rather than fabricating zeroes.
+ * No network transport, authenticated device or real sensor is involved in this suite.
+ */
 import { describe, expect, it } from "vitest";
 import {
   updateDiagnostics,
@@ -7,10 +14,10 @@ import {
   EVENT_CAPACITY,
   HISTORY_CAPACITY,
   scenarios,
-} from "../src/engine/model";
+} from "../src/engine/instruments";
 import { defaultSettings } from "../src/engine/settings";
 import { advanceSimulation, createSimulation } from "../src/engine/simulation";
-import { createStudio, studioReducer } from "../src/engine/studio";
+import { createStudio, studioReducer } from "../src/engine/studio-state";
 import {
   createTelemetryEnvelope,
   deliverTelemetry,
@@ -23,11 +30,13 @@ import {
   type StudioState,
 } from "../src/engine/types";
 
+// Drive the reducer without wall-clock waits, preserving the production action path.
 function ticks(state: StudioState, count: number) {
   for (let index = 0; index < count; index++)
     state = studioReducer(state, { type: "tick" });
   return state;
 }
+// Valid baseline at time 1; each negative case changes only the field under investigation.
 const envelope = () =>
   createTelemetryEnvelope({ ...createSimulation().values, time: 1 });
 const context = { simulationTime: 1, lastAcceptedTimestamp: 0 };
@@ -37,6 +46,7 @@ const rejection = (candidate: unknown, code: SampleIssueCode) => {
   expect(result.issues.some((issue) => issue.code === code)).toBe(true);
 };
 
+// Input contract tests distinguish malformed deliveries from valid process alarm values.
 describe("versioned telemetry acceptance contract", () => {
   it("validates each session's time-zero readings before accepting later samples", () => {
     for (const scenario of [
@@ -209,6 +219,7 @@ describe("versioned telemetry acceptance contract", () => {
   });
 });
 
+// Acquisition integrity: invalid attempts cannot refresh freshness or extend accepted history.
 describe("delivery fault rejection, evidence, and recovery", () => {
   it("retains exact readings/history throughout rejected delivery while the process continues", () => {
     let state = ticks(
@@ -301,6 +312,7 @@ describe("delivery fault rejection, evidence, and recovery", () => {
   });
 });
 
+// Guided scenarios compare process faults with delivery faults and verify shared ACK rules.
 describe("additional deterministic guided process and delivery scenarios", () => {
   it.each(["oil-pressure-loss", "invalid-sample-delivery"] as const)(
     "replays %s with identical telemetry, rejection evidence, and bounded histories",

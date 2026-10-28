@@ -1,9 +1,17 @@
+/**
+ * Shared active-alert and event-history views for simulated HMI diagnostics.
+ * Reads reducer-owned diagnostic state and dispatches ACK intents; owns no alarm evaluation.
+ * An acknowledgment means review, not physical recovery. Severity escalation can require a
+ * new review, while actual condition clearing follows central hysteresis/debounce rules.
+ * Events use simulation time and bounded session memory, not a durable industrial audit log.
+ */
 import { Check, ShieldCheck, TriangleAlert, Radio } from "lucide-react";
 import { activeAlerts } from "../engine/diagnostics";
-import { formatTime, metricInfo } from "../engine/model";
-import type { Action } from "../engine/studio";
+import { formatTime, metricInfo } from "../engine/instruments";
+import type { Action } from "../engine/studio-state";
 import type { StudioState } from "../engine/types";
 
+// Render only active conditions; the healthy empty state explains how to demonstrate faults.
 export function AlertList({
   state,
   dispatch,
@@ -80,6 +88,7 @@ export function AlertList({
     </section>
   );
 }
+// Reverse a copied list for newest-first display without mutating central event order.
 export function EventHistory({
   state,
   compact = false,

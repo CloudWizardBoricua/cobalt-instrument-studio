@@ -1,3 +1,11 @@
+/*
+ * Engineering workspace presentation for the signal browser, display preview and slot editor.
+ * Imported by DeviceWorkspace.tsx; reads shared studio tokens and precedes page-specific
+ * cockpit overrides. These styles change only layout/appearance, not bindings or telemetry.
+ * The responsive sections preserve access to Apply, reset and validation feedback on narrow
+ * screens. Keep later legibility overrides in order; hardware-panel qualification is future work.
+ */
+/* Disclosure shell and summary; workspace is open by default in component state. */
 .device-workspace {
   margin-top: 24px;
   min-width: 0;
@@ -64,6 +72,7 @@
   font-size: 11px;
   margin-bottom: 19px;
 }
+/* Three related areas: accepted signals, browser preview and unapplied property drafts. */
 .device-workspace-grid {
   display: grid;
   grid-template-columns: minmax(180px, 0.8fr) minmax(300px, 1.8fr) minmax(
@@ -99,6 +108,7 @@
   font-size: 10px;
   margin-top: 8px;
 }
+/* Signal binding buttons show accepted values and explicit standby/stale state. */
 .device-signal-list {
   display: grid;
   gap: 8px;
@@ -159,6 +169,7 @@
 .device-signal-value small.critical {
   color: var(--critical);
 }
+/* Preview enclosure, six slot instruments and numeric quality/status cues. */
 .device-bezel {
   margin-top: 15px;
   border: 3px solid var(--border);
@@ -305,6 +316,7 @@
   line-height: 1.5;
   margin-top: 12px;
 }
+/* Property form layout and feedback; TypeScript validates atomically before Apply. */
 .device-properties {
   border-left: 1px solid var(--border);
   padding-left: 18px;
@@ -392,6 +404,7 @@
   margin-top: 10px;
   min-height: 15px;
 }
+/* Progressively reflow workspace columns without hiding controls. */
 @media (max-width: 1300px) {
   .device-workspace-grid {
     grid-template-columns: minmax(170px, 0.7fr) minmax(300px, 1.6fr);
@@ -512,6 +525,7 @@
     gap: 3px;
   }
 }
+/* Remove decorative motion for reduced-motion users; data flow remains unchanged. */
 @media (prefers-reduced-motion: reduce) {
   .device-workspace *,
   .device-workspace *::before,

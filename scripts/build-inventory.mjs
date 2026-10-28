@@ -1,7 +1,14 @@
+/**
+ * Shared static-artifact inventory for recording, verification and release packaging.
+ * Enumerate only regular files from both hosting outputs, then include versioned
+ * release inputs and SHA-256 hashes. Links, hidden inputs and maps are rejected.
+ * This binds demo bytes to evidence; it does not execute or certify any CI checks.
+ */
 import { lstatSync, readdirSync, readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
 
+// Stable public attachment names and reviewed release inputs are shared across both hosts.
 export const reportNames = [
   "Cobalt_Engineering_Report.pdf",
   "Cobalt_Engineering_Report.docx",
@@ -22,6 +29,7 @@ export const requiredChecks = [
 export const sha256 = (value) =>
   createHash("sha256").update(value).digest("hex");
 
+/** Reject unexpected entries/links while producing a stable sorted regular-file inventory. */
 export function staticFiles(root, directory) {
   if (lstatSync(join(root, directory)).isSymbolicLink())
     throw new Error(
@@ -49,6 +57,7 @@ export function staticFiles(root, directory) {
   return files;
 }
 
+/** Hash the exact deployable bytes plus the metadata later consumed by release verification. */
 export function buildInventory(root) {
   return [
     ...["dist", "dist-pages"].flatMap((directory) =>

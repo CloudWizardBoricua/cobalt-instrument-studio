@@ -15,6 +15,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "verify:privacy": "node scripts/verify-privacy.mjs",
     "verify:workflows": "node scripts/verify-config.mjs",
+    "verify:paths": "node scripts/verify-source-paths.mjs",
     "verify:static": "node scripts/validate-static-builds.mjs"
   },
   "dependencies": {

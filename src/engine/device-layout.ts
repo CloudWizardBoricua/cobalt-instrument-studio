@@ -1,10 +1,23 @@
-import { metricInfo } from "./model";
+/**
+ * Presentation contract for the device workspace's six editable instrument slots.
+ * DeviceWorkspace owns this session-only layout; this module supplies pure
+ * defaults, validation, immutable updates, and drawing helpers. instruments.ts
+ * defines the known signals and canonical display ranges used by these checks.
+ *
+ * An HMI often binds a signal to a display separately from process configuration.
+ * This demo illustrates that separation: changing a label, binding, or scale
+ * cannot alter telemetry, transport, or diagnostic thresholds. It does not save
+ * a device configuration, provision hardware, or write to an industrial bus.
+ */
+import { metricInfo } from "./instruments";
 import { METRICS, type Metric } from "./types";
 
 // A presentation-only contract. These properties never change telemetry or alerts.
 export const DEVICE_LAYOUT_VERSION = 1 as const;
 export const DEVICE_SLOT_IDS = [1, 2, 3, 4, 5, 6] as const;
 export type DeviceSlotId = (typeof DEVICE_SLOT_IDS)[number];
+// Slot IDs are stable presentation positions. Multiple slots may show the same
+// metric; unique slot identity, rather than unique signal binding, is required.
 export interface DeviceProperties {
   metric: Metric;
   label: string;
@@ -20,6 +33,8 @@ export interface DeviceLayout {
 }
 export type DeviceField =
   "metric" | "label" | "min" | "max" | "range" | "layout";
+// Discriminated results let the form associate an error with the correct field
+// while leaving the previously applied layout intact until validation succeeds.
 export type DeviceValidation =
   | { ok: true; properties: DeviceProperties }
   | { ok: false; field: DeviceField; error: string };
@@ -27,11 +42,13 @@ export type DeviceUpdate =
   | { ok: true; layout: DeviceLayout }
   | { ok: false; field: DeviceField; error: string };
 
+/** Copy catalog defaults so editing a slot cannot mutate the shared catalog. */
 export function defaultDeviceProperties(metric: Metric): DeviceProperties {
   const info = metricInfo[metric];
   return { metric, label: info.label, min: info.min, max: info.max };
 }
 
+/** Start six independent slots, in the same signal order used by the dashboard. */
 export function createDefaultDeviceLayout(): DeviceLayout {
   return {
     version: DEVICE_LAYOUT_VERSION,
@@ -42,6 +59,11 @@ export function createDefaultDeviceLayout(): DeviceLayout {
   };
 }
 
+/**
+ * Validate draft display properties and return an owned, trimmed whitelist copy.
+ * Bounds use canonical units even when the view displays converted units. Label
+ * checks improve readable HMI presentation; React still owns text escaping.
+ */
 export function validateDeviceProperties(value: unknown): DeviceValidation {
   if (!value || typeof value !== "object" || Array.isArray(value))
     return {
@@ -104,6 +126,11 @@ export function validateDeviceProperties(value: unknown): DeviceValidation {
   };
 }
 
+/**
+ * Reject unsupported versions and missing/duplicate slots before replacing one
+ * slot. Other slots retain their applied values; the caller owns form drafts.
+ * This version check is a layout contract, not a persistent migration system.
+ */
 export function applyDeviceProperties(
   layout: DeviceLayout,
   slotId: DeviceSlotId,
@@ -135,6 +162,8 @@ export function applyDeviceProperties(
   };
 }
 
+// Reset means the selected position's original signal and catalog scale. It is
+// independent of Reset session in studio-state.ts, which resets model evidence.
 export function resetDeviceSlot(
   layout: DeviceLayout,
   slotId: DeviceSlotId,
@@ -152,6 +181,7 @@ export function resetDeviceSlot(
   );
 }
 
+/** Map a validated scale to a safe drawing fraction without changing the sample. */
 export function deviceScalePosition(
   value: number,
   properties: DeviceProperties,
@@ -164,6 +194,8 @@ export function deviceScalePosition(
   );
 }
 
+// Describe off-scale readings explicitly: a clipped needle alone could conceal
+// the fact that a valid accepted value lies beyond a customized display range.
 export function deviceRangeDescription(
   value: number,
   properties: DeviceProperties,
