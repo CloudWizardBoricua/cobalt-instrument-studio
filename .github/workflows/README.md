@@ -1,6 +1,6 @@
 # Verification and publication workflows
 
-These three conventional workflow files validate source, publish the exact tested Pages output and create new versioned releases. Their names and paths are checked by repository tooling. [GitHub guide](../README.md) · [Deployment details](../../docs/DEPLOYMENT.md)
+These three conventional workflow files validate source, publish the exact tested Pages output and create new versioned releases. Their names and paths are checked by repository tooling. [GitHub guide](../GUIDE.md) · [Deployment details](../../docs/DEPLOYMENT.md)
 
 ```mermaid
 flowchart TD

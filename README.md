@@ -1,262 +1,200 @@
-![Cobalt Instrument Studio](docs/assets/banner.svg)
+![Cobalt Instrument Studio — seeded simulation, reproducible faults, engineering evidence](docs/assets/banner.svg)
 
 # Cobalt Instrument Studio
 
-## Start here for the demo
+**An interactive industrial instrument dashboard, built to make telemetry and faults easy to explore.**
 
-Use the [presenter walkthrough](docs/DEMO_WALKTHROUGH.md) for a six-minute application and source tour. An **HMI (human-machine interface)** helps an operator understand equipment conditions; this project demonstrates that presentation using generated data. The application behavior and both public hosting URLs are preserved by the repository cleanup.
+Watch six instruments respond to a shared engine simulation, replay a fault, inspect rejected samples, and configure a five-page device display—all in your browser.
 
-| Need | Start here |
-| --- | --- |
-| Present the application and explain the code | [Demo walkthrough](docs/DEMO_WALKTHROUGH.md) |
-| Understand the desktop/GitHub state and unmerged work | [Repository audit and PR recommendations](docs/REPOSITORY_AUDIT.md) |
-| Review naming, before/after structure and rename map | [Polishing plan](docs/DEMO_POLISH_PLAN.md) |
-| See baseline/final results and deployment limits | [Sprint validation](docs/DEMO_VALIDATION.md) |
-| Understand why tests remain | [Test relevance](docs/TEST_RELEVANCE.md) |
-| Review demo clarity and security evidence | [Usability review](docs/DEMO_USABILITY.md) · [Security review](docs/SECURITY_REVIEW.md) |
+[**Launch the demo →**](https://cobalt-instrument-studio.netlify.app/) · [GitHub Pages mirror](https://cloudwizardboricua.github.io/cobalt-instrument-studio/) · [Six-minute walkthrough](docs/DEMO_WALKTHROUGH.md) · [Engineering report](docs/Cobalt_Engineering_Report.pdf)
 
-_Developed by Daren Diaz_ · [GitHub repository](https://github.com/CloudWizardBoricua/cobalt-instrument-studio)
+[![CI verification](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml)
 
-[![Continuous integration](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml)
+Developed by Daren Diaz · [Independent design concept](https://github.com/CloudWizardBoricua/cobalt-instrument-studio) · v0.2.0 · Fall 2026
 
-Fall 2026 · **Version 0.2.0** · Independent design concept
+![Cobalt Engine device page with a blue engine-speed dial and load, fuel, temperature, pressure and voltage readings](docs/assets/readme-device.png)
 
-Cobalt is an industrial telemetry simulator and HMI design concept. One seeded engine model drives six instruments, trends, and diagnostic transitions. A versioned telemetry boundary protects accepted readings, and a device workspace lets a reviewer configure displays without changing the model or alarm thresholds.
+*The Engine page brings six simulated signals into one device-style display. Gauges, Engine, Trends, Faults and ACK share the same session.*
 
-**SIMULATED — NOT LIVE EQUIPMENT.** The implemented application is a static browser simulator. It has no equipment connection, hardware driver, backend, authentication service, safety control, or production certification.
+> **SIMULATED — NOT LIVE EQUIPMENT.** Cobalt generates its data locally. This is a browser-based HMI (human-machine interface) concept, with no equipment connection or safety-control function.
 
-The proposed product direction is an **offline-capable industrial-PC HMI for monitoring equipment and acknowledging alarms**, retaining React/TypeScript and adding a local C# gateway. The architecture and roadmap below describe future work; they do not add these capabilities to the current application.
+[Screenshots](#screenshots) · [Features](#implemented-capabilities) · [Try it](#start-here-for-the-demo) · [Quick start](#run-and-validate) · [Architecture](#architecture) · [Documentation](#repository-navigation)
 
-Try the [Netlify demo](https://cobalt-instrument-studio.netlify.app/) or [GitHub Pages backup](https://cloudwizardboricua.github.io/cobalt-instrument-studio/). Start with [Run and validate](#run-and-validate), then read the [proposed HMI architecture](docs/HMI_ARCHITECTURE.md) and [engineering roadmap](docs/ROADMAP.md).
+## Screenshots
 
-![Actual desktop browser capture of the simulator](docs/assets/dashboard-desktop.png)
+### A dashboard for the whole operating picture
 
-![Device workspace with simulated Engine preview, signal browser, and Slot 1 property editor showing an unapplied display-label draft](docs/assets/device-workspace-engine.png)
+Six synchronized instruments show engine speed, oil pressure, coolant temperature, battery voltage, fuel level and engine load. Sample acceptance, age and diagnostic state remain visible alongside the readings.
 
-The device workspace capture shows an unapplied display-label draft. These retained screenshots show the simulator, not connected equipment.
+![Desktop dashboard with six instrument gauges, telemetry acceptance status and Start/Pause and Reset in the top toolbar](docs/assets/readme-dashboard.png)
+
+*Pause the simulation to inspect a moment in time. Reset returns the instruments to standby.*
+
+### Configure the display beside its preview
+
+Choose a signal, edit its label and scale, then apply the change to a display slot. The signal browser, device preview and property editor sit together so each edit has a visible result.
+
+![Device workspace showing the signal browser, Engine preview and slot properties](docs/assets/readme-workspace.png)
+
+*Display edits affect presentation; simulation values and alarm thresholds stay independent.*
+
+### Follow a fault through diagnostics
+
+Inspect the active condition alongside its transition history. Acknowledgment records that a condition was reviewed; the fault stays active until the simulated process recovers.
+
+![System diagnostics showing an active simulated fault and recorded transitions](docs/assets/readme-diagnostics.png)
+
+### See why a sample was rejected
+
+Invalid samples cannot replace the last accepted readings. The interface exposes the rejection reason, accepted/rejected counts and sample age, so held values can be distinguished from fresh data.
+
+![Rejected sample evidence showing a duplicate timestamp, retained readings, stale status and accepted/rejected counters](docs/assets/rejected-sample-desktop.png)
+
+<details>
+<summary><strong>View the narrow-screen device layout</strong></summary>
+
+<p align="center">
+  <img src="docs/assets/device-cockpit-mobile.png" width="280" alt="Narrow Engine device preview with a large speed dial, stacked signal cards and page controls in standby">
+</p>
+
+*The device view stacks its signals on narrow screens. This capture shows standby before the simulation starts.*
+
+</details>
+
+Screenshots show simulated data. Capture context is documented in the [asset guide](docs/assets/README.md).
 
 ## Implemented capabilities
 
-- Six synchronized SVG instruments, four operating modes, a fixed 0.5 s simulation step, and seeded disturbances.
-- A version 1 sample contract with required own numeric fields, finite values, demonstration plausibility bounds, and strictly increasing nonfuture timestamps. Rejections retain accepted readings and record bounded rejection/recovery evidence.
-- Thresholds, hysteresis, debounce, acknowledgment, escalation, timeout and transition events. Acknowledgment leaves an ongoing condition active; escalation requires renewed acknowledgment.
-- Five guided replays covering normal operation, coolant overheat, communication loss, oil pressure loss and invalid sample delivery.
-- Six display slots with atomic binding/label/range edits and five device pages: Gauges, Engine, Trends, Faults and ACK. Display edits do not change the engine or diagnostic rules. Out-of-scale values remain visible while needles clamp.
-- Dashboard, Diagnostics and Settings views; keyboard focus, textual condition cues, day/night appearance and reduced-motion behavior.
-- Validated local preferences, metric/imperial display, simulated CSV export, and shared-source engineering PDF/DOCX reports. History is capped at 240 samples and events at 100; telemetry, events and device layout are session-only.
-
-Start/Pause and Reset appear in the top toolbar on every view. Before Start or guided Run, zero readouts are presentation placeholders and never enter telemetry or diagnostics. Pause holds simulation time and readings; Reset restores standby presentation. Selecting a scenario alone does not interrupt the current replay. Seed `27041` makes guided runs repeatable.
-
-| Scenario | Delivery/process behavior |
+| Capability | What you can explore |
 | --- | --- |
-| Normal operating ramp | Speed/load rise; pressure follows and temperature changes gradually. |
-| Coolant overheat | Cooling degradation starts at 6 s and crosses warning/critical limits. |
-| Communication loss | Delivery stops from 5 s through 16.5 s; readings become stale and recover at 17 s. |
-| Oil pressure loss | Valid low-pressure readings progress through warning/critical; pressure restores from 24 s and clears after hysteresis/debounce. |
-| Invalid sample delivery | Invalid attempts from 5 s through 16.5 s cannot update readings, history or threshold debounce; delivery recovers at 17 s. |
+| **One model, six signals** | Seeded disturbances and a fixed 0.5-second simulation step keep the instruments, trends and diagnostics consistent. |
+| **Repeatable fault scenarios** | Normal operation, coolant overheat, communication loss, oil pressure loss and invalid sample delivery. |
+| **Validated telemetry** | Versioned samples, finite values, plausibility bounds and increasing timestamps protect accepted readings. |
+| **Alarm lifecycle** | Warning/critical transitions, debounce, hysteresis, timeout, acknowledgment and recovery. |
+| **Configurable device preview** | Six display slots and five pages: Gauges, Engine, Trends, Faults and ACK. Edit bindings, labels and display ranges. |
+| **Presentation controls** | Day/night appearance, metric/imperial units, keyboard focus, textual condition cues and reduced-motion behavior. |
+| **Export and inspect** | Simulated CSV export, bounded trend/event history and downloadable engineering reports. |
 
-See the [implemented telemetry contract](docs/TELEMETRY_CONTRACT.md) for units, rejection categories and recovery semantics.
+Preferences persist locally when browser storage permits. Device layouts, telemetry and events are session-only. See the [telemetry contract](docs/TELEMETRY_CONTRACT.md) for validation and recovery rules.
+
+## Start here for the demo
+
+1. **Start the engine.** Open the [demo](https://cobalt-instrument-studio.netlify.app/) and select **Start** in the toolbar. Pause to inspect the readings; Reset returns to standby.
+2. **Replay a fault.** Under Guided scenarios, select **Coolant overheat**, then **Run scenario**. Open Diagnostics to watch the condition move through warning and critical states.
+3. **Inspect bad data.** Run **Invalid sample delivery**. Rejected samples hold the accepted readings; delivery recovers at 17 simulation seconds.
+4. **Build a display.** Scroll to Device workspace, select a slot, change its label or range and apply it. Visit Engine, Trends, Faults and ACK.
+
+Guided runs use seed `27041` for repeatable demonstrations. Selecting a scenario prepares a draft; **Run scenario** starts it. The [presenter walkthrough](docs/DEMO_WALKTHROUGH.md) includes timing, talking points and recovery steps.
 
 ## Run and validate
 
-The current simulator requires **Node.js 24 and npm**. Dependencies are project-local; no .NET runtime, database or gateway is required.
+Requires **Node.js 24 and npm**. From the repository root:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Run checks from a separate terminal:
+Open the local address Vite prints in the terminal. The simulator needs no database, gateway or .NET runtime.
 
-```sh
-npm run verify:workflows
-npm run typecheck
-npm run verify:paths
-npm run test:ci
-npm run verify:privacy
-```
-
-The existing build/browser verification sequence is:
-
-```sh
-npm run build
-npm run build:pages
-npm run test:e2e
-npm run verify:static -- --skip-build
-npm run verify:privacy
-node scripts/prepare-test-reports.mjs
-```
-
-On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`. Local browser tests use installed Microsoft Edge by default; `PW_BROWSER_CHANNEL=chrome` selects installed Chrome. On Linux, install Chromium with `npx playwright install --with-deps chromium` and set `CI=true` for browser checks.
-
-**Generated evidence:** E2E writes screenshots into tracked `docs/assets`, and static verification writes tracked evidence. Review those diffs and preserve approved historical captures unless intentionally replacing them. This sprint fixes the Windows newline-sensitive test fixture; separating generated output paths remains future work. See [current results](docs/DEMO_VALIDATION.md) and the [roadmap](docs/ROADMAP.md#phase-0--establish-a-dependable-baseline).
-
-`npm run build` creates root assets in `dist`; `npm run build:pages` creates project-relative assets in `dist-pages` for `/cobalt-instrument-studio/`. Both include report downloads. Navigation uses local state and one HTML entry point. These commands build the static demo; the proposed installed HMI does not yet have build or installation commands.
-
-## Repository navigation
-
-Every maintained directory has its own README with a diagram, annotated tree and demo context. Dependencies, generated builds, caches and Git internals are excluded.
-
-```text
-cobalt-instrument-studio/
-├── README.md                 # Main run instructions and navigation
-├── CHANGELOG.md              # Released version history
-├── index.html                # Conventional Vite HTML entry
-├── package.json              # Dependency ranges and command entry points
-├── package-lock.json         # Reproducible resolved dependency versions
-├── vite.config.ts            # Hosting base and Vitest configuration
-├── playwright.config.ts      # Local/CI browser configuration
-├── tsconfig.json             # Strict TypeScript and consistent filename casing
-├── netlify.toml              # Existing Netlify build/output/security headers
-├── .gitattributes            # Existing text-line-ending policy
-├── .gitignore                # Dependencies, generated outputs and local secrets excluded
-├── .github/                  # CI, Pages, releases, issue/PR templates and Dependabot
-├── src/                      # React application, pure engine and styles
-├── tests/                    # Eight unit suites and two browser suites
-├── scripts/                  # Build, evidence, privacy, verification and release helpers
-├── public/                   # Stable favicon and frozen report download copies
-└── docs/                     # Engineering guides, audit, demo tour and historical evidence
-```
-
-| Directory | Purpose and next step |
+| Command | Purpose |
 | --- | --- |
-| [src](src/README.md) | React mount and application ownership. |
-| [src/engine](src/engine/README.md) | Seeded process, accepted telemetry, diagnostics, settings and layouts. |
-| [src/components](src/components/README.md) | Views, instruments and display editing; no hardware acquisition. |
-| [src/styles](src/styles/README.md) | Existing theme/cascade, responsive and reduced-motion rules. |
-| [tests](tests/README.md), [tests/e2e](tests/e2e/README.md) | Feature contracts and assembled browser flows. |
-| [scripts](scripts/README.md) | Keep command paths stable; distinguish verification from publication. |
-| [.github](.github/README.md), [workflows](.github/workflows/README.md), [issue templates](.github/ISSUE_TEMPLATE/README.md) | Automation and contribution entry points. |
-| [public](public/README.md), [reports](public/reports/README.md) | Copied static files and existing public download names. |
-| [docs](docs/README.md), [assets](docs/assets/README.md) | Current sprint deliverables and frozen prior evidence. |
+| `npm run typecheck` | Check TypeScript types. |
+| `npm run verify:paths` | Check exact-case source imports and filename collisions. |
+| `npm run test:ci` | Run the unit suite and write a local JSON result. |
+| `npm run verify:workflows` | Validate workflow contracts and action references. |
+| `npm run verify:privacy` | Check maintained text and required simulation disclosures. |
+| `npm run build` | Build the root-hosted site into `dist`. |
+| `npm run build:pages` | Build the project-relative site into `dist-pages`. |
+| `npm run test:e2e` | Run browser checks. |
+| `npm run verify:static -- --skip-build` | Verify both existing production builds. |
 
-Conventions: PascalCase React components; descriptive lowercase hyphenated domain/test/style/script files; conventional tool/config filenames retained. JSON configuration uses its required syntax, so field purposes are documented here and in directory guides instead of adding invalid comments. `src/engine/instruments.ts` holds catalog/display metadata; `studio-state.ts` owns session transitions; `device-layout.ts` is presentation configuration. See the [complete rename mapping](docs/DEMO_POLISH_PLAN.md#naming-convention-and-proposed-moves).
+<details>
+<summary><strong>Platform notes and generated evidence</strong></summary>
 
-`npm run verify:paths` checks exact spelling of relative source imports and case collisions independently of Windows path resolution. `forceConsistentCasingInFileNames` also remains enabled in TypeScript. The existing CI contract is preserved; a future CI policy change can add the new navigation check explicitly.
+On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`. Browser tests use installed Microsoft Edge by default; `PW_BROWSER_CHANNEL=chrome` selects installed Chrome. On Linux, install Chromium with `npx playwright install --with-deps chromium` and set `CI=true` for browser checks.
+
+Run both build commands before static verification. Browser/static verification can overwrite tracked screenshots and evidence files; review those diffs before committing. `node scripts/prepare-test-reports.mjs` sanitizes generated reports for publication. Full sequences and limitations are in the [validation guide](docs/DEMO_VALIDATION.md).
+
+</details>
 
 ## Architecture
 
-### Current implementation
+**React 19 · TypeScript · Vite · Recharts · Lucide · Vitest · Playwright**
 
-The frontend uses React, TypeScript, Vite, Recharts and Lucide, with Vitest and Playwright for validation. Pure domain modules under `src/engine` handle the model, sample acceptance and diagnostics. One browser reducer owns the simulation session.
-
-```mermaid
-flowchart TD
-  Commands[Modes and guided scenarios] --> Model[Seeded engine model]
-  Model --> Transport[Simulated sample delivery]
-  Transport --> Contract[Versioned validation boundary]
-  Contract -->|Accepted only| Received[Last accepted telemetry]
-  Contract -->|Rejected| Validation[Bounded rejection evidence]
-  Received --> Diagnostics[Threshold and timeout rules]
-  Received --> History[Bounded sample history]
-  Received --> Gauges[Instruments and device preview]
-  History --> Trend[Trend and simulated CSV]
-  Diagnostics --> Alerts[Active alerts and events]
-```
-
-Canonical units are rpm, psi, degrees F, volts and percent. Metric appearance converts pressure/temperature during rendering. The model uses accelerated demonstration assumptions, not calibrated equipment equations. Fixed simulation time preserves replay despite browser scheduling variation; the 500 ms interval is not a real-time guarantee. **Pausing also stops freshness and timeout evaluation.** That simulator behavior must not govern a live HMI.
-
-### Proposed production HMI
-
-**Status: proposed, not implemented.** Start with one local service and a kiosk browser on a Windows industrial PC. The backend owns acquisition, live alarm evaluation, durable records and authorization; the browser owns presentation and engineering drafts. Acquisition must continue with no browser open.
+The browser owns a single simulation session. Pure engine modules generate samples, validate delivery and evaluate diagnostics. Components render the accepted state.
 
 ```mermaid
-flowchart TD
-  Equipment[Equipment] --> Adapter[Qualified read-only adapter]
-  Fixtures[Recorded test data] --> Acquisition[Acquisition and validation]
-  Adapter --> Acquisition
-  Acquisition --> Alarms[Alarm processing]
-  Acquisition --> Store[(Local SQLite)]
-  Alarms --> Store
-  Acquisition --> API[ASP.NET Core API and SignalR]
-  Alarms --> API
-  Store --> API
-  API --> UI[React operator interface]
-  UI -->|Authenticated acknowledgment and configuration| API
+flowchart LR
+  Controls[Modes and scenarios] --> Model[Seeded engine model]
+  Model --> Delivery[Simulated delivery]
+  Delivery --> Validation[Sample validation]
+  Validation -->|Accepted| State[Accepted telemetry]
+  Validation -->|Rejected| Evidence[Rejection evidence]
+  State --> Instruments[Instruments and device pages]
+  State --> History[Trends and CSV]
+  State --> Diagnostics[Alarms and events]
 ```
 
-| Layer | Implemented today | Proposed infrastructure and responsibility |
-| --- | --- | --- |
-| Frontend | React/TypeScript views coupled to the simulator reducer | Source-independent runtime; explicit demo/live modes; operator views and engineering workspace; connection/quality states; persisted versioned layouts. |
-| Backend | None | .NET 10 LTS, ASP.NET Core REST APIs, SignalR and acquisition/alarm background services. Serve bundled frontend assets from the same local service. |
-| Equipment boundary | Generated samples and simulated delivery | A fixture adapter first, then one qualified read-only equipment adapter. Validate identity, signal metadata, units, sequence and quality before use. |
-| Telemetry and alarms | Browser-owned samples, simulation clock, local acknowledgment | Per-signal freshness, independent watchdogs, backend-authoritative alarm instances and actor/revision-specific durable acknowledgments. |
-| Storage and identity | Local preferences; session-only history/layout/events; no accounts | Local SQLite for bounded history, configuration and audit records; locally provisioned viewer/operator/engineer roles. |
-| Deployment | Static Netlify and GitHub Pages demos | Supervised Windows service plus Edge kiosk, offline startup, local health/logging, backup/restore, signed packages and tested rollback. |
+Canonical units are rpm, psi, degrees Fahrenheit, volts and percent. Metric conversion happens during rendering. History is capped at 240 samples and events at 100. Read the [engine guide](src/engine/README.md) for module responsibilities.
 
-The backend proposal uses [.NET 10 LTS](https://dotnet.microsoft.com/en-us/platform/support/policy), [SignalR](https://learn.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-10.0) and [Windows service hosting](https://learn.microsoft.com/en-us/dotnet/core/extensions/windows-service). SQLite storage belongs on local, nonsynchronized disk; [WAL requires same-host storage](https://sqlite.org/wal.html). These are design choices for future implementation, not installed dependencies.
+## Repository navigation
 
-The live contract will be separate from simulator v1. It must distinguish measurement time, receipt time and monotonic watchdog time; support partial signal updates; and reconcile reconnects through snapshots and event cursors. Initial live readings are unavailable until accepted. Rejected or disconnected input retains the last valid value with explicit quality/age. Live mode must never silently substitute simulated values.
+```text
+cobalt-instrument-studio/
+├── src/
+│   ├── App.tsx          # Session state and application layout
+│   ├── components/      # Dashboard, diagnostics and device workspace
+│   ├── engine/          # Simulation, telemetry, alarms and display layouts
+│   └── styles/          # Theme, responsive layouts and device styling
+├── tests/               # Unit suites and browser flows
+├── scripts/             # Build, verification, report and release helpers
+├── public/              # Static favicon and report downloads
+├── docs/                # Walkthrough, architecture, screenshots and evidence
+└── .github/             # CI, Pages, releases and contribution templates
+```
 
-Acknowledgment is an authenticated alarm-record operation, not an equipment command. Safety functions remain in the equipment/controller. Hardware model, protocol, calibration and performance budgets require qualification; CAN/J1939 is only a candidate. See [HMI architecture](docs/HMI_ARCHITECTURE.md) for interfaces, storage, security and recovery requirements.
-
-## Production roadmap
-
-All phases below are **future work**. Implementation follows agreed contracts, integration requirements and measurable acceptance criteria.
-
-| Phase | Exit criterion |
+| Explore | Start here |
 | --- | --- |
-| 0. Dependable baseline | Portable tests, reviewed development dependency updates and generated evidence separated from approved captures; checks pass on Windows and Linux. |
-| 1. Product boundary | Contract/role/target requirements documented; fixture adapter agreed; equipment selection gates hardware work. |
-| 2. Connected monitoring | Fixture-fed gateway drives the UI; acquisition survives browser closure; stale/disconnected/reconnected states are correct. |
-| 3. Durable operation | History/configuration/ACK persist; permissions, concurrent ACK, escalation conflicts, restart and storage failure are tested. |
-| 4. Equipment qualification | One read-only driver passes controlled bench checks for scaling, partial signals, bad/delayed data, reboot and cable recovery. |
-| 5. Installed pilot | Offline boot, recovery, restore, rollback, panel usability and sustained resource bounds are demonstrated on the target IPC. |
+| Present the project | [Six-minute walkthrough](docs/DEMO_WALKTHROUGH.md) |
+| Understand the implementation | [Source](src/README.md) · [Engine](src/engine/README.md) · [Components](src/components/README.md) · [Styles](src/styles/README.md) |
+| Understand the tests | [Test guide](tests/README.md) · [Browser checks](tests/e2e/README.md) · [Test relevance](docs/TEST_RELEVANCE.md) |
+| Build and publish | [Scripts](scripts/README.md) · [Automation guide](.github/GUIDE.md) · [Deployment](docs/DEPLOYMENT.md) |
+| Find reports and captures | [Documentation index](docs/README.md) · [Assets](docs/assets/README.md) · [Public files](public/README.md) |
+| Review the polish checkpoint | [Repository audit](docs/REPOSITORY_AUDIT.md) · [Rename map](docs/DEMO_POLISH_PLAN.md) · [Validation](docs/DEMO_VALIDATION.md) |
 
-The [detailed roadmap](docs/ROADMAP.md) defines dependencies, implementation deliverables and acceptance scenarios. Later work includes multiple devices, Linux qualification, richer widgets, layout deployment, remote services and separately designed equipment controls. No project license has been selected; license selection and third-party notices are prerequisites for distribution.
-
-## Development and release workflow
-
-The current pipeline serves the **static simulator**. [CI](.github/workflows/ci.yml) checks locked dependencies, types, unit/privacy tests, both hosting bases and browser behavior. [Dependabot](.github/dependabot.yml) covers npm and GitHub Actions; actions use immutable references and scoped permissions.
-
-| Trigger | Existing workflow behavior |
-| --- | --- |
-| Pull request or main push | `CI verification` runs checks and retains selected test reports for 7 days and successful production builds for 14 days. Failure reports are sanitized before upload. |
-| Successful main CI | [Pages](.github/workflows/deploy-pages.yml) validates and deploys that run's tested artifact, rejecting superseded source revisions. |
-| Main push to Netlify integration | Netlify independently rebuilds `dist`; this path is not gated by GitHub CI. |
-| New annotated semantic version tag | [Release](.github/workflows/release.yml) checks source/version consistency, reuses CI and publishes a tested archive, reports, manifest and SHA-256 checksums. Existing releases are preserved. |
-
-See [deployment documentation](docs/DEPLOYMENT.md) for the existing process and [DevOps handoff](docs/DEVOPS_HANDOFF.md) for historical execution and repository-protection receipts. Those receipts establish their recorded checkpoints; this documentation review did not reverify provider deployments or branch-protection settings. The installed HMI will need a separate service packaging, update and recovery path.
+Directory guides provide diagrams, annotated trees and local context. The `.github` directory uses `GUIDE.md` so GitHub displays this project README on the repository homepage.
 
 ## Validation evidence
 
-**Latest repository-polishing results:** see [DEMO_VALIDATION.md](docs/DEMO_VALIDATION.md). The checkpoints below are retained historical evidence, with their original source revisions and limitations. They do not describe the final polishing branch.
+The recorded repository-polish checkpoint passed **100 unit tests**, **17 browser tests**, both hosting builds and **12 static verification groups per hosting base**. These are recorded results; the CI badge above links to main's workflow status.
 
-### Repository review baseline
+[Full validation and limitations](docs/DEMO_VALIDATION.md) · [Test assessment](docs/TEST_RELEVANCE.md) · [Usability review](docs/DEMO_USABILITY.md) · [Security review](docs/SECURITY_REVIEW.md)
 
-The planning review inspected `b92b1f736aa2bab91438ba687fa7b31d64748bf1`, matching GitHub `main` at that check. The review covered frontend architecture, backend/device integration and delivery infrastructure. Source review and local checks do not establish hardware behavior or deployed-service readiness.
+## Development and release workflow
 
-| Check during planning | Observed result |
-| --- | --- |
-| TypeScript, workflow validator, privacy/content | Passed; privacy/content inspected 108 text files. |
-| Unit suite | 98/100 passed in the Windows sandbox. One junction-creation test failed during setup and passed on an isolated rerun outside the sandbox (3/3 report tests). The other failure is an LF-only test mutation that misses a CRLF checkout; the workflow validator itself correctly rejects the intended invalid fixture. |
-| Dependency advisory queries | Full npm audit reported three development package entries: two critical and one moderate in the Vitest chain. Production-only audit reported zero advisories. These are advisory observations, not verified exploitability or a security certification. |
-| Browser/build/deployment/hardware checks | Not rerun for the planning review; existing browser/static checks can overwrite tracked captures/evidence. |
+Pull requests and main pushes run CI verification. GitHub Pages deploys the validated artifact from a successful main CI run; Netlify independently rebuilds the repository. Both serve the static simulator at their configured hosting bases.
 
-The [roadmap findings](docs/ROADMAP.md#repository-review-findings) record source evidence and remediation priorities. This planning snapshot is separate from historical release results and will age as dependencies and source change.
+The [deployment guide](docs/DEPLOYMENT.md) covers publication. The [workflow guide](.github/workflows/README.md) explains CI, artifact retention and tagged releases. Build commands and public report paths are shared with the existing release process.
 
-### Local documentation update checks
+## Production roadmap
 
-Local validation of this documentation revision passed TypeScript, workflow and privacy/content checks plus all 10 privacy/content regression tests. All 45 local links/anchors across the three edited documents were checked, including existing inbound README links. All three Mermaid diagrams were rendered and visually inspected at README width. The full unit suite, application builds and application E2E tests were not rerun locally for this documentation-only change; remote deployments were not reverified. GitHub CI results are recorded separately on the pull request. The known baseline findings above remain open.
+The next proposed direction is an offline-capable industrial-PC HMI with a local C#/.NET gateway, equipment adapters, durable history and alarm acknowledgment, operator roles and supervised deployment. **These capabilities are future work.**
 
-### Published version and verification
+The current simulator has no hardware driver, backend, authentication service or production certification. Hardware qualification and safety functions remain separate engineering responsibilities.
 
-**Verified v0.2.0 release baseline:** commit `5e7615a98478ae14301da4377c9e6a2255cd2139` through [PR #11](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/pull/11). Retained receipts record 100/100 unit and 17/17 browser tests, both hosting deployments, and five inspected release attachments. These counts describe that release checkpoint, not a fresh run of the reviewed main commit.
-
-- [Local release checkpoint](docs/validation-evidence.json) and [engineering handoff](docs/HANDOFF.md).
-- [PR CI/artifact inspection](docs/v020-pr-final-validation.json) and [main CI/artifact inspection](docs/v020-main-ci-validation.json).
-- [Public HTTP/deployment inspection](docs/v020-production-validation.json) and [public browser checks](docs/v020-production-browser.json).
-- [Tagged release/archive inspection](docs/v020-release-validation.json) and [DevOps receipt index](docs/DEVOPS_HANDOFF.md).
-
-No hardware measurements, production certification, formal assistive-technology audit, target-panel performance/soak result or uptime guarantee is established by these simulator checks.
+[Proposed HMI architecture](docs/HMI_ARCHITECTURE.md) · [Phased engineering roadmap](docs/ROADMAP.md)
 
 ## Reports and publication evidence
 
-- [Engineering report PDF](docs/Cobalt_Engineering_Report.pdf) and [editable DOCX](docs/Cobalt_Engineering_Report.docx).
-- [Proposed HMI architecture](docs/HMI_ARCHITECTURE.md), [engineering roadmap](docs/ROADMAP.md), [implemented telemetry contract](docs/TELEMETRY_CONTRACT.md) and [changelog](CHANGELOG.md).
-- [Verified v0.2.0 Release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.2.0): [PDF](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Engineering_Report.pdf), [DOCX](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Engineering_Report.docx), [tested static archive](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Static_Build_v0.2.0.tar.gz), [manifest](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/release-manifest.json) and [SHA-256 checksums](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/SHA256SUMS.txt).
-- [Historical v0.1.0 Release](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.1.0): [PDF](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.1.0/Cobalt_Engineering_Report.pdf) and [DOCX](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.1.0/Cobalt_Engineering_Report.docx).
+| Resource | Download or read |
+| --- | --- |
+| Engineering report | [PDF](docs/Cobalt_Engineering_Report.pdf) · [Editable DOCX](docs/Cobalt_Engineering_Report.docx) |
+| Published v0.2.0 release | [Release notes and assets](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/tag/v0.2.0) |
+| Released reports | [PDF](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Engineering_Report.pdf) · [DOCX](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Engineering_Report.docx) |
+| Release verification | [Static archive](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/Cobalt_Static_Build_v0.2.0.tar.gz) · [Manifest](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/release-manifest.json) · [SHA-256 checksums](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/releases/download/v0.2.0/SHA256SUMS.txt) |
+| Project history | [Changelog](CHANGELOG.md) · [DevOps handoff and historical receipts](docs/DEVOPS_HANDOFF.md) |
 
-Both reports are generated from `docs/report-source.json` by `scripts/build-report.py`, independently of site operation. They preserve the frozen v0.2.0 report checkpoint and its nine-page visual/metadata review; the proposed HMI architecture is documented separately. Existing reports, release assets and historical evidence are preserved.
+Reports preserve the reviewed v0.2.0 engineering checkpoint; they do not reflect the current simulation session. The [report source](docs/report-source.json) and [report builder](scripts/build-report.py) are included in the repository.
 
-React, TypeScript, Vite, Recharts, Lucide and Vitest provide the implemented stack. Dependency licenses remain applicable; no project license has been selected.
+No project license has been selected. Dependency licenses remain applicable.

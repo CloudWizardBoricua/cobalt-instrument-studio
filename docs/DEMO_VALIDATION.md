@@ -4,6 +4,8 @@ Fall 2026 · Baseline `cb2297e750e5bc2acdd02b089874997ca3078667` · Branch `docs
 
 ## Outcome and scope
 
+**Homepage follow-up:** the original sprint added `.github/README.md`, which GitHub displayed ahead of the root README. The subsequent showcase update renames that guide to [`.github/GUIDE.md`](../.github/GUIDE.md), updates its links and gives the root README fresh screenshots. The original sprint results below remain a record of that earlier checkpoint.
+
 Application behavior and existing public URLs are preserved. The cleanup renames 12 maintained paths, groups styles, documents source/major sections and adds README guides to all 14 maintained subdirectories. Root README is the main navigation guide. No tests were removed and no dependency versions changed. The only test logic fix normalizes a workflow fixture's line endings; one browser-test title now correctly says simulated telemetry. The new `verify:paths` command checks exact-case imports; TypeScript explicitly enforces consistent casing.
 
 The [plan](DEMO_POLISH_PLAN.md) contains the before/after tree and complete rename mapping. The [test assessment](TEST_RELEVANCE.md) explains every suite. The [repository audit](REPOSITORY_AUDIT.md) records synchronization and all PR recommendations. Fresh sanitized measurements are retained in [demo-polish-validation.json](demo-polish-validation.json); raw test/log outputs remain ignored under `.local`.

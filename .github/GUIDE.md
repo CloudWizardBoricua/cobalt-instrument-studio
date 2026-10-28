@@ -1,5 +1,7 @@
 # GitHub collaboration and automation
 
+This file is named `GUIDE.md` because GitHub gives a README in `.github` priority over the repository's root README. The project showcase belongs at the root; this guide documents automation. See [GitHub's README selection rules](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes).
+
 GitHub reads this directory for issue forms, PR guidance, dependency proposals and Actions workflows. Keep its conventional paths: moving them can silently disable platform behavior. [Repository home](../README.md) · [Current audit](../docs/REPOSITORY_AUDIT.md)
 
 ```mermaid
@@ -13,7 +15,7 @@ flowchart LR
 
 ```text
 .github/
-├── README.md                 # This navigation guide
+├── GUIDE.md                  # This navigation guide; keeps the root README on the homepage
 ├── ISSUE_TEMPLATE/           # Reproduction and proposal forms; see its README
 ├── dependabot.yml            # Weekly npm and GitHub Actions update proposals
 ├── pull_request_template.md  # Problem, actual validation and publication impact
