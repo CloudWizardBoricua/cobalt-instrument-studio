@@ -1,3 +1,12 @@
+/**
+ * Five operator-style pages inside the browser device preview.
+ * Gauges and Engine present accepted telemetry; Trends reuses bounded history; Faults and
+ * ACK share the central diagnostic state. Page selection is local and equipment-independent.
+ * Tabs and softkeys address the same page, with roving tab focus and arrow/Home/End support.
+ * ACK forwards review to the parent; it cannot clear a continuing condition or control a
+ * physical device. Event excerpts are session records, not live protocol fault codes or
+ * durable authenticated industrial acknowledgments.
+ */
 import {
   useId,
   useRef,
@@ -19,7 +28,7 @@ import {
   formatTime,
   formatValue,
   metricInfo,
-} from "../engine/model";
+} from "../engine/instruments";
 import type {
   Alert,
   Diagnostics,
@@ -28,8 +37,9 @@ import type {
   Telemetry,
 } from "../engine/types";
 import { TrendChart } from "./TrendChart";
-import "../device-preview-pages.css";
+import "../styles/device-preview-pages.css";
 
+// Single page catalog drives tab labels, IDs and softkey navigation consistently.
 const pages = [
   { key: "gauges", label: "Gauges", icon: CircleGauge },
   { key: "engine", label: "Engine", icon: Activity },
@@ -49,6 +59,7 @@ const trendMetrics: Metric[] = ["rpm", "coolantTemp", "oilPressure"];
 const alertName = (key: Alert["key"]) =>
   key === "communication" ? "Communication loss" : metricInfo[key].label;
 
+// Accepted values and diagnostic callbacks enter through one source-owned contract.
 export interface DevicePreviewPagesProps {
   gauges: ReactNode;
   engineGauge: ReactNode;
@@ -78,6 +89,7 @@ export function DevicePreviewPages({
   onInspectMetric,
   onAck,
 }: DevicePreviewPagesProps) {
+// Keep page/focus presentation state separate from telemetry and alarm review state.
   const [page, setPage] = useState<Page>("gauges");
   const prefix = useId();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -93,6 +105,7 @@ export function DevicePreviewPages({
     .reverse()
     .filter((event) => event.kind === "acknowledgment")
     .slice(0, 5);
+// Roving keyboard navigation selects and focuses one tab while preserving the accepted sample.
   function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     const target =
       event.key === "ArrowRight"
@@ -138,6 +151,7 @@ export function DevicePreviewPages({
             <span className="mono">SIM {formatTime(simulationTime)}</span>
           </div>
         </header>
+{/* ARIA tab controls and associated panels remain paired through unique per-instance IDs. */}
         <div
           className="device-page-tabs"
           role="tablist"
@@ -159,6 +173,7 @@ export function DevicePreviewPages({
               onKeyDown={(event) => navigate(event, index)}
             >
               {item.label}
+{/* Reviewing an alert does not clear it; escalation requires renewed review centrally. */}
               {item.key === "ack" && unreviewed.length > 0 && (
                 <span className="device-tab-count">{unreviewed.length}</span>
               )}
@@ -178,6 +193,7 @@ export function DevicePreviewPages({
               data-testid={`device-page-${item.key}`}
             >
               {item.key === "gauges" && page === "gauges" && gauges}
+{/* Engine cards convert units and clip decorative levels only; displayed readings retain their value. */}
               {item.key === "engine" && page === "engine" && (
                 <div className="device-engine-layout">
                   <div className="device-engine-rpm">{engineGauge}</div>
@@ -241,6 +257,7 @@ export function DevicePreviewPages({
                   </div>
                 </div>
               )}
+{/* TrendChart preserves explicit gaps in accepted history rather than drawing through loss. */}
               {item.key === "trends" && page === "trends" && (
                 <div className="device-trend-stack">
                   {trendMetrics.map((metric) => (
@@ -285,6 +302,7 @@ export function DevicePreviewPages({
                   </p>
                 </div>
               )}
+{/* Active conditions and recent clearing transitions describe the central simulator alarm state. */}
               {item.key === "faults" && page === "faults" && (
                 <div className="device-fault-page">
                   <div className="device-fault-heading">
@@ -419,6 +437,7 @@ export function DevicePreviewPages({
           ))}
         </div>
       </div>
+{/* Physical-style softkeys mirror page tabs and expose selection without relying on icons alone. */}
       <div className="device-softkeys" aria-label="Display softkeys">
         {pages.map((item) => {
           const Icon = item.icon;

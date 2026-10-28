@@ -23,7 +23,7 @@ The planning review inspected clean main **b92b1f736aa2bab91438ba687fa7b31d64748
 | Delivery | Locked installs, pinned Actions, restricted workflow permissions, artifact hashes, and release archive verification already exist | Extend this tested-artifact process to the installed product. |
 | Hosting | GitHub Pages uses the successful CI artifact; Netlify rebuilds main separately | Public demo hosting remains distinct from the offline HMI runtime. |
 
-Source anchors: [workflow fixture](../tests/workflows.test.ts#L113), [junction fixture](../tests/ci-reports.test.ts#L147), [workflow privacy gate](../scripts/verify-config.mjs#L180), [CI](../.github/workflows/ci.yml), and [deployment process](DEPLOYMENT.md).
+Source anchors: [workflow fixture](../tests/deployment-workflows.test.ts), [junction fixture](../tests/test-report-privacy.test.ts), [workflow privacy gate](../scripts/verify-config.mjs), [CI](../.github/workflows/ci.yml), and [deployment process](DEPLOYMENT.md).
 
 The existing [v0.2.0 local evidence](validation-evidence.json), [main CI evidence](v020-main-ci-validation.json), [release receipts](v020-release-validation.json), and [engineering reports](../README.md#reports-and-publication-evidence) remain frozen historical checkpoints. The planning review did not re-run the browser suite, hardware tests, or deployment verification. Historical counts and screenshots must not be presented as evidence for the proposed HMI.
 

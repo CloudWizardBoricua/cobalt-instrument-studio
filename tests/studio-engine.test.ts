@@ -1,3 +1,10 @@
+/**
+ * Exercise the pure studio engine without a browser or connected equipment.
+ * Seeded trajectories and reducer actions make scenario demonstrations repeatable;
+ * diagnostics, preferences and CSV assertions protect how those samples are explained.
+ * Fast-forward helpers advance simulated time only, so these checks establish model
+ * behavior, not sensor accuracy, real-time deadlines or industrial safety compliance.
+ */
 import { describe, expect, it } from "vitest";
 import {
   acknowledge,
@@ -14,7 +21,7 @@ import {
   displayUnit,
   displayValue,
   UPDATE_MS,
-} from "../src/engine/model";
+} from "../src/engine/instruments";
 import {
   defaultSettings,
   readSettings,
@@ -33,14 +40,16 @@ import {
   exportEvents,
   exportTelemetry,
   studioReducer,
-} from "../src/engine/studio";
+} from "../src/engine/studio-state";
 import { METRICS, type Mode, type StudioState } from "../src/engine/types";
 
+// Advance reducer ticks synchronously: 500 ms of model time per accepted running tick.
 function ticks(state: StudioState, count: number) {
   for (let i = 0; i < count; i++)
     state = studioReducer(state, { type: "tick" });
   return state;
 }
+// A tiny storage double isolates validation/serialization from browser permissions.
 function memoryStorage(raw: string | null = null) {
   let value = raw;
   return {
@@ -50,6 +59,7 @@ function memoryStorage(raw: string | null = null) {
     },
   };
 }
+// Seed replay, bounded signals and transport outages establish the simulated plant model.
 describe("central deterministic simulation", () => {
   it("replays the same exact trajectory with the same seed", () => {
     let a = createSimulation("overheat", DEFAULT_SEED),
@@ -115,6 +125,7 @@ describe("central deterministic simulation", () => {
     expect(s.receivedAt).toBe(17);
   });
 });
+// Session commands coordinate sample history and diagnostics through one reducer.
 describe("state transitions and reproducible scenarios", () => {
   it("starts ready and ignores ticks until started", () => {
     const state = createStudio();
@@ -203,6 +214,7 @@ describe("state transitions and reproducible scenarios", () => {
     expect(replay).toEqual(first);
   });
 });
+// HMI concepts: debounce suppresses chatter; hysteresis controls recovery; ACK records review.
 describe("diagnostic rules", () => {
   it("triggers exact upper warning and critical boundaries", () => {
     const rule = defaultSettings.thresholds.coolantTemp;
@@ -289,6 +301,7 @@ describe("diagnostic rules", () => {
     expect(d.nextId).toBe(301);
   });
 });
+// Persist only validated preferences and export canonical values with a simulation notice.
 describe("settings persistence and exports", () => {
   it("roundtrips validated preferences", () => {
     const storage = memoryStorage();

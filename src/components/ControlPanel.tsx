@@ -1,7 +1,14 @@
+/**
+ * Presenter controls for model targets, simulated delivery and repeatable scenario replays.
+ * Dispatches studio actions; it neither acquires telemetry nor operates real equipment.
+ * Scenario selection is a local draft until Run; starting a replay resets the central session
+ * with its fixed seed. Manual mode/target/transport edits exit guided replay. Pause is handled
+ * by the shared toolbar and suspends simulation time, including timeout evaluation.
+ */
 import { useState } from "react";
 import { Play, Radio, RefreshCw } from "lucide-react";
-import { formatTime, scenarios } from "../engine/model";
-import type { Action } from "../engine/studio";
+import { formatTime, scenarios } from "../engine/instruments";
+import type { Action } from "../engine/studio-state";
 import type { Mode, ScenarioId, StudioState } from "../engine/types";
 
 export function ControlPanel({
@@ -12,6 +19,7 @@ export function ControlPanel({
   dispatch: React.Dispatch<Action>;
 }) {
   const s = state.simulation;
+// Keep the pending scenario separate from the active engine scenario until explicit Run.
   const [selectedId, setSelectedId] = useState<Exclude<ScenarioId, "manual">>(
     s.scenario === "manual" ? "normal-ramp" : s.scenario,
   );
@@ -22,6 +30,7 @@ export function ControlPanel({
     : 0;
   return (
     <aside className="control-column">
+{/* Manual commands change model targets, not accepted readings directly. */}
       <section className="panel controls-panel">
         <div className="section-title">
           <h2>Simulation controls</h2>
@@ -112,6 +121,7 @@ export function ControlPanel({
           simulation time.
         </p>
       </section>
+{/* Guided replays distinguish process faults from delivery faults for the demo narrative. */}
       <section className="panel scenario-panel">
         <div className="section-title">
           <h2>Guided scenarios</h2>
@@ -163,6 +173,7 @@ export function ControlPanel({
             Starting a replay resets the session.
           </p>
         </div>
+{/* Show expectations and elapsed simulation time; sequence completion does not stop the timer. */}
         {scenario && (
           <div className="scenario-explainer" data-testid="scenario-explainer">
             <strong className="scenario-active">

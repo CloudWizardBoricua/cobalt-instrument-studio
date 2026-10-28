@@ -1,18 +1,27 @@
+/**
+ * Assemble an engineering-report checkpoint from full local validation outputs.
+ * Transpile pure engine modules for Node replay, inspect complete unit/browser
+ * results and combine measurements with deterministic scenario observations.
+ * This overwrites docs/validation-evidence.json: use only when deliberately
+ * refreshing that approved checkpoint, not for routine tests or demo preparation.
+ * Model timings and simulated samples do not measure real equipment performance.
+ */
 import { readFile, writeFile, mkdir, readdir, stat } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import ts from "typescript";
 
+// Keep generated JavaScript ignored; explicit module names track the maintained engine filenames.
 await mkdir(".local/evidence-engine", { recursive: true });
 for (const name of [
   "types",
-  "model",
+  "instruments",
   "settings",
   "telemetry",
   "simulation",
   "diagnostics",
-  "studio",
+  "studio-state",
 ]) {
   const input = await readFile(`src/engine/${name}.ts`, "utf8");
   const output = ts.transpileModule(input, {
@@ -27,14 +36,15 @@ for (const name of [
   );
 }
 const { createStudio, studioReducer } = await import(
-  pathToFileURL(resolve(".local/evidence-engine/studio.js")).href
+  pathToFileURL(resolve(".local/evidence-engine/studio-state.js")).href
 );
 const { defaultSettings } = await import(
   pathToFileURL(resolve(".local/evidence-engine/settings.js")).href
 );
 const { scenarios: definitions } = await import(
-  pathToFileURL(resolve(".local/evidence-engine/model.js")).href
+  pathToFileURL(resolve(".local/evidence-engine/instruments.js")).href
 );
+// Replay each definition with its fixed seed and retain detailed fault/delivery observations.
 const scenarios = [];
 for (const { id, duration, faultDomain } of definitions) {
   let s = createStudio(defaultSettings, id);
@@ -73,6 +83,7 @@ for (const { id, duration, faultDomain } of definitions) {
       })),
   });
 }
+// Require reports from the current runtime, including browser identity, rather than guessing it.
 const unit = JSON.parse(await readFile(".local/unit-results.json", "utf8"));
 const e2e = JSON.parse(await readFile(".local/e2e-results.json", "utf8"));
 const browser = JSON.parse(
@@ -107,6 +118,7 @@ const configuredBrowserCases = (
     ),
   )
 ).reduce((total, count) => total + count, 0);
+// Compare configured source inventory so filtered test runs cannot impersonate a full checkpoint.
 const configuredUnitFiles = (
   await readdir("tests", { recursive: true })
 ).filter((name) => /\.test\.(ts|tsx)$/.test(name)).length;
@@ -127,6 +139,7 @@ if (
   )
 )
   throw new Error("Full passing test evidence is required.");
+// Bundle sizes are measurements of these files, separate from performance or memory claims.
 const bundles = [];
 for (const name of await readdir("dist/assets")) {
   const bytes = await readFile(`dist/assets/${name}`);
@@ -136,6 +149,7 @@ for (const name of await readdir("dist/assets")) {
     gzipBytes: gzipSync(bytes).length,
   });
 }
+// Preserve explicit unmeasured areas beside the assembled local evidence.
 const evidence = {
   version: JSON.parse(await readFile("package.json", "utf8")).version,
   edition: "Version 0.2.0 local verification checkpoint before publication",
@@ -175,6 +189,7 @@ const evidence = {
     "Public hosting uptime",
   ],
 };
+// This is an intentional checkpoint replacement, not a routine reporting side effect to hide.
 await mkdir("docs", { recursive: true });
 await writeFile(
   "docs/validation-evidence.json",

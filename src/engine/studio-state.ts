@@ -1,10 +1,22 @@
+/**
+ * Central session reducer connecting UI actions to the simulator and diagnostics.
+ * App dispatches actions and schedules ticks; this module coordinates generated
+ * values, validated received samples, bounded trend history, preferences, and
+ * event evidence without depending on React or browser storage APIs.
+ *
+ * One shared state keeps the dashboard and device preview consistent. The
+ * lifecycle distinguishes standby, running, paused, and reset sessions; guided
+ * replay starts a fresh seeded session. These are demonstration controls, not
+ * commands to live equipment. CSV exports contain retained simulated evidence,
+ * with no durable historian, user identity, or industrial audit assurance.
+ */
 import {
   acknowledge,
   addEvent,
   createDiagnostics,
   updateDiagnostics,
 } from "./diagnostics";
-import { HISTORY_CAPACITY } from "./model";
+import { HISTORY_CAPACITY } from "./instruments";
 import {
   advanceSimulation,
   clamp,
@@ -21,6 +33,8 @@ import type {
   StudioState,
 } from "./types";
 
+// This internal discriminated union is the UI/engine command contract. It is not
+// an authenticated public protocol or a runtime parser for external commands.
 export type Action =
   | { type: "tick" }
   | { type: "start" | "pause" | "reset" }
@@ -30,6 +44,11 @@ export type Action =
   | { type: "transport"; enabled: boolean }
   | { type: "ack"; key: Alert["key"] }
   | { type: "settings"; settings: Settings };
+/**
+ * Build fresh diagnostics/history around a validated initial sample. Manual
+ * sessions wait in standby; guided scenarios start immediately. Preferences
+ * are revalidated and preserved by replay/reset, while session evidence resets.
+ */
 export function createStudio(
   settings = structuredClone(defaultSettings),
   scenario: ScenarioId = "manual",
@@ -50,8 +69,11 @@ export function createStudio(
     ),
   };
 }
+/** Apply a single deterministic state transition; side effects belong to App. */
 export function studioReducer(state: StudioState, action: Action): StudioState {
   switch (action.type) {
+    // Advance only while running. History follows accepted measurement changes,
+    // so outages/rejections create gaps instead of fabricated fresh samples.
     case "tick": {
       if (!state.running) return state;
       const simulation = advanceSimulation(state.simulation);
@@ -69,10 +91,14 @@ export function studioReducer(state: StudioState, action: Action): StudioState {
           : state.history,
       };
     }
+    // Replay/reset create a new seed-aligned session while retaining validated
+    // preferences. Reset returns to manual standby, rather than resuming replay.
     case "scenario":
       return createStudio(state.settings, action.scenario);
     case "reset":
       return createStudio(state.settings);
+    // hasStarted wakes the displays once; pausing holds the current readings and
+    // freezes simulation time, including the demonstration timeout detector.
     case "start":
       return state.running
         ? state
@@ -98,6 +124,8 @@ export function studioReducer(state: StudioState, action: Action): StudioState {
               "Simulation paused. Simulation time and timeout detection are suspended.",
             ),
           };
+    // Direct mode/target/transport edits leave guided replay. Finite target
+    // values are clamped to demo command limits before the model sees them.
     case "mode":
       return {
         ...state,
@@ -139,6 +167,8 @@ export function studioReducer(state: StudioState, action: Action): StudioState {
             : "Sample transport interrupted.",
         ),
       };
+    // Acknowledgment records review only. Settings changes are validated before
+    // use; neither operation grants hardware authority or persists events.
     case "ack":
       return {
         ...state,
@@ -160,6 +190,11 @@ export function studioReducer(state: StudioState, action: Action): StudioState {
       };
   }
 }
+/**
+ * Export only retained accepted samples in stable canonical-unit columns.
+ * Seed/scenario describe the current session; missing/rejected deliveries do
+ * not become rows. Download creation and object-URL cleanup live in EvidencePanel.
+ */
 export function exportTelemetry(state: StudioState): string {
   const header =
     "disclaimer,seed,scenario,simulation_seconds,rpm,oil_psi,coolant_f,battery_v,fuel_percent,load_percent";
@@ -185,7 +220,11 @@ export function exportTelemetry(state: StudioState): string {
     ),
   ].join("\r\n");
 }
+// Quote commas, embedded quotes, and line breaks in application-generated event
+// messages. Adding external/user text later would require a separate review of
+// spreadsheet formula injection; CSV quoting alone is not that protection.
 const csvCell = (value: string) => `"${value.replaceAll('"', '""')}"`;
+/** Export the bounded event log with simulation time, severity, and event kind. */
 export function exportEvents(state: StudioState): string {
   return [
     "disclaimer,simulation_seconds,severity,event_kind,message",

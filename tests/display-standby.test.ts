@@ -1,6 +1,13 @@
+/**
+ * Specify the display lifecycle independently of the prepared model sample.
+ * hasStarted controls whether instruments show standby zeroes; running controls ticks.
+ * Starting, pausing before the first tick and resetting must preserve that distinction.
+ * These are browser-demo states, not a hardware power-on or machine-start sequence.
+ */
 import { describe, expect, it } from "vitest";
-import { createStudio, studioReducer } from "../src/engine/studio";
+import { createStudio, studioReducer } from "../src/engine/studio-state";
 
+// Prepared telemetry remains available internally while the initial rendered display is asleep.
 describe("display standby lifecycle", () => {
   it("wakes once, holds through a pause before the first tick, and returns to standby on reset", () => {
     let state = createStudio();

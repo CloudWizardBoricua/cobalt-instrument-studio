@@ -1,5 +1,13 @@
+/**
+ * Explain the central version-1 telemetry acceptance boundary to the presenter.
+ * Displays counters, measurement-time age, rejection reasons and retained recovery evidence;
+ * validation itself lives in engine/telemetry.ts. Rejected delivery never refreshes readings
+ * or sample age. The recovered status and last issues remain inspectable after resumption.
+ * Times are simulation seconds, including pause behavior. These checks illustrate input
+ * quality handling but do not establish authenticated hardware data or production safety.
+ */
 import { CheckCircle2, ShieldAlert } from "lucide-react";
-import { formatTime } from "../engine/model";
+import { formatTime } from "../engine/instruments";
 import type { Simulation } from "../engine/types";
 
 export function TelemetryValidationPanel({
@@ -11,6 +19,7 @@ export function TelemetryValidationPanel({
   stale: boolean;
   running: boolean;
 }) {
+// Derive display status from reducer-owned evidence rather than validating a second time.
   const delivery = simulation.delivery;
   const rejected = delivery.status === "rejected";
   const status = rejected
@@ -47,6 +56,7 @@ export function TelemetryValidationPanel({
               : "Fresh readings"}
         </span>
       </div>
+{/* Show age alongside accepted/rejected counts so unchanged values are not mistaken for fresh data. */}
       <dl className="validation-facts">
         <div>
           <dt>Last valid sample</dt>
@@ -76,6 +86,7 @@ export function TelemetryValidationPanel({
           </div>
         )}
       </dl>
+{/* Keep the last rejection details available after recovery; automatically open current failures. */}
       {!!delivery.issues.length && (
         <details className="rejection-details" open={rejected}>
           <summary>

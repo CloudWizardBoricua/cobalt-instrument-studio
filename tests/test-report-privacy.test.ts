@@ -1,3 +1,11 @@
+/**
+ * Protect selected retained CI JSON reports from private diagnostic text/metadata.
+ * Synthetic contacts, tokens and paths are assembled as fixtures, never live secrets.
+ * Temporary roots isolate destructive test cleanup; screenshot/trace bytes stay intact.
+ * The junction case needs OS permission to create a link and must fail closed if a
+ * selected report resolves outside the project. This tests evidence handling, not HMI
+ * process logic, and does not certify every possible secret format is recognized.
+ */
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import {
   mkdirSync,
@@ -17,11 +25,13 @@ let prepareTestReports: (root: string) => {
   missing: string[];
   incomplete: string[];
 };
+// Load the maintained Node script directly, rather than duplicating its sanitizer in a mock.
 beforeAll(async () => {
   ({ sanitizeReport, prepareTestReports } = await import(
     pathToFileURL(resolve("scripts/prepare-test-reports.mjs")).href
   ));
 });
+// Only known test-owned temporary roots may be recursively removed after each case.
 const temporaryRoots: string[] = [];
 const fixtureRoot = () => {
   const root = mkdtempSync(join(tmpdir(), "cobalt-ci-report-"));
@@ -42,10 +52,12 @@ afterEach(() => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+// Synthetic private-looking strings test redaction without embedding actual private data.
 const contact = ["sample", "@", "example", ".invalid"].join("");
 const credential = ["gh", "p_", "a".repeat(36)].join("");
 const privatePath = ["C:", "Users", "Example", "project", "test.ts"].join("\\");
 
+// Retain useful failure/attachment evidence while redacting JSON and interrupted reports.
 describe("retained CI report privacy", () => {
   it("removes all Git metadata copies and private diagnostics while preserving failures and attachments", () => {
     const metadata = {
@@ -144,6 +156,7 @@ describe("retained CI report privacy", () => {
     );
   });
 
+  // Junction creation can be denied by a sandbox; that setup error is not an obsolete assertion.
   it("fails closed when a selected report resolves outside the project", () => {
     const root = fixtureRoot(),
       outside = fixtureRoot();

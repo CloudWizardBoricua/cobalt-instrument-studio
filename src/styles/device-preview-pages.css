@@ -1,3 +1,12 @@
+/*
+ * Five-page browser cockpit styles: Gauges, Engine, Trends, Faults and ACK.
+ * Imported by DevicePreviewPages.tsx after the workspace stylesheet. Earlier structural
+ * rules and later metallic/blue cockpit refinements intentionally coexist in cascade order.
+ * Tab/softkey selection and quality classes come from React; CSS never evaluates an alarm.
+ * Container/viewport rules keep readouts legible in the preview, while full physical-panel,
+ * assistive-technology and environmental qualification remain outside this simulator.
+ */
+/* Preview sizing controls and screen shell retain the existing responsive structure. */
 .device-preview-size {
   display: inline-flex;
   align-items: center;
@@ -86,6 +95,7 @@
   outline: 2px solid var(--cyan);
   outline-offset: 4px;
 }
+/* Tabs and physical-style softkeys expose page selection and keyboard focus. */
 .device-page-tabs {
   order: 2;
   display: grid;
@@ -174,6 +184,7 @@
   transform: translateY(1px);
   box-shadow: none;
 }
+/* Engine page emphasizes RPM while keeping the other five accepted channels visible. */
 .device-engine-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
@@ -287,6 +298,7 @@
 .device-engine-card.critical .device-engine-condition {
   color: var(--critical);
 }
+/* Three accepted-history charts retain visual gaps through interrupted delivery. */
 .device-trend-stack {
   min-width: 0;
 }
@@ -347,6 +359,7 @@
   color: var(--muted);
   margin: 12px 0 4px;
 }
+/* Fault/review rows supplement color with severity, reason and review text. */
 .device-fault-heading {
   display: flex;
   align-items: center;
@@ -474,6 +487,7 @@
 .device-review-history-heading {
   margin-top: 25px;
 }
+/* Expanded preview changes layout only; signal/property panels remain available. */
 .device-workspace-grid.device-preview-expanded {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
@@ -511,6 +525,7 @@
 .device-preview-expanded .device-pages-body {
   padding: 16px 18px;
 }
+/* Narrow-screen overrides preserve wrapped navigation, readouts and review controls. */
 @media (max-width: 900px) {
   .device-workspace-grid.device-preview-expanded {
     grid-template-columns: 1fr;
@@ -635,6 +650,7 @@
     font-size: 11px;
   }
 }
+/* Disable decorative cockpit transitions while preserving selection and data updates. */
 @media (prefers-reduced-motion: reduce) {
   .device-preview-pages *,
   .device-preview-size {
@@ -646,6 +662,7 @@
   }
 }
 
+/* Later cockpit palette and sizing refinements intentionally override earlier structural rules. */
 /* The display has its own high-contrast cockpit palette inside either studio theme. */
 .device-preview .device-bezel {
   --bg: #080b11;

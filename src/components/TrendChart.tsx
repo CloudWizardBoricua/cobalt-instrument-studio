@@ -1,3 +1,11 @@
+/**
+ * Bounded accepted-sample trend rendered by Recharts.
+ * History comes from the central reducer and remains in canonical units; conversion is local
+ * to the selected display series. An explicit null point represents a delivery gap so the
+ * chart does not imply uninterrupted measurements. No interpolation repairs missing input.
+ * The short browser history is a presentation aid, not a durable industrial historian;
+ * qualifying live trend quality, sampling and accessibility requires separate work.
+ */
 import {
   Area,
   AreaChart,
@@ -13,7 +21,7 @@ import {
   formatTime,
   metricInfo,
   UPDATE_MS,
-} from "../engine/model";
+} from "../engine/instruments";
 import type { Metric, Settings, Telemetry } from "../engine/types";
 import { useId } from "react";
 
@@ -26,8 +34,10 @@ export function TrendChart({
   metric: Metric;
   settings: Settings;
 }) {
+// Unique gradient IDs let dashboard and preview trends coexist without SVG collisions.
   const id = useId().replaceAll(":", "");
   const data: { time: number; value: number | null }[] = [];
+// Insert a visible break when successive accepted measurements exceed the fixed sample interval.
   history.forEach((sample, index) => {
     const previous = history[index - 1];
     if (previous && sample.time - previous.time > UPDATE_MS / 1000) {
@@ -45,6 +55,7 @@ export function TrendChart({
       role="img"
       aria-label={`${metricInfo[metric].label} trend with ${history.length} simulated samples, displayed in ${displayUnit(metric, settings.units)}.`}
     >
+{/* Use a clear startup state before enough points exist; animation is disabled for stable readings. */}
       {history.length < 3 ? (
         <div className="chart-empty">
           <span className="pulse-line">⌁</span>

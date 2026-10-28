@@ -1,3 +1,10 @@
+/**
+ * Keep the static demo's existing CI, Pages and release publication boundaries explicit.
+ * Mutated YAML fixtures must be rejected for mutable actions, broad permissions or
+ * unsafe report retention; injected HTTP responses exercise the current-main guard.
+ * All workflow validation is local, and no test publishes or changes provider settings.
+ * Repository-root execution and the three maintained workflow paths are intentional.
+ */
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import {
   copyFileSync,
@@ -18,6 +25,7 @@ let isCurrentPagesSource: (options: {
   expectedCommit: string;
   request: () => Promise<Response>;
 }) => Promise<boolean>;
+// Import production validators by file URL so Windows drive-letter paths resolve correctly.
 beforeAll(async () => {
   ({ validateWorkflow, verifyWorkflowDirectory } = await import(
     pathToFileURL(resolve("scripts/verify-config.mjs")).href
@@ -27,7 +35,9 @@ beforeAll(async () => {
   ));
 });
 
-const ci = readFileSync(".github/workflows/ci.yml", "utf8");
+// Normalize fixture text so multiline mutations also exercise the intended case on CRLF checkouts.
+const ci = readFileSync(".github/workflows/ci.yml", "utf8").replace(/\r\n/g, "\n");
+// Keep mutated workflow copies disposable and bound cleanup to their generated prefix.
 const temporaryRoots: string[] = [];
 afterEach(() => {
   for (const root of temporaryRoots.splice(0)) {
@@ -43,6 +53,7 @@ afterEach(() => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+// Other workflow files remain real copies, exposing cross-workflow contract regressions.
 const workflowFixture = (source: string) => {
   const root = mkdtempSync(join(tmpdir(), "cobalt-ci-workflow-"));
   temporaryRoots.push(root);
@@ -56,6 +67,7 @@ const workflowFixture = (source: string) => {
   writeFileSync(join(root, ".github/workflows/ci.yml"), source);
   return root;
 };
+// These negative fixtures reject unsafe configuration; they do not execute GitHub Actions.
 describe("workflow validation and publication boundaries", () => {
   it("accepts the complete existing-path workflow contract", () =>
     expect(verifyWorkflowDirectory().requiredCheck).toBe("CI verification"));
@@ -131,6 +143,7 @@ describe("workflow validation and publication boundaries", () => {
   });
 });
 
+// Mock the GitHub ref response: an older successful CI artifact must not replace current main.
 describe("Pages freshness guard", () => {
   const commit = "a".repeat(40),
     newer = "b".repeat(40);

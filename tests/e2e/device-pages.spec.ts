@@ -1,6 +1,14 @@
+/**
+ * Verify the five-page device preview against the same central accepted sample/state.
+ * Controlled clocks keep navigation, ACK escalation and stale-history checks repeatable;
+ * desktop/narrow widths and both themes cover presentation risks during a live demo.
+ * Captures overwrite existing docs/assets evidence; layout measurements use .local.
+ * The preview simulates an HMI display, without target-device firmware or I/O hardware.
+ */
 import { expect, test } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
 
+// Device-page navigation and inspection share accepted telemetry without advancing the paused clock.
 test("device navigation and engine inspection preserve the accepted sample and display properties", async ({
   page,
 }) => {
@@ -60,6 +68,7 @@ test("device navigation and engine inspection preserve the accepted sample and d
   await expect(gauges).toBeFocused();
 });
 
+// Device and Diagnostics acknowledgment buttons operate on one central alert state.
 test("device ACK shares acknowledgment, escalation and clearing with central diagnostics", async ({
   page,
 }) => {
@@ -120,6 +129,7 @@ test("device ACK shares acknowledgment, escalation and clearing with central dia
   );
 });
 
+// All three device trends use accepted history, holding it through malformed deliveries.
 test("three device trends retain accepted history through invalid deliveries and resume on recovery", async ({
   page,
 }) => {
@@ -163,6 +173,7 @@ test("three device trends retain accepted history through invalid deliveries and
     .screenshot({ path: "docs/assets/device-cockpit-trends.png" });
 });
 
+// Cover five pages by two themes by three widths; selected readouts retain minimum typography.
 test("all five device pages fit desktop and narrow screens in both themes", async ({
   page,
 }) => {
@@ -224,6 +235,7 @@ test("all five device pages fit desktop and narrow screens in both themes", asyn
   );
 });
 
+// Standby zeroes are presentation state; Start wakes values, Pause holds them and Reset sleeps again.
 test("all instrument displays stay at zero until start, hold on pause and return to zero on reset", async ({
   page,
 }) => {

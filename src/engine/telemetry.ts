@@ -1,3 +1,15 @@
+/**
+ * Runtime acceptance boundary between generated measurements and HMI consumers.
+ * simulation.ts submits candidates here; only an owned, validated sample can
+ * replace Simulation.received. Rejection preserves the last valid readings and
+ * their measurement age, while delivery counters/notices explain the failure.
+ *
+ * This models data-quality checks useful at an industrial acquisition boundary.
+ * It implements no external transport, device authentication, CRC, protocol
+ * decoder, wall-clock synchronization, or fail-safe action. Future hardware
+ * integration would need those separately reviewed requirements and calibrated
+ * limits rather than adopting these demonstration bounds as equipment limits.
+ */
 import {
   METRICS,
   type Metric,
@@ -7,6 +19,8 @@ import {
   type TelemetryEnvelope,
 } from "./types";
 
+// The versioned whitelist separates plausible accepted values from narrower
+// display scales and configurable alarm thresholds. Units are canonical here.
 // These are documented demonstration plausibility limits, not calibrated equipment limits.
 export const TELEMETRY_CONTRACT = {
   id: "cobalt-telemetry-v1",
@@ -35,21 +49,30 @@ export const TELEMETRY_CONTRACT = {
   },
 };
 
+// The discriminated result prevents downstream callers from treating a rejected
+// candidate as a usable sample. Structured issue codes drive visible evidence.
 export type TelemetryValidation =
   | { ok: true; sample: TelemetryEnvelope; issues: [] }
   | { ok: false; issues: SampleIssue[] };
 
+// Context comes from the internal fixed-step model. Timestamps refer to that
+// simulation clock, so a future acquisition adapter must define its own mapping.
 export interface ValidationContext {
   simulationTime: number;
   lastAcceptedTimestamp?: number;
 }
 
+/** Attach contract identity to generated values; validation still happens later. */
 export function createTelemetryEnvelope(values: Telemetry): TelemetryEnvelope {
   return { contractVersion: TELEMETRY_CONTRACT.version, ...values };
 }
 
-// No numeric coercion: strings, missing fields, non-finite values, and stale ordering fail closed.
-// Successful output is an owned whitelist copy; unknown input fields never enter the model.
+/**
+ * Check object shape, own required fields, exact version, finite numeric values,
+ * demonstration bounds, and timestamp order without numeric coercion. Read each
+ * measurement once and copy the checked snapshot; ignore unknown input fields.
+ * This pure check reports all applicable issues before allowing a state update.
+ */
 export function validateTelemetrySample(
   candidate: unknown,
   context: ValidationContext,
@@ -83,6 +106,8 @@ export function validateTelemetrySample(
       message: "Unsupported telemetry contract version; expected 1.",
     });
   }
+  // Own fields prevent inherited data from satisfying the contract. Whitelisting
+  // also avoids reading or propagating unrelated fields into accepted state.
   for (const field of ["time", ...METRICS] as const) {
     if (!own(field)) {
       issues.push({
@@ -111,6 +136,9 @@ export function validateTelemetrySample(
     }
     // Validate and copy the same snapshot; an accessor is never re-read after checking.
     sample[field] = value;
+    // Time must be nonnegative, no later than the model, and strictly newer
+    // than the previous accepted measurement. A delayed but newer sample can
+    // pass: deliverTelemetry retains its original time for freshness checks.
     if (field === "time") {
       if (value < 0) {
         issues.push({
@@ -152,6 +180,12 @@ export function validateTelemetrySample(
   return { ok: true, sample, issues: [] };
 }
 
+/**
+ * Convert acceptance into an immutable delivery-state transition. Counts refer
+ * to simulated attempts, not a physical link's loss rate. A rejection keeps the
+ * previous sample; the first later success resets the rejection episode and
+ * records recovery while retaining the last issue evidence for explanation.
+ */
 export function deliverTelemetry(
   simulation: Simulation,
   candidate: unknown,
@@ -162,6 +196,9 @@ export function deliverTelemetry(
   });
   const previous = simulation.delivery;
   if (!validation.ok) {
+    // Emit a notice only when a new code appears in this continuous episode.
+    // Diagnostics records it once per attempt time, preventing repeated bad
+    // samples from flooding the bounded event history with the same reason.
     const codes = [...new Set(validation.issues.map((issue) => issue.code))];
     const newCodes = codes.filter(
       (code) => !previous.episodeCodes.includes(code),
@@ -191,6 +228,9 @@ export function deliverTelemetry(
       },
     };
   }
+  // Recovery is a successful delivery after rejection. The visible recovered
+  // status persists on subsequent successes; counters and lastRecoveryAt retain
+  // context until a new rejection episode or session reset.
   const recovered = previous.consecutiveRejected > 0;
   const { contractVersion: _version, ...received } = validation.sample;
   return {

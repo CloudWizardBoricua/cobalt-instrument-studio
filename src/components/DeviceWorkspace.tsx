@@ -1,3 +1,13 @@
+/**
+ * Session-only engineering workspace for six presentation slots.
+ * Receives the central accepted sample/history/diagnostics; owns only slot layout, selection,
+ * form drafts, disclosure and preview size. Applying a validated binding/label/scale changes
+ * the preview atomically and never changes telemetry, model targets or diagnostic thresholds.
+ * DeviceInstrument draws a selected slot; DevicePreviewPages supplies five views and forwards
+ * ACK to the central reducer. Canonical scales are converted only when rendered.
+ * The word device denotes a browser preview: no hardware configuration or protocol driver
+ * is present. A real engineering deployment would need authorized, versioned durable layouts.
+ */
 import { useId, useState, type CSSProperties, type FormEvent } from "react";
 import {
   ChevronDown,
@@ -19,13 +29,13 @@ import {
   type DeviceProperties,
   type DeviceSlot,
   type DeviceSlotId,
-} from "../engine/device";
+} from "../engine/device-layout";
 import {
   displayUnit,
   formatTime,
   formatValue,
   metricInfo,
-} from "../engine/model";
+} from "../engine/instruments";
 import {
   METRICS,
   type Metric,
@@ -35,9 +45,10 @@ import {
   type Severity,
   type Telemetry,
 } from "../engine/types";
-import "../device-workspace.css";
+import "../styles/device-workspace.css";
 import { DevicePreviewPages } from "./DevicePreviewPages";
 
+// Input contract: quality and diagnostic authority remain in the parent pipeline.
 export interface DeviceWorkspaceProps {
   /** Only the central pipeline's last accepted sample belongs here. */
   telemetry: Telemetry;
@@ -52,6 +63,7 @@ export interface DeviceWorkspaceProps {
   simulationTime: number;
   onAck: (key: Alert["key"]) => void;
 }
+// String fields preserve incomplete user input until Apply; they are not active layout values.
 interface Draft {
   metric: Metric;
   label: string;
@@ -66,6 +78,7 @@ function toDraft(properties: DeviceProperties): Draft {
     max: String(properties.max),
   };
 }
+// SVG geometry used by the featured dial; scale calculations remain in device-layout.
 function point(angle: number, radius: number) {
   return {
     x: 110 + Math.cos((angle * Math.PI) / 180) * radius,
@@ -77,6 +90,7 @@ function arc(start: number, end: number, radius: number) {
     b = point(end, radius);
   return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${end - start > 180 ? 1 : 0} 1 ${b.x} ${b.y}`;
 }
+// Render one selectable slot from accepted telemetry, preserving unclipped numeric readings.
 function DeviceInstrument({
   slot,
   selected,
@@ -270,6 +284,7 @@ function DeviceInstrument({
   );
 }
 
+// Workspace lifecycle persists across App view switches but resets when the page reloads.
 export function DeviceWorkspace({
   telemetry,
   settings,
@@ -312,11 +327,13 @@ export function DeviceWorkspace({
         : running
           ? "Receiving accepted samples"
           : "Simulation paused";
+// Selecting an existing slot replaces unsaved drafts with its applied properties.
   function selectSlot(slot: DeviceSlot) {
     setSelectedId(slot.id);
     setDraft(toDraft(slot));
     setFeedback({ message: "" });
   }
+// Inspect a matching bound slot, or prepare a new binding draft for the selected slot.
   function inspectMetric(metric: Metric) {
     const slot = layout.slots.find((item) => item.metric === metric);
     if (slot) selectSlot(slot);
@@ -336,6 +353,7 @@ export function DeviceWorkspace({
     setDraft({ ...draft, [field]: value });
     setFeedback({ message: "" });
   }
+// Validate the whole draft first; failed edits leave both the applied layout and telemetry intact.
   function apply(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const result = applyDeviceProperties(layout, selectedId, {
@@ -356,6 +374,7 @@ export function DeviceWorkspace({
       message: `Slot ${selectedId} properties applied. Telemetry and diagnostic thresholds are unchanged.`,
     });
   }
+// Reset only the selected display slot; this differs from the shared session Reset button.
   function reset() {
     const result = resetDeviceSlot(layout, selectedId);
     if (!result.ok) {
@@ -404,6 +423,7 @@ export function DeviceWorkspace({
         <div
           className={`device-workspace-grid ${expandedPreview ? "device-preview-expanded" : ""}`}
         >
+{/* The signal browser reads the same accepted sample as the dashboard gauges. */}
           <section
             className="device-signals"
             aria-labelledby={`${prefix}-signals`}
@@ -451,6 +471,7 @@ export function DeviceWorkspace({
               ))}
             </div>
           </section>
+{/* Preview selection and page navigation do not alter the central simulation session. */}
           <section
             className="device-preview"
             aria-labelledby={`${prefix}-preview`}
@@ -555,6 +576,7 @@ export function DeviceWorkspace({
               </p>
             )}
           </section>
+{/* Apply makes display edits visible; invalid fields have textual and programmatic feedback. */}
           <section
             className="device-properties"
             aria-labelledby={`${prefix}-properties`}
