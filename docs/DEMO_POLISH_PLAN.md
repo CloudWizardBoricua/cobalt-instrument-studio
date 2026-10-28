@@ -49,6 +49,8 @@ root/                               root/
 
 Every maintained directory gets a purpose, Mermaid overview, annotated immediate tree, relationships, commands and demo context. Dependencies, Git internals, generated output/caches and third-party files are excluded. Public directory READMEs are intentionally copied as static documentation by Vite; the download paths and application behavior are unaffected.
 
+Homepage follow-up: use [`.github/GUIDE.md`](../.github/GUIDE.md) for the automation directory guide. GitHub gives a README directly under `.github` priority over the root README, so that filename is the deliberate exception to the directory README convention.
+
 ## Reviewable implementation groups
 
 1. This audit/plan and detailed PR recommendations.

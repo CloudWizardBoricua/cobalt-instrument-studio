@@ -44,7 +44,7 @@ flowchart LR
 | [Engine guide](../src/engine/README.md) | `simulation → telemetry validation → diagnostics → studio history`. Catalog names describe presentation; they are not hardware drivers. |
 | [Components](../src/components/README.md), [styles](../src/styles/README.md) | Reuse accepted samples; preview drafts stay separate from model and alarm thresholds. |
 | [Test guide](../tests/README.md), [assessment](TEST_RELEVANCE.md) | Why every test remains; portable fixture fix; browser tests are simulator evidence. |
-| [Scripts](../scripts/README.md), [automation](../.github/README.md) | Root and Pages builds; exact CI artifact publication; Netlify's independent rebuild. |
+| [Scripts](../scripts/README.md), [automation](../.github/GUIDE.md) | Root and Pages builds; exact CI artifact publication; Netlify's independent rebuild. |
 | [Evidence index](README.md), [repository audit](REPOSITORY_AUDIT.md) | Current branch/PR facts versus historical release receipts. |
 | [HMI architecture](HMI_ARCHITECTURE.md), [roadmap](ROADMAP.md) | Future gateway, durable alarms, roles and hardware qualification. These are proposals. |
 
