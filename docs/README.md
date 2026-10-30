@@ -1,10 +1,10 @@
 # Documentation and evidence
 
-Start with the [presenter walkthrough](DEMO_WALKTHROUGH.md), then follow the links into [source](../src/README.md), [tests](../tests/README.md) and [delivery](DEPLOYMENT.md). This directory keeps current guides beside retained historical engineering/report evidence. A receipt proves its recorded checkpoint, not every later revision. [Repository home](../README.md)
+Follow the links into [source](../src/README.md), [tests](../tests/README.md) and [delivery](DEPLOYMENT.md). This directory keeps current guides beside retained historical engineering/report evidence. A receipt proves its recorded checkpoint, not every later revision. [Repository home](../README.md)
 
 ```mermaid
 flowchart TD
-  Demo[Presenter walkthrough] --> Code[Source and tests]
+  Demo[Documentation overview] --> Code[Source and tests]
   Audit[Repository audit and polishing plan] --> Code
   Code --> Verify[Current demo validation]
   Verify --> Hosting[Deployment guide]
@@ -21,7 +21,6 @@ docs/
 ├── DEMO_POLISH_PLAN.md                  # Pre-implementation audit, naming and moves
 ├── DEMO_USABILITY.md                    # Fresh Product Design flow observations
 ├── DEMO_VALIDATION.md                   # This sprint's actual commands/results/limits
-├── DEMO_WALKTHROUGH.md                  # Presenter route through UI and code
 ├── DEPLOYMENT.md                        # Hosting contracts plus historical receipts
 ├── DESIGN_QA.md                         # Retained earlier device design verification
 ├── DEVOPS_HANDOFF.md                    # Historical release/delivery handoff
@@ -62,7 +61,7 @@ docs/
 
 | Goal | Read |
 | --- | --- |
-| Present in a few minutes | [Walkthrough](DEMO_WALKTHROUGH.md), [usability observations](DEMO_USABILITY.md) |
+| Review usability | [Usability observations](DEMO_USABILITY.md) |
 | Review this cleanup | [Plan/rename map](DEMO_POLISH_PLAN.md), [audit](REPOSITORY_AUDIT.md), [validation](DEMO_VALIDATION.md) |
 | Explain accepted readings and alarms | [Telemetry contract](TELEMETRY_CONTRACT.md), [engine guide](../src/engine/README.md), [test assessment](TEST_RELEVANCE.md) |
 | Explain delivery boundaries | [Deployment](DEPLOYMENT.md), [workflow guide](../.github/workflows/README.md), [security review](SECURITY_REVIEW.md) |

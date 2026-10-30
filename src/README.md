@@ -26,4 +26,4 @@ Components render the reducer's accepted sample; they do not independently acqui
 
 From the repository root: `npm run dev`, `npm run typecheck`, `npm run verify:paths`, `npm run test:ci`, `npm run test:e2e`. `npm run build` and `npm run build:pages` exercise the existing public bases. The entry point and report URLs remain stable.
 
-Demo talking point: trace a Run scenario action through [studio-state.ts](engine/studio-state.ts), [simulation.ts](engine/simulation.ts), [telemetry.ts](engine/telemetry.ts), and [diagnostics.ts](engine/diagnostics.ts), then return to the displayed quality state. See the [presenter walkthrough](../docs/DEMO_WALKTHROUGH.md) and [root navigation](../README.md).
+Demo talking point: trace a Run scenario action through [studio-state.ts](engine/studio-state.ts), [simulation.ts](engine/simulation.ts), [telemetry.ts](engine/telemetry.ts), and [diagnostics.ts](engine/diagnostics.ts), then return to the displayed quality state. See [root navigation](../README.md).

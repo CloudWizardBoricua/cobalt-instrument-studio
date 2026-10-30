@@ -1,6 +1,6 @@
 # Simulation and HMI state engine
 
-This directory contains the browser simulator's shared data contracts, process model, sample acceptance, diagnostics, and session state. Its functions run independently of React, making the behavior readable during a code walkthrough and reproducible in unit tests.
+This directory contains the browser simulator's shared data contracts, process model, sample acceptance, diagnostics, and session state. Its functions run independently of React, making the behavior readable during a source review and reproducible in unit tests.
 
 **SIMULATED — NOT LIVE EQUIPMENT.** The engine generates measurements locally. It does not read sensors, connect to a controller, issue actuator commands, or implement safety interlocks.
 

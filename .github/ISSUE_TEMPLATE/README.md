@@ -1,6 +1,6 @@
 # Issue forms
 
-These GitHub issue forms turn observations and ideas into reproducible engineering work. GitHub discovers the YAML files at this exact conventional location. [Parent guide](../GUIDE.md) · [Demo walkthrough](../../docs/DEMO_WALKTHROUGH.md)
+These GitHub issue forms turn observations and ideas into reproducible engineering work. GitHub discovers the YAML files at this exact conventional location. [Parent guide](../GUIDE.md)
 
 ```mermaid
 flowchart LR

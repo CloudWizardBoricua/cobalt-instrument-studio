@@ -41,7 +41,7 @@ root/                               root/
 │   ├── engine/{model,studio,device} │   ├── engine/{instruments,studio-state,device-layout}
 │   └── components/                  │   └── components/ (+ README)
 ├── tests/{engine,device,standby,...} ├── tests/{studio-engine,device-layout,display-standby,...}
-├── docs/                            ├── docs/ (audit, plan, walkthrough, guides)
+├── docs/                            ├── docs/ (audit, plan, guides)
 ├── scripts/                         ├── scripts/ (same commands + documentation)
 ├── public/                          ├── public/ (same asset/download paths + guides)
 └── .github/                         └── .github/ (same automation paths + guides)
@@ -56,7 +56,7 @@ Homepage follow-up: use [`.github/GUIDE.md`](../.github/GUIDE.md) for the automa
 1. This audit/plan and detailed PR recommendations.
 2. Coordinated file moves, import/path updates, case checking and the portable fixture correction; preserve runtime logic and dependency versions.
 3. Purposeful file/section comments and directory guides; distinguish implemented simulation from proposed industrial integration.
-4. Final validation evidence, test assessment and presenter walkthrough.
+4. Final validation evidence and test assessment.
 
 ## Verification and deployment protection
 
