@@ -1,5 +1,5 @@
 /**
- * Shared Vite 7 / Vitest 3 project configuration, retained at the conventional root path.
+ * Shared Vite 8 / Vitest 5 project configuration, retained at the conventional root path.
  * Netlify builds at /; build-pages.mjs explicitly supplies the project-site base and output.
  * VITE_BASE_PATH is public configuration. Dynamic report URLs use import.meta.env.BASE_URL.
  * Keep both hosting builds and node-only tests on this same dependency configuration.
@@ -14,9 +14,9 @@ export default defineConfig({
   base: process.env.VITE_BASE_PATH || "/",
   // Isolate the chart library chunk without changing chart behavior or public reports.
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: { charts: ["recharts"] },
+        codeSplitting: { groups: [{ name: "charts", test: /node_modules[\\/]recharts[\\/]/ }] },
       },
     },
   },
