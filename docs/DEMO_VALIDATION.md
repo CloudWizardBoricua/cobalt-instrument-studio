@@ -71,7 +71,7 @@ Netlify keeps `npm run build` → `dist`, Node 24 and `/`. Pages keeps `npm run 
 
 - **GitHub:** fresh default-branch/branch/PR diffs, review/conflict/CI evidence and confirmed baseline Pages execution. Ten dependency proposals remain open; no remote changes were made. [Recommendations](REPOSITORY_AUDIT.md)
 - **Context7:** resolved official Vite docs and consulted public base, static deployment and `publicDir` behavior. Actual Vite is 7.3.7; the closest indexed patch used was 7.3.5, disclosed rather than called an exact version match. [Versioned source documentation](https://github.com/vitejs/vite/blob/v7.3.5/docs/guide/build.md)
-- **Product Design:** fresh captured walkthrough and evidence-based presentation/accessibility observations. Scope improvements are in the guide and source navigation; interface recommendations remain separate. [Usability report](DEMO_USABILITY.md)
+- **Product Design:** captured usability evidence and presentation/accessibility observations. Scope improvements are in the guide and source navigation; interface recommendations remain separate. [Usability report](DEMO_USABILITY.md)
 - **Codex Security:** completed a sealed, independent source-backed baseline scan with zero reportable findings. It is not a final-diff scan or security certification. Daybreak access was not granted; usage measurement was unavailable. A separate fresh npm audit flags three development-package entries (two critical, one moderate), while production-only audit reports zero. Prioritize independent PR #17 review; do not auto-upgrade this cleanup. [Security scope and advisories](SECURITY_REVIEW.md)
 
 Hardware acquisition, authenticated operations, durable alarms/history, independent watchdogs, physical panel qualification, long soak and complete assistive-technology evaluation remain unimplemented or unverified. The future [HMI architecture](HMI_ARCHITECTURE.md) and [roadmap](ROADMAP.md) describe that work without claiming it exists today.
@@ -92,4 +92,4 @@ npm run verify:static -- --skip-build
 node scripts/prepare-test-reports.mjs
 ```
 
-Use `npm.cmd` on Windows if needed; confirm any locally reused 5173 server is this project. Review generated screenshots/receipts, preserve the intended evidence, then inspect the diff. Linux CI installs Chromium; fresh Linux execution of this polishing branch still awaits a later PR. Begin presentation with [DEMO_WALKTHROUGH.md](DEMO_WALKTHROUGH.md).
+Use `npm.cmd` on Windows if needed; confirm any locally reused 5173 server is this project. Review generated screenshots/receipts, preserve the intended evidence, then inspect the diff. Linux CI installs Chromium; fresh Linux execution of this polishing branch still awaits a later PR.

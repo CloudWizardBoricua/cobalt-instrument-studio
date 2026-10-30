@@ -23,4 +23,4 @@ styles/
 
 Run `npm run dev` for visual review and `npm run test:e2e` for existing layout/keyboard checks. After changes, run both build commands and `npm run verify:static -- --skip-build` from root. Tests generate captures: inspect the resulting diff before accepting new approved images.
 
-Demo talking points: show day/night, narrow-width reflow, visible keyboard focus, and written stale/critical state alongside color. Browser layout tests do not establish physical touch accuracy, full screen-reader support, environmental readability or safety compliance. [Demo guide](../../docs/DEMO_WALKTHROUGH.md) · [Root](../../README.md).
+Demo talking points: show day/night, narrow-width reflow, visible keyboard focus, and written stale/critical state alongside color. Browser layout tests do not establish physical touch accuracy, full screen-reader support, environmental readability or safety compliance. [Root](../../README.md).

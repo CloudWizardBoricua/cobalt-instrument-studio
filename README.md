@@ -6,7 +6,7 @@
 
 Watch six instruments respond to a shared engine simulation, replay a fault, inspect rejected samples, and configure a five-page device display—all in your browser.
 
-[**Launch the demo →**](https://cobalt-instrument-studio.netlify.app/) · [GitHub Pages mirror](https://cloudwizardboricua.github.io/cobalt-instrument-studio/) · [Six-minute walkthrough](docs/DEMO_WALKTHROUGH.md) · [Engineering report](docs/Cobalt_Engineering_Report.pdf)
+[**Launch the demo →**](https://cobalt-instrument-studio.netlify.app/) · [GitHub Pages mirror](https://cloudwizardboricua.github.io/cobalt-instrument-studio/) · [Engineering report](docs/Cobalt_Engineering_Report.pdf)
 
 [![CI verification](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/CloudWizardBoricua/cobalt-instrument-studio/actions/workflows/ci.yml)
 
@@ -84,7 +84,7 @@ Preferences persist locally when browser storage permits. Device layouts, teleme
 3. **Inspect bad data.** Run **Invalid sample delivery**. Rejected samples hold the accepted readings; delivery recovers at 17 simulation seconds.
 4. **Build a display.** Scroll to Device workspace, select a slot, change its label or range and apply it. Visit Engine, Trends, Faults and ACK.
 
-Guided runs use seed `27041` for repeatable demonstrations. Selecting a scenario prepares a draft; **Run scenario** starts it. The [presenter walkthrough](docs/DEMO_WALKTHROUGH.md) includes timing, talking points and recovery steps.
+Guided runs use seed `27041` for repeatable demonstrations. Selecting a scenario prepares a draft; **Run scenario** starts it.
 
 ## Run and validate
 
@@ -150,13 +150,12 @@ cobalt-instrument-studio/
 ├── tests/               # Unit suites and browser flows
 ├── scripts/             # Build, verification, report and release helpers
 ├── public/              # Static favicon and report downloads
-├── docs/                # Walkthrough, architecture, screenshots and evidence
+├── docs/                # Architecture, screenshots and evidence
 └── .github/             # CI, Pages, releases and contribution templates
 ```
 
 | Explore | Start here |
 | --- | --- |
-| Present the project | [Six-minute walkthrough](docs/DEMO_WALKTHROUGH.md) |
 | Understand the implementation | [Source](src/README.md) · [Engine](src/engine/README.md) · [Components](src/components/README.md) · [Styles](src/styles/README.md) |
 | Understand the tests | [Test guide](tests/README.md) · [Browser checks](tests/e2e/README.md) · [Test relevance](docs/TEST_RELEVANCE.md) |
 | Build and publish | [Scripts](scripts/README.md) · [Automation guide](.github/GUIDE.md) · [Deployment](docs/DEPLOYMENT.md) |
